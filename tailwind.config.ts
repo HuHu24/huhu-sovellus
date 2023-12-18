@@ -17,6 +17,10 @@ const config: Config = {
       ateena: '#ffffff',
     },
     extend: {
+      fontFamily: {
+        poppins: ['var(--font-poppins)'],
+        opensauce:['var(--font-opensauce)'],
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
