@@ -4,12 +4,10 @@ import localFont from "next/font/local";
 
 const poppins = localFont({ src: '../../public/fonts/Poppins-Bold.ttf',
   display: 'swap',
-  subsets:['latin'],
   variable: '--font-poppins',
 })
 const opensauce = localFont({src: '../../public/fonts/OpenSauceOne-Regular.ttf',
   variable: '--font-opensauce',
-  subsets:['latin'],
   display: 'swap',
 })
 
