@@ -7,7 +7,7 @@ const Navbar = () => {
     //     <NavBarButton link={'/home'}></NavBarButton>
     // </div>
     <div className="relative w-full flex flex-row items-start justify-start">
-<div className="bg-gray w-full h-[70px] overflow-hidden shrink-0 flex flex-row items-center justify-between py-0 px-2.5 box-border">
+    <div className="bg-gray w-full h-[70px] overflow-hidden shrink-0 flex flex-row items-center justify-between box-border">
     <NavBarButton link={'/'} icon={'cottage'}></NavBarButton>
     <NavBarButton link={'/tiedotteet'} icon={'full_coverage'}></NavBarButton>
     <NavBarButton link={'/aikataulu'} icon={'event_note'}></NavBarButton>
@@ -25,8 +25,8 @@ interface NavBarButtonProps {
 
 const NavBarButton = ({link, icon}: NavBarButtonProps) => {
     return (
-        <Link href={link}>
-            <span className='material-symbols-outlined  icon-navbar w-full h-full' >{icon}</span>
+        <Link href={link} className='flex'>
+            <span className='material-symbols-outlined  icon-navbar w-full h-[64px]' >{icon}</span>
         </Link>
     )
 }
