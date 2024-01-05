@@ -7,7 +7,7 @@ const nextConfig = {
    *
    * @see https://nextjs.org/docs/app/api-reference/next-config-js/basePath
    */
-  basePath: "/huhu-sovellus"
+  basePath: "/huhu-sovellus",
 }
 
 module.exports = nextConfig
