@@ -38,5 +38,8 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
+      - name: Format with Prettier
+        run: ${{ steps.detect-package-manager.outputs.runner }} prettier --check --ignore-path .gitignore .
+
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
