@@ -1,11 +1,10 @@
+@import '@material-symbols/font-400';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import '@material-symbols/font-400';
-
 .material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'GRAD' 0, 'opsz' 24,;
   font-size: 64px;
 }
 

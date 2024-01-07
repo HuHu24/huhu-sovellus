@@ -8,15 +8,15 @@ import NavbarMenu from './navbarMenu'
 const exampleItems : [string,string][] = [["Asetukset","/settings"], ["Jotain muuta", "/misc"], ["Tietoa meistä", "/about"]]
 
 const Navbar = () => {
-    const [isOpen, setState] = useState(0);
+    const [isOpen, setState] = useState<boolean>(false);
     const toggle = () => {
-        if (isOpen == 1) setState(0);
-        else setState(1);
+        if (isOpen) setState(false);
+        else setState(true);
     };
 
   return (
     <div className="fixed bottom-0 left-0 w-full flex flex-row items-start justify-start">
-        <NavbarMenu items={exampleItems} classes={`${isOpen ? "visible" : "invisible w-0"}`}></NavbarMenu>
+        <NavbarMenu items={exampleItems} classes={`${isOpen ? "right-0" : "right-[-250px]"}`}></NavbarMenu>
         <div className="bg-gray px-4 w-full h-[70px] overflow-hidden shrink-0 flex flex-row items-center justify-between box-border">
             <NavBarButton link={'/'} icon={'cottage'}></NavBarButton>
             <NavBarButton link={'/tiedotteet'} icon={'full_coverage'}></NavBarButton>
