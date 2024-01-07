@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import localFont from "next/font/local";
-import Navbar from './components/navbar/navbar';
+import Navbar from '../components/navbar/navbar';
 
 const poppins = localFont({ src: '../../public/fonts/Poppins-Bold.ttf',
   display: 'swap',
@@ -28,7 +28,6 @@ export default function RootLayout({
         {children}
         <Navbar/>
       </body>
-      
     </html>
   )
 }
