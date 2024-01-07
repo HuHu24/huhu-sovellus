@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const Taulu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -25,17 +26,19 @@ const extraInfoStyle = {
                     8:30
                 </div>
                 <div
-                    className="flex-grow relative text-ateena text-lg font-normal font-['Poppins'] leading-relaxed flex-col flex items-center justify-center">
-                    Aamupala (oispa)
-                </div>
-                <div className="w-9 h-9 right-4 top-0 relative bg-zinc-300 flex items-center justify-center">
-                    <img
-                        style={arrowStyle}
-                        className="w-5 h-5"
-                        src="keyboard_arrow_right.svg"
-                        alt="Nuoli"
-                    />
-                </div>
+    className="flex-grow relative text-ateena text-lg font-normal font-['Poppins'] leading-relaxed flex-col items-center justify-center">
+    Aamupala (oispa)
+</div>
+<div className="w-9 h-9 right-4 top-0 relative bg-zinc-300 items-center justify-center">
+    <Image
+        style={arrowStyle}
+        className="w-5 h-5"
+        src="keyboard_arrow_right.svg"
+        alt="Nuoli"
+        width={20}
+        height={20}
+    />
+</div>
             </button>
             <div className="absolute left-0 bottom-0">
                 <div
