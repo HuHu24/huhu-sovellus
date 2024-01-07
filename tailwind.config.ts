@@ -15,6 +15,7 @@ const config: Config = {
       oslo: "#253764",
       helsinki: "#0d0019",
       ateena: "#ffffff",
+      gray: "#171717",
     },
     extend: {
       fontFamily: {

@@ -11,6 +11,8 @@
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@material-symbols/font-400": "^0.14.3",
+    "@next/font": "^14.0.4",
     "eslint-config-prettier": "^9.1.0",
     "next": "14.0.4",
     "prettier": "^3.1.1",
