@@ -8,14 +8,14 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      soul: '#b265e6',
-      buenos_aires: '#7ec2f2',
-      tokio: '#fd93ac',
-      barcelona: '#ffe369',
-      oslo: '#253764',
-      helsinki: '#0d0019',
-      ateena: '#ffffff',
-      gray: '#171717',
+      soul: "#b265e6",
+      buenos_aires: "#7ec2f2",
+      tokio: "#fd93ac",
+      barcelona: "#ffe369",
+      oslo: "#253764",
+      helsinki: "#0d0019",
+      ateena: "#ffffff",
+      gray: "#171717",
     },
     extend: {
       fontFamily: {

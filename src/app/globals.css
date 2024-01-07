@@ -1,4 +1,4 @@
-@import '@material-symbols/font-400';
+@import "@material-symbols/font-400";
 
 @tailwind base;
 @tailwind components;
@@ -9,7 +9,7 @@
 }
 
 span.icon-navbar {
-  color: theme(colors.tokio)
+  color: theme(colors.tokio);
 }
 
 :root {

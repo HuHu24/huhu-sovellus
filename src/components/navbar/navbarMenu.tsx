@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link"
 
 interface NavbarMenuProps {
   // Array of pairs of titles and links assigned to them
@@ -6,14 +6,22 @@ interface NavbarMenuProps {
   classes: string
 }
 
-const NavbarMenu = ({items, classes}: NavbarMenuProps) => {
+const NavbarMenu = ({ items, classes }: NavbarMenuProps) => {
   return (
-    <div className={`${classes} fixed flex flex-col right-0 bottom-[70px] divide-y items-center pt-5 bg-gray  max-w-[240px] w-full h-[calc(100%-70px)] transition-all`}>
-        {items.map((item, i)=>(
-          <Link className="text-tokio font-poppins text-3xl py-3" href={item[1]} key={i}>{item[0]}</Link>
-        ))}
+    <div
+      className={`${classes} fixed bottom-[70px] right-0 flex h-[calc(100%-70px)] w-full max-w-[240px] flex-col items-center  divide-y bg-gray pt-5 transition-all`}
+    >
+      {items.map((item, i) => (
+        <Link
+          className="py-3 font-poppins text-3xl text-tokio"
+          href={item[1]}
+          key={i}
+        >
+          {item[0]}
+        </Link>
+      ))}
     </div>
   )
-} 
+}
 
 export default NavbarMenu

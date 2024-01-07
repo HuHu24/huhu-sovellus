@@ -9,8 +9,7 @@ export default function Home() {
       <Head>
         <title>Huhu Leirisovellus</title>
       </Head>
-      <main className="relative bg-helsinki w-full h-full overflow-hidden flex flex-col items-start justify-start box-border text-left text-[28px] text-palevioletred font-poppins">
-      </main>
+      <main className="text-palevioletred relative box-border flex h-full w-full flex-col items-start justify-start overflow-hidden bg-helsinki text-left font-poppins text-[28px]"></main>
     </div>
   )
 }
