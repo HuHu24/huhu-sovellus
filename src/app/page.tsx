@@ -3,7 +3,7 @@ import Tiedotteet from "@/components/tiedote";
 
 export default function Home() {
     return (
-        <div className="relative h-screen bg-helsinki overflow-hidden">
+        <div className="relative h-[calc(100vh-70px)] bg-helsinki overflow-hidden">
           <div className="absolute -top-40 -right-40 p-2.5">
             <div className="w-[360px] h-[369px] justify-start items-end gap-2.5 inline-flex">
               <div className="grow shrink basis-0 self-stretch bg-barcelona rounded-full"/>
