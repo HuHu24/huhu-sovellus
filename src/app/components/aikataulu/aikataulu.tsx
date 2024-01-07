@@ -14,10 +14,8 @@ const extraInfoStyle = {
 };
     return (
         <div className='w-full text relative'>
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className={`w-full h-9 ${isOpen ? 'h-16' : ''} bg-oslo rounded-[20px] relative flex overflow-hidden self-stretch items-start justify-center transition-all duration-500 ease-in-out`}
-            >
+            <button onClick={() => setIsOpen(!isOpen)}
+                    className={`w-full ${isOpen ? 'h-16' : 'h-9'} bg-oslo rounded-[20px] relative flex overflow-hidden self-stretch items-start justify-center transition-all duration-500 ease-in-out`}>
                 <div
                     className={`w-full absolute bg-oslo rounded-[20px] flex-col transition-all duration-500 ease-in-out ${
                         isOpen ? 'h-24' : 'h-9'
@@ -26,7 +24,8 @@ const extraInfoStyle = {
                 <div className="ml-4 relative text-lg font-normal font-['Poppins'] leading-relaxed flex-col">
                     8:30
                 </div>
-                <div className="flex-grow relative text-ateena text-lg font-normal font-['Poppins'] leading-relaxed flex-col flex items-center justify-center">
+                <div
+                    className="flex-grow relative text-ateena text-lg font-normal font-['Poppins'] leading-relaxed flex-col flex items-center justify-center">
                     Aamupala (oispa)
                 </div>
                 <div className="w-9 h-9 right-4 top-0 relative bg-zinc-300 flex items-center justify-center">
@@ -56,7 +55,7 @@ const Aikataulu = () => {
     return (
         <div className="w-screen h-[200px] justify-center gap-2.5 relative">
             <div className="w-screen justify-center items-center gap-2.5">
-                <div className="bg-ateena bg-opacity-0 flex-col justify-center items-center gap-[5px] flex w-screen">
+            <div className="bg-ateena bg-opacity-0 flex-col justify-center items-center gap-[5px] flex w-screen">
                     <div className="self-stretch h-12 flex justify-center items-center gap-2.5 flex bg-soul rounded-[20px]">
                         <div className=" ml-4 absolute text-ateena text-2xl font-semibold font-['Poppins'] leading-9">
                             Maanantai, 5.6.
