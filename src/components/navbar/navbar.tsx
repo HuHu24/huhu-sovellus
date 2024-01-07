@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <div className="fixed bottom-0 left-0 w-full flex flex-row items-start justify-start">
         <NavbarMenu items={exampleItems} classes={`${isOpen ? "visible" : "invisible w-0"}`}></NavbarMenu>
-        <div className="bg-gray w-full h-[70px] overflow-hidden shrink-0 flex flex-row items-center justify-between box-border">
+        <div className="bg-gray px-4 w-full h-[70px] overflow-hidden shrink-0 flex flex-row items-center justify-between box-border">
             <NavBarButton link={'/'} icon={'cottage'}></NavBarButton>
             <NavBarButton link={'/tiedotteet'} icon={'full_coverage'}></NavBarButton>
             <NavBarButton link={'/aikataulu'} icon={'event_note'}></NavBarButton>
