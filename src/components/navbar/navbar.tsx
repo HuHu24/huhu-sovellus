@@ -19,7 +19,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 flex w-full flex-row items-start justify-start">
+    <div className="fixed bottom-0 left-0 z-20 flex w-full flex-row items-start justify-start">
       <NavbarMenu
         items={exampleItems}
         classes={`${isOpen ? "right-0" : "right-[-250px]"}`}
