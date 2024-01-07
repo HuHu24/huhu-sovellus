@@ -1,5 +1,4 @@
 'use client';
-import Head from 'next/head';
 import Tiedotteet from '@/app/components/tiedote/tiedote';
 import Aikataulu from "@/app/components/aikataulu/aikataulu";
 
