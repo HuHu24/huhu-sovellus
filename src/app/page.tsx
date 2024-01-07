@@ -5,7 +5,7 @@ import Navbar from "./components/navbar/navbar"
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-end">
+    <div className="flex min-h-screen flex-col items-center justify-start">
       <Head>
         <title>Huhu Leirisovellus</title>
       </Head>
