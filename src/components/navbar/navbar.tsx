@@ -33,9 +33,12 @@ const Navbar = () => {
         <NavbarButton link={"/aikataulu"} icon={"event_note"}></NavbarButton>
         <NavbarButton link={"/kartta"} icon={"distance"}></NavbarButton>
         <div onClick={toggle}>
-        <span className="material-symbols-outlined  icon-navbar h-[64px] w-full" onClick={toggle}>
-        more_horiz
-      </span>
+          <span
+            className="material-symbols-outlined  icon-navbar h-[64px] w-full"
+            onClick={toggle}
+          >
+            more_horiz
+          </span>
         </div>
       </div>
     </div>

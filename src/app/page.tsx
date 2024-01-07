@@ -1,15 +1,23 @@
-"use client"
-import Head from "next/head"
-
-import Navbar from "../components/navbar/navbar"
+import Aikataulu from "@/components/aikataulu"
+import Tiedotteet from "@/components/tiedote"
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-start">
-      <Head>
-        <title>Huhu Leirisovellus</title>
-      </Head>
-      <main className="text-palevioletred relative box-border flex h-full w-full flex-col items-start justify-start overflow-hidden bg-helsinki text-left font-poppins text-[28px]"></main>
+    <div className="relative h-[calc(100vh-70px)] overflow-hidden bg-helsinki">
+      <div className="absolute -right-40 -top-40 p-2.5">
+        <div className="inline-flex h-[369px] w-[360px] items-end justify-start gap-2.5">
+          <div className="shrink grow basis-0 self-stretch rounded-full bg-barcelona" />
+        </div>
+      </div>
+      <div className="absolute -bottom-48 -left-48 p-2.5 ">
+        <div className="inline-flex h-[341px] w-[341px] flex-col items-end justify-start gap-2.5">
+          <div className="shrink grow basis-0 self-stretch rounded-full bg-soul" />
+        </div>
+      </div>
+      <div className="flex w-full flex-col gap-4 p-3">
+        <Tiedotteet />
+        <Aikataulu />
+      </div>
     </div>
   )
 }
