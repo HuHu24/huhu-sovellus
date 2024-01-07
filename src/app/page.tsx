@@ -1,24 +1,23 @@
-import Aikataulu from "@/components/aikataulu";
-import Tiedotteet from "@/components/tiedote";
+import Aikataulu from "@/components/aikataulu"
+import Tiedotteet from "@/components/tiedote"
 
 export default function Home() {
-    return (
-        <div className="relative h-[calc(100vh-70px)] bg-helsinki overflow-hidden">
-          <div className="absolute -top-40 -right-40 p-2.5">
-            <div className="w-[360px] h-[369px] justify-start items-end gap-2.5 inline-flex">
-              <div className="grow shrink basis-0 self-stretch bg-barcelona rounded-full"/>
-            </div>
-          </div>
-          <div className="absolute -bottom-48 -left-48 p-2.5 ">
-            <div className="w-[341px] h-[341px] flex-col justify-start items-end gap-2.5 inline-flex">
-              <div className="self-stretch grow shrink basis-0 bg-soul rounded-full"/>
-            </div>
-          </div>
-          <div className="p-3 w-full gap-4 flex flex-col">
-            <Tiedotteet/>
-            <Aikataulu/>
-          </div>
+  return (
+    <div className="relative h-[calc(100vh-70px)] overflow-hidden bg-helsinki">
+      <div className="absolute -right-40 -top-40 p-2.5">
+        <div className="inline-flex h-[369px] w-[360px] items-end justify-start gap-2.5">
+          <div className="shrink grow basis-0 self-stretch rounded-full bg-barcelona" />
         </div>
-
-    );
+      </div>
+      <div className="absolute -bottom-48 -left-48 p-2.5 ">
+        <div className="inline-flex h-[341px] w-[341px] flex-col items-end justify-start gap-2.5">
+          <div className="shrink grow basis-0 self-stretch rounded-full bg-soul" />
+        </div>
+      </div>
+      <div className="flex w-full flex-col gap-4 p-3">
+        <Tiedotteet />
+        <Aikataulu />
+      </div>
+    </div>
+  )
 }
