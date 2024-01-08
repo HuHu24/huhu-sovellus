@@ -29,3 +29,7 @@ span.icon-navbar {
 body {
   color: rgb(var(--foreground-rgb));
 }
+
+.text-shadow {
+  text-shadow: 2px 2px 4px #0d0019;
+}
