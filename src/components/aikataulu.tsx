@@ -2,13 +2,15 @@
 
 import React, { useState } from "react"
 import Image from "next/image"
-
 const Taulu = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const arrowStyle = {
     transition: "transform 0.5s",
+      fontSize: '50px',
     transform: isOpen ? "rotate(90deg)" : "rotate(0)",
+      display: 'inline-block',
+      overflow: 'hidden'
   }
   const extraInfoStyle = {
     transition: isOpen
@@ -18,41 +20,36 @@ const Taulu = () => {
     opacity: isOpen ? "1" : "0",
   }
   return (
-    <div className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`${
-          isOpen ? "h-[70px]" : "h-11"
-        } relative  flex w-full items-start overflow-hidden rounded-[20px] bg-oslo transition-all duration-300 ease-in-out`}
-      >
-        <div className="flex w-full place-items-center p-2">
-          <div className="w-12">
-            <div className="font-poppins text-lg">8:30</div>
+      <div className="relative">
+          <button
+              onClick={() => setIsOpen(!isOpen)}
+              className={`${
+                  isOpen ? "h-[70px]" : "h-11"
+              } relative flex w-full items-start overflow-hidden rounded-[20px] bg-oslo transition-all duration-300 ease-in-out`}
+          >
+              <div className="flex w-full place-items-center p-2">
+                  <div className="w-12">
+                      <div className="font-poppins text-lg">8:30</div>
+                  </div>
+                  <div className="mx-auto font-poppins text-lg font-normal text-ateena pointer-events-none">
+                      Aamupala (oispa)
+                  </div>
+                  <div className="w-8 h-8">
+                      <div style={arrowStyle} className="material-symbols-outlined -mt-3 -ml-10">
+                          keyboard_arrow_right
+                      </div>
+                  </div>
+              </div>
+          </button>
+          <div className="absolute bottom-0">
+              <div
+                  style={extraInfoStyle}
+                  className="pointer-events-none p-2 text-left"
+              >
+                  <p className="pointer-events-none">Extra info here</p>
+              </div>
           </div>
-          <div className="mx-auto font-poppins text-lg font-normal text-ateena">
-            Aamupala (oispa)
-          </div>
-          <div className="w-12">
-            <Image
-              style={arrowStyle}
-              className="ml-auto h-5 w-5"
-              src="keyboard_arrow_right.svg"
-              alt="Nuoli"
-              width={20}
-              height={20}
-            />
-          </div>
-        </div>
-      </button>
-      <div className="absolute bottom-0">
-        <div
-          style={extraInfoStyle}
-          className="pointer-events-none p-2 text-left"
-        >
-          <p className="pointer-events-none">Extra info here</p>
-        </div>
       </div>
-    </div>
   )
 }
 
