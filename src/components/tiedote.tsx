@@ -12,15 +12,12 @@ const Tiedote = () => {
     <Link href={"/"} className="z-10">
       <div className="mr-4 flex flex-col">
         <div className="flex h-[150px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
-             <img className="h-full"
-               src="/huhu-sovellus/huhuymp.png"
-               alt=""
-             />
-           </div>
-        <div className="w-[180px] whitespace-normal font-poppins font-normal text-ateena text-shadow">
+          <img className="h-full" src="/huhu-sovellus/huhuymp.png" alt="" />
+        </div>
+        <div className="text-shadow w-[180px] whitespace-normal font-poppins font-normal text-ateena">
           {tiedot.otsikko}
         </div>
-        <div className="h-[76px] w-full overflow-hidden whitespace-normal font-opensauce text-sm font-normal text-ateena text-shadow">
+        <div className="text-shadow h-[76px] w-full overflow-hidden whitespace-normal font-opensauce text-sm font-normal text-ateena">
           {tiedot.teksti} sdf sdf sdklöfjklös klösjkldfjklsdjkl jklsfjkls sdf
           sdf sjksdjfsjkldfsjd sdfsdf sdfsd sdfsdfsdf
         </div>
