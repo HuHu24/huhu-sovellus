@@ -7,7 +7,7 @@ const tiedot = {
   kuva: "/public/huhuymp.png",
 }
 
-const Tiedote = () => {
+const Release = () => {
   return (
     <Link href={"/"} className="z-10">
       <div className="mr-4 flex flex-col">
@@ -26,28 +26,28 @@ const Tiedote = () => {
   )
 }
 
-const Tiedotteet = () => {
+const Releases = () => {
   return (
     <div className="flex overflow-x-auto">
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
-      <Tiedote />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
+      <Release />
     </div>
   )
 }
 
-export default Tiedotteet
+export default Releases

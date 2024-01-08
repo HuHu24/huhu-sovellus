@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import Image from "next/image"
 
-const Taulu = () => {
+const Event = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const arrowStyle = {
@@ -56,21 +56,21 @@ const Taulu = () => {
   )
 }
 
-const Aikataulu = () => {
+const DaysTimetable = () => {
   const id = 1
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="z-10 flex flex-col gap-2">
       <div className=" flex h-12 items-center justify-center gap-2.5 rounded-[20px] bg-soul font-poppins text-2xl text-ateena">
         Maanantai, 5.6.
       </div>
       <div className="flex w-full flex-col gap-2">
-        <Taulu />
-        <Taulu />
-        <Taulu />
+        <Event />
+        <Event />
+        <Event />
       </div>
     </div>
   )
 }
 
-export default Aikataulu
+export default DaysTimetable
