@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-import Image from "next/image"
 const Taulu = () => {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -18,7 +17,7 @@ const Taulu = () => {
             : "opacity 0.2s, visibility 0.2s",
         ransitionDelay: isOpen ? "0s" : "0.2s",
         opacity: isOpen ? "1" : "0",
-        wordWrap: 'break-word'
+        wordWrap: 'break-all'
     }
     return (
         <div className="relative">
@@ -43,7 +42,7 @@ const Taulu = () => {
                 </div>
                 <div className="relative overflow-auto flex bottom-0 pointer-events-none">
                     <div style={extraInfoStyle} className="pointer-events-none  text-left">
-                        <p className="pointer-events-none p-2 text-left break-words">Extra info hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+                        <p className="pointer-events-none p-2 text-left break-all">Extra info hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
                             Extra info hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</p>
                     </div>
                 </div>
@@ -53,7 +52,6 @@ const Taulu = () => {
 };
 
 const Aikataulu = () => {
-    const id = 1
 
     return (
         <div className="flex flex-col gap-2">
