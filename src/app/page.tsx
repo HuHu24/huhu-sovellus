@@ -1,5 +1,5 @@
-import Aikataulu from "@/components/aikataulu"
-import Tiedotteet from "@/components/tiedote"
+import DaysTimetable from "@/components/daysTimetable"
+import Releases from "@/components/tiedote"
 
 export default function Home() {
   return (
@@ -15,8 +15,8 @@ export default function Home() {
         </div>
       </div>
       <div className="flex w-full flex-col gap-4 p-3">
-        <Tiedotteet />
-        <Aikataulu />
+        <Releases />
+        <DaysTimetable />
       </div>
     </div>
   )

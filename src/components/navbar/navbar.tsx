@@ -26,12 +26,9 @@ const Navbar = () => {
       ></NavbarMenu>
       <div className="box-border flex h-[70px] w-full shrink-0 flex-row items-center justify-between overflow-hidden bg-gray px-4">
         <NavbarButton link={"/"} icon={"cottage"}></NavbarButton>
-        <NavbarButton
-          link={"/tiedotteet"}
-          icon={"full_coverage"}
-        ></NavbarButton>
-        <NavbarButton link={"/aikataulu"} icon={"event_note"}></NavbarButton>
-        <NavbarButton link={"/kartta"} icon={"distance"}></NavbarButton>
+        <NavbarButton link={"/releases"} icon={"full_coverage"}></NavbarButton>
+        <NavbarButton link={"/timetable"} icon={"event_note"}></NavbarButton>
+        <NavbarButton link={"/map"} icon={"distance"}></NavbarButton>
         <div onClick={toggle}>
           <span
             className="material-symbols-outlined  icon-navbar h-[64px] w-full"
