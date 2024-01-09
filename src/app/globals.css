@@ -4,14 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.material-symbols-outlined {
-  font-size: 64px;
-}
-
-span.icon-navbar {
-  color: theme(colors.tokio);
-}
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
