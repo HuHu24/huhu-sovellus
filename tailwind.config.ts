@@ -18,7 +18,7 @@ const config: Config = {
       gray: "#171717",
     },
     screens: {
-      smallPhone: "350px"  
+      smallPhone: "350px",
     },
     extend: {
       fontFamily: {
