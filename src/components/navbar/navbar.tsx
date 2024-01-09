@@ -34,7 +34,7 @@ const Navbar = () => {
         <NavbarButton link={"/kartta"} icon={"distance"}></NavbarButton>
         <div onClick={toggle}>
           <span
-            className="material-symbols-outlined  icon-navbar h-[64px] w-full"
+            className="material-symbols-outlined text-[64px] text-tokio h-[64px] w-full cursor-pointer"
             onClick={toggle}
           >
             more_horiz
@@ -53,7 +53,7 @@ interface NavbarButtonProps {
 const NavbarButton = ({ link, icon }: NavbarButtonProps) => {
   return (
     <Link href={link} className="flex">
-      <span className="material-symbols-outlined  icon-navbar h-[64px] w-full">
+      <span className="material-symbols-outlined text-[64px] text-tokio h-[64px] w-full">
         {icon}
       </span>
     </Link>
