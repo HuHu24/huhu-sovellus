@@ -20,6 +20,12 @@ const Navbar = () => {
 
   return (
     <div className="fixed bottom-0 left-0 z-20 flex w-full flex-row items-start justify-start">
+      <div
+        className={`${
+          isOpen ? "visible" : "invisible"
+        } fixed left-0 top-0 h-[calc(100%-70px)] w-full bg-gray opacity-60`}
+        onClick={toggle}
+      />
       <NavbarMenu
         items={exampleItems}
         classes={`${isOpen ? "right-0" : "right-[-250px]"}`}
@@ -34,7 +40,7 @@ const Navbar = () => {
         <NavbarButton link={"/kartta"} icon={"distance"}></NavbarButton>
         <div onClick={toggle}>
           <span
-            className="material-symbols-outlined text-[48px] smallPhone:text-[64px] text-tokio smallPhone:h-[64px] h-[48px] w-full cursor-pointer"
+            className="material-symbols-outlined h-[48px] w-full cursor-pointer text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]"
             onClick={toggle}
           >
             more_horiz
@@ -53,7 +59,7 @@ interface NavbarButtonProps {
 const NavbarButton = ({ link, icon }: NavbarButtonProps) => {
   return (
     <Link href={link} className="flex">
-      <span className="material-symbols-outlined smallPhone:text-[64px] text-[48px] text-tokio smallPhone:h-[64px] h-[48px] w-full">
+      <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
         {icon}
       </span>
     </Link>
