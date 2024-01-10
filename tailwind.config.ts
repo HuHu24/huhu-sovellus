@@ -31,19 +31,19 @@ const config: Config = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
-            "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },
   plugins: [
     plugin(function ({ matchUtilities, theme }) {
       matchUtilities(
-          {
-            "text-shadow": (value) => ({
-              textShadow: value,
-            }),
-          },
-          { values: theme("textShadow") }
+        {
+          "text-shadow": (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") }
       )
     }),
   ],
