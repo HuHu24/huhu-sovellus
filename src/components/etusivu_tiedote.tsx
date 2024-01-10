@@ -50,4 +50,4 @@ const Releases = () => {
   )
 }
 
-export default Releases;
+export default Releases
