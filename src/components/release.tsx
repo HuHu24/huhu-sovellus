@@ -17,11 +17,11 @@ const Release = () => {
         <div className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
           <img className="h-full" src="huhuymp.png" alt="" />
         </div>
-        <div className="ml-[20px] flex flex-col justify-center">
-          <div className="font-poppins text-[20px] text-ateena shadow-helsinki text-shadow">
+        <div className="ml-[20px] flex w-[150px] flex-col justify-center">
+          <div className="text-overflow-ellipsis overflow-hidden whitespace-nowrap break-all font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
             {tiedot.otsikko}
           </div>
-          <div className="font-opensauce text-[15px] text-ateena shadow-helsinki text-shadow">
+          <div className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow">
             {tiedot.julkaisupvm}
             <br />
             {tiedot.julkaisija}
@@ -37,7 +37,8 @@ const Release = () => {
 const Releases = () => {
   return (
     <div className="h-[calc(100vh - 70px)] w-full overflow-y-auto">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <Release />
         <Release />
         <Release />
         <Release />

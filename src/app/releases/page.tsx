@@ -25,7 +25,7 @@ export default function Home() {
         </div>
       </div>
       <div className="z-20 -mt-3 w-full gap-4 p-3">
-        <div className="h-screen overflow-y-scroll">
+        <div className="flex h-screen overflow-y-scroll">
           <Releases></Releases>
         </div>
       </div>
