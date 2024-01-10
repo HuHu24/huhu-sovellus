@@ -1,5 +1,5 @@
 import DaysTimetable from "@/components/daysTimetable"
-import Releases from "@/components/tiedote"
+import Releases from "@/components/tiedote_etusivu"
 
 export default function Home() {
   return (
