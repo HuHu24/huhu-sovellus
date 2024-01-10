@@ -19,7 +19,6 @@ const Event = () => {
       : "opacity 0.2s, visibility 0.2s",
     ransitionDelay: isOpen ? "0s" : "0.2s",
     opacity: isOpen ? "1" : "0",
-    wordWrap: "break-all",
   }
   return (
     <div className="relative">
