@@ -8,7 +8,10 @@ const Event = () => {
 
   const arrowStyle = {
     transition: "transform 0.5s",
+    fontSize: "50px",
     transform: isOpen ? "rotate(90deg)" : "rotate(0)",
+    display: "inline-block",
+    overflow: "hidden",
   }
   const extraInfoStyle = {
     transition: isOpen
@@ -16,42 +19,46 @@ const Event = () => {
       : "opacity 0.2s, visibility 0.2s",
     ransitionDelay: isOpen ? "0s" : "0.2s",
     opacity: isOpen ? "1" : "0",
+    wordWrap: "break-all",
   }
   return (
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`${
-          isOpen ? "h-[70px]" : "h-11"
-        } relative  flex w-full items-start overflow-hidden rounded-[20px] bg-oslo transition-all duration-300 ease-in-out`}
+          isOpen ? "h-auto" : "h-11"
+        } relative grid w-full items-start overflow-hidden rounded-[20px] bg-oslo transition-all duration-300 ease-in-out`}
       >
-        <div className="flex w-full place-items-center p-2">
+        <div className="place-items-top flex w-full p-2">
           <div className="w-12">
             <div className="font-poppins text-lg">8:30</div>
           </div>
-          <div className="mx-auto font-poppins text-lg font-normal text-ateena">
+          <div className="pointer-events-none mx-auto font-poppins text-lg font-normal text-ateena">
             Aamupala (oispa)
           </div>
-          <div className="w-12">
-            <Image
+          <div className="h-8 w-8">
+            <div
               style={arrowStyle}
-              className="ml-auto h-5 w-5"
-              src="keyboard_arrow_right.svg"
-              alt="Nuoli"
-              width={20}
-              height={20}
-            />
+              className="material-symbols-outlined -ml-10 -mt-3"
+            >
+              keyboard_arrow_right
+            </div>
+          </div>
+        </div>
+        <div className="pointer-events-none relative bottom-0 flex overflow-auto">
+          <div
+            style={extraInfoStyle}
+            className="pointer-events-none  text-left"
+          >
+            <p className="pointer-events-none break-all p-2 text-left">
+              Extra info
+              hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+              Extra info
+              hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            </p>
           </div>
         </div>
       </button>
-      <div className="absolute bottom-0">
-        <div
-          style={extraInfoStyle}
-          className="pointer-events-none p-2 text-left"
-        >
-          <p className="pointer-events-none">Extra info here</p>
-        </div>
-      </div>
     </div>
   )
 }
