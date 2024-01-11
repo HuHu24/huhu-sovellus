@@ -1,4 +1,4 @@
-import Releases from "@/components/releases"
+import Releases from "@/components/release/releases"
 
 export default function Home() {
   return (
