@@ -8,6 +8,9 @@ const nextConfig = {
    * @see https://nextjs.org/docs/app/api-reference/next-config-js/basePath
    */
   basePath: "/huhu-sovellus",
+  images: {
+    unoptimized: true,
+  },
 }
 
 module.exports = nextConfig
