@@ -1,5 +1,5 @@
 import DaysTimetable from "@/components/daysTimetable"
-import Releases from "@/components/release/releases"
+import Releases from "@/components/release/release_frontpage"
 export default function Home() {
   return (
     <div className="relative h-[calc(100vh-70px)] overflow-hidden bg-helsinki">
