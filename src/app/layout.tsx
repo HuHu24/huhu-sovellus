@@ -2,9 +2,10 @@ import type { Metadata } from "next"
 import "./globals.css"
 import localFont from "next/font/local"
 import Navbar from "../components/navbar/navbar"
+import Head from "next/head"
 
 const poppins = localFont({
-  src: "../../public/fonts/Poppins-Bold.ttf",
+  src: "../../public/fonts/Poppins-Regular.ttf",
   display: "swap",
   variable: "--font-poppins",
 })
@@ -26,6 +27,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <title>HuHu24 leirisovellus</title>
+        <meta
+          name="description"
+          content="HuHu 2024 partioleirin puhelinsovellus"
+        />
+      </Head>
       <body className={`${opensauce.variable} ${poppins.variable}`}>
         {children}
         <Navbar />
