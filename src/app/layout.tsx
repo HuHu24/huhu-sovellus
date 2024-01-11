@@ -33,7 +33,6 @@ export default function RootLayout({
           name="description"
           content="HuHu 2024 partioleirin puhelinsovellus"
         />
-        <link rel="shortcut icon" href="/public/favico.ico" />
       </Head>
       <body className={`${opensauce.variable} ${poppins.variable}`}>
         {children}
