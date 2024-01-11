@@ -13,7 +13,7 @@ const tiedot = {
 const Release = () => {
   return (
     <Link href={"/"} className="z-10">
-      <div className="relative flex h-[140px] w-full items-center bg-ateena bg-opacity-0">
+      <div className="flex items-center bg-ateena bg-opacity-0">
         <div className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
           <img className="h-full" src="huhuymp.png" alt="" />
         </div>
@@ -36,8 +36,8 @@ const Release = () => {
 
 const Releases = () => {
   return (
-    <div className="h-[calc(100vh - 70px)] w-full overflow-y-auto">
-      <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className="w-full overflow-y-auto">
+      <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <Release />
         <Release />
         <Release />

@@ -57,8 +57,6 @@ const Event = () => {
 }
 
 const DaysTimetable = () => {
-  const id = 1
-
   return (
     <div className="z-10 flex flex-col gap-2">
       <div className=" flex h-12 items-center justify-center gap-2.5 rounded-[20px] bg-soul font-poppins text-2xl text-ateena">
