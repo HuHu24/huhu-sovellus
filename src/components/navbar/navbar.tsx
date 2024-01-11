@@ -1,8 +1,8 @@
 "use client"
-import React, {useState} from "react"
+import React, { useState } from "react"
 
 import NavbarMenu from "./navbarMenu"
-import {NavbarButton} from "@/components/navbar/navbarButton";
+import { NavbarButton } from "@/components/navbar/navbarButton"
 
 const exampleItems: [string, string][] = [
   ["Asetukset", "/settings"],

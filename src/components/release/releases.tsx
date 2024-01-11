@@ -1,4 +1,4 @@
-import {Release} from "@/components/release/release";
+import { Release } from "@/components/release/release"
 
 const Releases = () => {
   return (
