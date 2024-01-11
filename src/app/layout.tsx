@@ -5,7 +5,7 @@ import Navbar from "../components/navbar/navbar"
 import Head from "next/head"
 
 const poppins = localFont({
-  src: "../../public/fonts/Poppins-Bold.ttf",
+  src: "../../public/fonts/Poppins-Regular.ttf",
   display: "swap",
   variable: "--font-poppins",
 })
