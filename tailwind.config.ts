@@ -19,10 +19,10 @@ const config: Config = {
       green: "#71F180",
       gray: "#171717",
     },
-    screens: {
-      smallPhone: "350px",
-    },
     extend: {
+      screens: {
+        smallPhone: "350px",
+      },
       fontFamily: {
         poppins: ["var(--font-poppins)"],
         opensauce: ["var(--font-opensauce)"],
