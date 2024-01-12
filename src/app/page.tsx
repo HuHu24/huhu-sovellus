@@ -2,7 +2,7 @@ import DaysTimetable from "@/components/daysTimetable"
 import Releases from "@/components/release/release_frontpage"
 export default function Home() {
   return (
-    <div className="relative h-[calc(100vh-70px)] overflow-hidden bg-helsinki">
+    <div className="relative h-full w-full overflow-hidden bg-helsinki">
       <div className="absolute -right-40 -top-40 p-2.5">
         <div className="inline-flex h-[369px] w-[360px] items-end justify-start gap-2.5">
           <div className="shrink grow basis-0 self-stretch rounded-full bg-barcelona" />

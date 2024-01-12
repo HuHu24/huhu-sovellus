@@ -36,7 +36,7 @@ const Navbar = () => {
         <NavbarButton link={"/map"} icon={"distance"}></NavbarButton>
         <div onClick={toggle}>
           <span
-            className="material-symbols-outlined smallPhone:h-[64px] smallPhone:text-[64px] h-[48px] w-full cursor-pointer text-[48px] text-tokio"
+            className="material-symbols-outlined h-[48px] w-full cursor-pointer text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]"
             onClick={toggle}
           >
             more_horiz

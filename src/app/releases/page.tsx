@@ -2,7 +2,7 @@ import Releases from "@/components/release/releases"
 
 export default function Home() {
   return (
-    <div className="relative h-[calc(100vh-70px)] w-full overflow-hidden bg-helsinki">
+    <div className="relative h-full w-full overflow-hidden bg-helsinki">
       <div className="bg-white inline-flex h-[68px] w-full flex-col items-start justify-start gap-2.5 bg-opacity-0 p-2.5">
         <div className="bg-white inline-flex items-center justify-between self-stretch bg-opacity-0">
           <div className="absolute h-12 w-12"></div>
