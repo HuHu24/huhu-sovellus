@@ -24,7 +24,11 @@ export default function Home() {
           <div className="shrink grow basis-0 self-stretch rounded-full bg-barcelona" />
         </div>
       </div>
-      <div className=" z-20 -mt-3 flex w-full flex-col gap-4 p-3">
+      <div className=" z-20 -mt-3 flex h-full w-full flex-col gap-4 overflow-auto p-3">
+        <DaysTimetable />
+        <DaysTimetable />
+        <DaysTimetable />
+        <DaysTimetable />
         <DaysTimetable />
         <DaysTimetable />
       </div>
