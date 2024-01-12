@@ -41,6 +41,7 @@ Use commit prefixes when committing
 - build – changes that affect the build system or external dependencies
 - revert – reverts a previous commit
 - git - git version control related
+
 ## How to merge to main
 
 1. Push your branch to GitHub

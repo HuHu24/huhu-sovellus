@@ -34,7 +34,9 @@ export default function RootLayout({
           content="HuHu 2024 partioleirin puhelinsovellus"
         />
       </Head>
-      <body className={`${opensauce.variable} ${poppins.variable} h-[calc(100vh-70px)]`}>
+      <body
+        className={`${opensauce.variable} ${poppins.variable} h-[calc(100vh-70px)]`}
+      >
         {children}
         <Navbar />
       </body>
