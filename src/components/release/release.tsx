@@ -11,7 +11,7 @@ const tiedot = {
 }
 export const Release = () => {
   return (
-    <Link href={"/"} className="z-10">
+    <Link href={"/releases/release"} className="z-10">
       <div className="flex items-center bg-ateena bg-opacity-0">
         <div className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
           <img className="h-full" src="huhuymp.png" alt="" />
