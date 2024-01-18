@@ -9,7 +9,7 @@ const tiedot = {
 
 const Release = () => {
   return (
-    <Link href={"/"} className="z-10">
+    <Link href={"/releases/release"} className="z-10">
       <div className="mr-4 flex flex-col">
         <div className="flex h-[150px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
           <img className="h-full" src="huhuymp.png" alt="" />
