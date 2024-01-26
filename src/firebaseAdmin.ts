@@ -1,5 +1,5 @@
 import * as admin from "firebase-admin"
-import { ServiceAccount } from "firebase-admin"
+import { auth, ServiceAccount } from "firebase-admin"
 import { env } from "@/env"
 
 export const initFirebaseAdmin = async () => {

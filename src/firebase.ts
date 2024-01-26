@@ -37,6 +37,13 @@ export const loginWithEmailAndPassword = async (
   try {
     const user = await signInWithEmailAndPassword(auth, email, password)
     console.log("Logged in as " + user.user.email)
+
+    const response = await fetch("/huhu-sovellus/api/auth", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await user.user.getIdToken()}`,
+      },
+    })
   } catch (e) {
     console.error("Error: " + e)
   }
@@ -49,6 +56,13 @@ export const signUpWithEmailAndPassword = async (
   try {
     const user = await createUserWithEmailAndPassword(auth, email, password)
     console.log("Created account for " + user.user.email)
+
+    const response = await fetch("/huhu-sovellus/api/auth", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await user.user.getIdToken()}`,
+      },
+    })
   } catch (e) {
     console.error("Error: " + e)
   }
