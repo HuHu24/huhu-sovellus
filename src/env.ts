@@ -3,9 +3,9 @@ import { z } from "zod"
 
 export const env = createEnv({
   server: {
-    FB_PROJECT_ID: z.string(),
-    FB_PRIVATE_KEY: z.string(),
-    FB_CLIENT_EMAIL: z.string(),
+    FB_PROJECT_ID: z.string().optional(),
+    FB_PRIVATE_KEY: z.string().optional(),
+    FB_CLIENT_EMAIL: z.string().optional(),
   },
 
   /**
