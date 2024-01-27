@@ -21,12 +21,17 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     }
   )
 
-  console.log(responseAPI.status)
-
   //Return to /login if token is not authorized
   if (responseAPI.status != 200) {
     return NextResponse.redirect(
       new URL("http://localhost:3000/huhu-sovellus/auth/signin", request.url)
+    )
+  }
+
+  const body = (await responseAPI.json()) as { role: string }
+  if (body.role !== "admin" && request.url.endsWith("claims")) {
+    return NextResponse.redirect(
+      new URL("http://localhost:3000/huhu-sovellus", request.url)
     )
   }
 
