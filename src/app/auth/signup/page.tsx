@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { signUpWithEmailAndPassword } from "@/firebase"
+import Link from "next/link"
 
 export default function Home() {
   const [email, setEmail] = useState("")
@@ -28,6 +29,12 @@ export default function Home() {
       >
         Luo käyttäjä
       </button>
+      <Link
+        href="/auth/signin"
+        className="text-sm text-soul underline hover:text-ateena"
+      >
+        Kirjaudu käyttäjän luomisen sijasta
+      </Link>
     </>
   )
 }

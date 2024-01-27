@@ -44,6 +44,8 @@ export const loginWithEmailAndPassword = async (
         Authorization: `Bearer ${await user.user.getIdToken()}`,
       },
     })
+
+    location.replace("http://localhost:3000/huhu-sovellus/admin")
   } catch (e) {
     console.error("Error: " + e)
   }
@@ -66,6 +68,8 @@ export const signUpWithEmailAndPassword = async (
         },
       }
     )
+
+    location.replace("http://localhost:3000/huhu-sovellus/admin")
   } catch (e) {
     console.error("Error: " + e)
   }
