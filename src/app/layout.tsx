@@ -3,7 +3,6 @@ import "./globals.css"
 import localFont from "next/font/local"
 import Navbar from "../components/navbar/navbar"
 import Head from "next/head"
-import { initFirebaseAdmin } from "@/firebaseAdmin"
 
 const poppins = localFont({
   src: "../../public/fonts/Poppins-Regular.ttf",
