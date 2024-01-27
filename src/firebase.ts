@@ -57,12 +57,15 @@ export const signUpWithEmailAndPassword = async (
     const user = await createUserWithEmailAndPassword(auth, email, password)
     console.log("Created account for " + user.user.email)
 
-    const response = await fetch("/huhu-sovellus/api/auth", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${await user.user.getIdToken()}`,
-      },
-    })
+    const response = await fetch(
+      "http://localhost:3000/huhu-sovellus/api/auth",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${await user.user.getIdToken()}`,
+        },
+      }
+    )
   } catch (e) {
     console.error("Error: " + e)
   }

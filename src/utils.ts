@@ -1,7 +1,7 @@
-import {initFirebaseAdmin} from "@/firebaseAdmin";
-import {NextResponse} from "next/server";
-import {auth} from "firebase-admin";
-import {cookies} from "next/headers";
+import { initFirebaseAdmin } from "@/firebaseAdmin"
+import { NextResponse } from "next/server"
+import { auth } from "firebase-admin"
+import { cookies } from "next/headers"
 
 export const checkAuth = async () => {
   await initFirebaseAdmin()
@@ -34,5 +34,5 @@ export const checkAuth = async () => {
     )
   }
 
-  return;
+  return
 }
