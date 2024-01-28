@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signInAnonymously,
 } from "@firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -73,4 +74,18 @@ export const signUpWithEmailAndPassword = async (
   } catch (e) {
     console.error("Error: " + e)
   }
+}
+
+export const anonSignIn = async () => {
+  try {
+    const user = await signInAnonymously(auth);
+    const repsonse = await fetch("http://localhost:3000/huhu-sovellus/api/auth", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${await user.user.getIdToken()}`,
+        },
+        })
+    } catch (e) {
+        console.error("Error: " + e)
+    }
 }
