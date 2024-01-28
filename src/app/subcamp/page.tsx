@@ -25,7 +25,7 @@ export default function Home() {
               Esimerkkileiri 2
             </div>
           </Link>
-          <Link onClick={() =>selectsubcamp(3)} href={"/"}>
+          <Link onClick={() => selectsubcamp(3)} href={"/"}>
             <div className="px-auto w-full rounded-lg bg-tokio p-1 text-3xl text-helsinki">
               Esimerkkileiri 3
             </div>
