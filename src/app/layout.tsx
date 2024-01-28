@@ -36,7 +36,7 @@ export default function RootLayout({
         />
       </Head>
       <body
-        className={`${opensauce.variable} ${poppins.variable} h-[calc(100vh-70px)]`}
+        className={`${opensauce.variable} ${poppins.variable} h-[calc(100vh-70px)] bg-helsinki`}
       >
         {children}
         <Navbar />

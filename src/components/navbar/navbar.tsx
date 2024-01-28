@@ -5,9 +5,9 @@ import NavbarMenu from "./navbarMenu"
 import { NavbarButton } from "@/components/navbar/navbarButton"
 
 const exampleItems: [string, string][] = [
+  ["Luo käyttäjä", "/auth/signup"],
+  ["Kirjaudu", "/auth/signin"],
   ["Asetukset", "/settings"],
-  ["Jotain muuta", "/misc"],
-  ["Tietoa meistä", "/about"],
 ]
 
 const Navbar = () => {

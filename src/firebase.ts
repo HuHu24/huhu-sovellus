@@ -2,6 +2,11 @@
 import { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
 import { getFirestore } from "firebase/firestore"
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "@firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,3 +28,49 @@ const app = initializeApp(firebaseConfig)
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app)
+export const auth = getAuth(app)
+
+export const loginWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  try {
+    const user = await signInWithEmailAndPassword(auth, email, password)
+    console.log("Logged in as " + user.user.email)
+
+    const response = await fetch("/huhu-sovellus/api/auth", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await user.user.getIdToken()}`,
+      },
+    })
+
+    location.replace("http://localhost:3000/huhu-sovellus/admin")
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+}
+
+export const signUpWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  try {
+    const user = await createUserWithEmailAndPassword(auth, email, password)
+    console.log("Created account for " + user.user.email)
+
+    const response = await fetch(
+      "http://localhost:3000/huhu-sovellus/api/auth",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${await user.user.getIdToken()}`,
+        },
+      }
+    )
+
+    location.replace("http://localhost:3000/huhu-sovellus/admin")
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+}
