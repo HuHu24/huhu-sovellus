@@ -1,8 +1,8 @@
 import * as admin from "firebase-admin"
 import { ServiceAccount } from "firebase-admin"
 import { env } from "@/env"
-import {NextRequest} from "next/server";
-import {cookies} from "next/headers";
+import { NextRequest } from "next/server"
+import { cookies } from "next/headers"
 
 export const initFirebaseAdmin = async () => {
   if (admin.apps.length > 0) {
@@ -30,21 +30,21 @@ async function getDecodedclaims(request: NextRequest) {
 
   //Validate if the cookie exist in the request
   if (!session) {
-    return null;
+    return null
   }
 
   //Use Firebase Admin to validate the session cookie
   const decodedClaims = await admin.auth().verifySessionCookie(session, true)
 
   if (!decodedClaims) {
-    return null;
+    return null
   }
 
-  return decodedClaims;
+  return decodedClaims
 }
 
 export async function getUid(request: NextRequest) {
   const claims = await getDecodedclaims(request)
   const uid = claims?.uid
-  return uid;
+  return uid
 }

@@ -78,14 +78,17 @@ export const signUpWithEmailAndPassword = async (
 
 export const anonSignIn = async () => {
   try {
-    const user = await signInAnonymously(auth);
-    const repsonse = await fetch("http://localhost:3000/huhu-sovellus/api/auth", {
+    const user = await signInAnonymously(auth)
+    const repsonse = await fetch(
+      "http://localhost:3000/huhu-sovellus/api/auth",
+      {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${await user.user.getIdToken()}`,
+          Authorization: `Bearer ${await user.user.getIdToken()}`,
         },
-        })
-    } catch (e) {
-        console.error("Error: " + e)
-    }
+      }
+    )
+  } catch (e) {
+    console.error("Error: " + e)
+  }
 }
