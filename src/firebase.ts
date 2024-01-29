@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signInAnonymously as fbSignInAnonymously,
 } from "@firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -38,7 +39,7 @@ export const loginWithEmailAndPassword = async (
     const user = await signInWithEmailAndPassword(auth, email, password)
     console.log("Logged in as " + user.user.email)
 
-    const response = await fetch("/huhu-sovellus/api/auth", {
+    await fetch("/huhu-sovellus/api/auth", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${await user.user.getIdToken()}`,
@@ -59,17 +60,28 @@ export const signUpWithEmailAndPassword = async (
     const user = await createUserWithEmailAndPassword(auth, email, password)
     console.log("Created account for " + user.user.email)
 
-    const response = await fetch(
-      "http://localhost:3000/huhu-sovellus/api/auth",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${await user.user.getIdToken()}`,
-        },
-      }
-    )
+    await fetch("http://localhost:3000/huhu-sovellus/api/auth", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await user.user.getIdToken()}`,
+      },
+    })
 
     location.replace("http://localhost:3000/huhu-sovellus/admin")
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+}
+
+export const signInAnonymously = async () => {
+  try {
+    const user = await fbSignInAnonymously(auth)
+    await fetch("http://localhost:3000/huhu-sovellus/api/auth", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await user.user.getIdToken()}`,
+      },
+    })
   } catch (e) {
     console.error("Error: " + e)
   }

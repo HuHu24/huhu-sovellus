@@ -26,10 +26,13 @@ export async function GET(request: NextRequest) {
     user.customClaims &&
     (user.customClaims.hasOwnProperty("admin") || user.customClaims.admin)
   ) {
-    return NextResponse.json({ isLogged: true, role: "admin" }, { status: 200 })
+    return NextResponse.json(
+      { isLogged: true, role: "admin", uid: user.uid },
+      { status: 200 }
+    )
   }
 
-  return NextResponse.json({ isLogged: true, role: "" }, { status: 200 })
+  return NextResponse.json({ isLogged: true }, { status: 200 })
 }
 
 export async function POST(request: NextRequest, response: NextResponse) {
