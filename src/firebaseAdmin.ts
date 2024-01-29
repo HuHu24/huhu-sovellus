@@ -22,11 +22,9 @@ export const initFirebaseAdmin = async () => {
 }
 
 //can be used to get info about the user
-//dont call it directly rather use it to buiild functions to get the info u need
-async function getDecodedclaims(request: NextRequest) {
+//don't call it directly rather use it to build functions to get the info u need
+export async function getDecodedClaims(session: string) {
   await initFirebaseAdmin()
-
-  const session = cookies().get("session")?.value || ""
 
   //Validate if the cookie exist in the request
   if (!session) {
@@ -41,10 +39,4 @@ async function getDecodedclaims(request: NextRequest) {
   }
 
   return decodedClaims
-}
-
-export async function getUid(request: NextRequest) {
-  const claims = await getDecodedclaims(request)
-  const uid = claims?.uid
-  return uid
 }

@@ -1,11 +1,11 @@
 import { auth } from "firebase-admin"
 import { NextRequest, NextResponse } from "next/server"
-import { getUid } from "@/firebaseAdmin"
+import { getDecodedClaims } from "@/firebaseAdmin"
+import { cookies } from "next/headers"
 
 export async function POST(request: NextRequest) {
   try {
     const result = (await request.json()) as { subcamp: number }
-    //Check that the subcamp value is valid
     if (!result.subcamp || result.subcamp < 1 || result.subcamp > 6) {
       return NextResponse.json(
         {
@@ -15,19 +15,23 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    const uid = await getUid(request)
-    //Check that the uid is valid
-    if (!uid) {
+
+    const decodedClaims = await getDecodedClaims(
+      cookies().get("session")?.value || ""
+    )
+    if (!decodedClaims?.uid) {
       return NextResponse.json(
         {
-          message: "There was an error with ur session",
+          message: "There was an error with your session",
         },
         { status: 400 }
       )
     }
-    await auth().setCustomUserClaims(uid, { subcamp: result.subcamp })
 
-    // Return the selected subcamp
+    await auth().setCustomUserClaims(decodedClaims.uid, {
+      subcamp: result.subcamp,
+    })
+
     return NextResponse.json(
       {
         message: "Subcamp selected",
@@ -44,8 +48,4 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     )
   }
-}
-
-export async function GET(request: NextRequest) {
-  return NextResponse.json({}, { status: 400 })
 }

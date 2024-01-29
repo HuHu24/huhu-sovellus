@@ -32,10 +32,7 @@ export async function GET(request: NextRequest) {
     )
   }
 
-  return NextResponse.json(
-    { isLogged: true, role: user.customClaims },
-    { status: 200 }
-  )
+  return NextResponse.json({ isLogged: true }, { status: 200 })
 }
 
 export async function POST(request: NextRequest, response: NextResponse) {
