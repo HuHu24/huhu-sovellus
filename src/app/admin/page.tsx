@@ -1,9 +1,8 @@
 import Link from "next/link"
 import React from "react"
-import { NextRequest } from "next/server"
 import { cookies } from "next/headers"
 
-export default async function AdminFrontpage(request: NextRequest) {
+export default async function AdminFrontpage() {
   const session = cookies().get("session")?.value || ""
   const response = await fetch("http://localhost:3000/huhu-sovellus/api/auth", {
     headers: {
