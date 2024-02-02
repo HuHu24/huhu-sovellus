@@ -10,29 +10,22 @@ export async function GET(request: NextRequest) {
 
   //Validate if the cookie exist in the request
   if (!session) {
-    return NextResponse.json({ isLogged: false, role: "" }, { status: 401 })
+    return NextResponse.json({ claims: {} }, { status: 401 })
   }
 
   //Use Firebase Admin to validate the session cookie
   const decodedClaims = await auth().verifySessionCookie(session, true)
 
   if (!decodedClaims) {
-    return NextResponse.json({ isLogged: false, role: "" }, { status: 401 })
+    return NextResponse.json({ claims: {} }, { status: 401 })
   }
 
   const user = await auth().getUser(decodedClaims.uid)
 
-  if (
-    user.customClaims &&
-    (user.customClaims.hasOwnProperty("admin") || user.customClaims.admin)
-  ) {
-    return NextResponse.json(
-      { isLogged: true, role: "admin", uid: user.uid },
-      { status: 200 }
-    )
-  }
-
-  return NextResponse.json({ isLogged: true }, { status: 200 })
+  return NextResponse.json(
+    { claims: user.customClaims, uid: user.uid },
+    { status: 200 }
+  )
 }
 
 export async function POST(request: NextRequest, response: NextResponse) {
