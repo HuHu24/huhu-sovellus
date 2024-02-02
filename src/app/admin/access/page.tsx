@@ -108,9 +108,21 @@ export default function Access() {
               Anna oikeudet
             </button>
           </div>
-          <AccessList accessList={admin} accessListHeading="Ylläpitäjät" />
-          <AccessList accessList={safety} accessListHeading="Turva" />
-          <AccessList accessList={subcamp} accessListHeading="Alaleiri" />
+          <AccessList
+            accessListType="admin"
+            accessList={admin}
+            accessListHeading="Ylläpitäjät"
+          />
+          <AccessList
+            accessListType="safety"
+            accessList={safety}
+            accessListHeading="Turva"
+          />
+          <AccessList
+            accessListType="subcamp"
+            accessList={subcamp}
+            accessListHeading="Alaleiri"
+          />
         </div>
       </div>
     </>
