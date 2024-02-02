@@ -28,7 +28,9 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     )
   }
 
-  const body = (await responseAPI.json()) as { claims: { admin?: boolean, subcamp?: boolean, safety?: boolean   } }
+  const body = (await responseAPI.json()) as {
+    claims: { admin?: boolean; subcamp?: boolean; safety?: boolean }
+  }
 
   if (body.claims.admin && request.url.endsWith("claims")) {
     return NextResponse.redirect(

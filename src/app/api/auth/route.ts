@@ -22,7 +22,10 @@ export async function GET(request: NextRequest) {
 
   const user = await auth().getUser(decodedClaims.uid)
 
-  return NextResponse.json({ claims: user.customClaims, uid: user.uid }, { status: 200 })
+  return NextResponse.json(
+    { claims: user.customClaims, uid: user.uid },
+    { status: 200 }
+  )
 }
 
 export async function POST(request: NextRequest, response: NextResponse) {
