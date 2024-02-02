@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { onAuthStateChanged } from "@firebase/auth"
-import { auth, db } from "@/firebase"
+import { auth, db, signInAnonymously } from "@/firebase"
 import { doc, getDoc } from "@firebase/firestore"
 import AccessList from "@/app/admin/access/accessList"
 
@@ -11,9 +11,12 @@ export default function Access() {
   const [subcamp, setSubcamp] = useState<[{ email: string; uid: string }] | []>(
     []
   )
-  const [safety, setSatefy] = useState<[{ email: string; uid: string }] | []>(
+  const [safety, setSafety] = useState<[{ email: string; uid: string }] | []>(
     []
   )
+
+  const [email, setEmail] = useState("")
+  const [accessType, setAccessType] = useState("")
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -27,10 +30,35 @@ export default function Access() {
         }
         setAdmin(data.admin)
         setSubcamp(data.subcamp)
-        setSatefy(data.safety)
+        setSafety(data.safety)
       }
     })
   }, [])
+
+  async function addAccess() {
+    console.log(accessType)
+    if (!["admin", "subcamp", "safety"].includes(accessType) || email == "") {
+      alert("Tarkista sähköposti ja oikeustyyppi")
+      return
+    }
+
+    try {
+      const result = await fetch(
+        "http://localhost:3000/huhu-sovellus/api/auth/claims",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ role: accessType, email: email }),
+        }
+      )
+
+      alert("Added permissions")
+    } catch (e) {
+      console.error("Selecting subcamp failed", e)
+    }
+  }
 
   return (
     <>
@@ -59,17 +87,24 @@ export default function Access() {
           <div className="z-20 flex w-full max-w-[500px] flex-col place-items-center gap-3 rounded-[20px] bg-oslo p-4">
             <h2 className="text-2xl font-bold">Anna oikeus</h2>
             <input
+              onChange={(event) => setEmail(event.target.value)}
               className="w-full max-w-[400px] rounded-lg bg-barcelona p-1 text-xl text-helsinki"
               type="email"
               placeholder="Sähköposti..."
             />
-            <select className="w-full max-w-[400px] rounded-lg bg-barcelona p-1 text-xl text-helsinki">
+            <select
+              onChange={(event) => setAccessType(event.target.value)}
+              className="w-full max-w-[400px] rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+            >
               <option value="">---Valitse oikeustyyppi---</option>
-              <option value="alaleiri">Alaleiri</option>
-              <option value="turva">Turva</option>
-              <option value="vima">ViMa</option>
+              <option value="admin">Ylläpitäjä</option>
+              <option value="safety">Turva</option>
+              <option value="subcamp">Alaleiri</option>
             </select>
-            <button className="rounded-lg bg-soul p-1 px-10 text-xl">
+            <button
+              onClick={addAccess}
+              className="rounded-lg bg-soul p-1 px-10 text-xl"
+            >
               Anna oikeudet
             </button>
           </div>

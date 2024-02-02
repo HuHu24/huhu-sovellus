@@ -1,18 +1,20 @@
 import { auth, firestore } from "firebase-admin"
 import { NextRequest, NextResponse } from "next/server"
-import { getFirestore } from "firebase/firestore"
 import { initFirebaseAdmin } from "@/firebaseAdmin"
 
 export async function POST(request: NextRequest) {
   try {
     const result = (await request.json()) as {
       role: "admin" | "safety" | "subcamp"
-      uid: string
+      email: string
     }
 
     await initFirebaseAdmin()
 
-    const user = (await auth().getUser(result.uid)) as { email: string }
+    const user = (await auth().getUserByEmail(result.email)) as {
+      email: string
+      uid: string
+    }
 
     const claimsDoc = await firestore().doc("/claims/claims").get()
     let data = claimsDoc.data() as {
@@ -21,11 +23,11 @@ export async function POST(request: NextRequest) {
       subcamp: [{ email: string; uid: string }]
     }
 
-    data[result.role].push({ email: user.email, uid: result.uid })
+    data[result.role].push({ email: user.email, uid: user.uid })
     await firestore().doc("/claims/claims").set(data)
 
     const customClaims = { [result.role]: true }
-    await auth().setCustomUserClaims(result.uid, customClaims)
+    await auth().setCustomUserClaims(user.uid, customClaims)
   } catch (e) {
     return NextResponse.json(
       {
