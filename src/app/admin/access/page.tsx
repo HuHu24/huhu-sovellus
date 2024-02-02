@@ -7,9 +7,7 @@ import { doc, getDoc } from "@firebase/firestore"
 import AccessList from "@/app/admin/access/accessList"
 
 export default function Access() {
-  const [admins, setAdmins] = useState<[{ email: string; uid: string }] | []>(
-    []
-  )
+  const [admin, setAdmin] = useState<[{ email: string; uid: string }] | []>([])
   const [subcamp, setSubcamp] = useState<[{ email: string; uid: string }] | []>(
     []
   )
@@ -27,7 +25,7 @@ export default function Access() {
           safety: [{ email: string; uid: string }]
           subcamp: [{ email: string; uid: string }]
         }
-        setAdmins(data.admins)
+        setAdmin(data.admin)
         setSubcamp(data.subcamp)
         setSatefy(data.safety)
       }
@@ -75,7 +73,7 @@ export default function Access() {
               Anna oikeudet
             </button>
           </div>
-          <AccessList accessList={admins} accessListHeading="Ylläpitäjät" />
+          <AccessList accessList={admin} accessListHeading="Ylläpitäjät" />
           <AccessList accessList={safety} accessListHeading="Turva" />
           <AccessList accessList={subcamp} accessListHeading="Alaleiri" />
         </div>
