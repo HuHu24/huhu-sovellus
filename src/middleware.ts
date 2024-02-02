@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   }
 
   const body = (await responseAPI.json()) as { role: string }
-  if (body.role !== "admin" && request.url.endsWith("claims")) {
+  if (body.role !== "admin" && (request.url.endsWith("claims") || request.url.endsWith("access"))) {
     return NextResponse.redirect(
       new URL("http://localhost:3000/huhu-sovellus", request.url)
     )
