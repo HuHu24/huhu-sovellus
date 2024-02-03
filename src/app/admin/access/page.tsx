@@ -36,7 +36,6 @@ export default function Access() {
   }, [])
 
   async function addAccess() {
-    console.log(accessType)
     if (!["admin", "subcamp", "safety"].includes(accessType) || email == "") {
       alert("Tarkista sähköposti ja oikeustyyppi")
       return
@@ -54,9 +53,15 @@ export default function Access() {
         }
       )
 
+      if (result.status >= 300) {
+        const body = (await result.json()) as { message: string }
+        alert(body.message)
+        return
+      }
+
       alert("Added permissions")
     } catch (e) {
-      console.error("Selecting subcamp failed", e)
+      console.error("Selecting subcamp failed: ", e)
     }
   }
 

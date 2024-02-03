@@ -27,12 +27,15 @@ export async function middleware(request: NextRequest, response: NextResponse) {
       new URL("http://localhost:3000/huhu-sovellus/auth/signin", request.url)
     )
   }
-  
+
   const body = (await responseAPI.json()) as {
     claims: { admin?: boolean; subcamp?: boolean; safety?: boolean }
   }
 
-  if (body.claims.admin && request.url.endsWith("claims")) {
+  if (
+    !body.claims ||
+    (body.claims.admin === undefined && request.url.endsWith("claims"))
+  ) {
     return NextResponse.redirect(
       new URL("http://localhost:3000/huhu-sovellus", request.url)
     )
