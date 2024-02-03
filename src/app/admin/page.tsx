@@ -13,6 +13,9 @@ export default async function AdminFrontpage() {
     claims: { admin: boolean; subcamp: boolean; safety: boolean }
   }
 
+  console.log("Admin page:")
+  console.log(data.claims)
+
   return (
     <>
       <div className="relative h-full w-full overflow-hidden bg-helsinki">
@@ -43,18 +46,20 @@ export default async function AdminFrontpage() {
             <div></div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {data.claims.safety || data.claims.admin ? (
-              <Link href={"/admin/chat"}>
-                <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-soul">
-                  <span className="material-symbols-outlined text-9xl">
-                    forum
-                  </span>
-                  <h3 className="text-2xl">Turvachat</h3>
-                </div>
-              </Link>
-            ) : (
-              <></>
-            )}
+            <>
+              {data.claims.safety || data.claims.admin ? (
+                <Link href={"/admin/chat"}>
+                  <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-soul">
+                    <span className="material-symbols-outlined text-9xl">
+                      forum
+                    </span>
+                    <h3 className="text-2xl">Turvachat</h3>
+                  </div>
+                </Link>
+              ) : (
+                <></>
+              )}
+            </>
             <>
               {data.claims.subcamp || data.claims.admin ? (
                 <>
