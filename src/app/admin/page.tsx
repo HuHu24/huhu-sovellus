@@ -45,7 +45,7 @@ export default async function AdminFrontpage() {
             <p className="text-2xl">Uusia yhteydenottoja: 0</p>
             <div></div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="z-20 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             <>
               {data.claims.safety || data.claims.admin ? (
                 <Link href={"/admin/chat"}>
