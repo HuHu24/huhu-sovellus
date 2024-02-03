@@ -23,7 +23,9 @@ export async function POST(request: NextRequest) {
     data[result.role].push({ email: user.email || "", uid: user.uid })
     await firestore().doc("/claims/claims").set(data)
 
-    const customClaims = { ...user.customClaims, ...{ [result.role]: true } }
+    const customClaims = Object.assign({}, user.customClaims, {
+      [result.role]: true,
+    })
     await auth().setCustomUserClaims(user.uid, customClaims)
   } catch (e) {
     return NextResponse.json(
@@ -50,10 +52,7 @@ export async function DELETE(request: NextRequest) {
 
     await initFirebaseAdmin()
 
-    const user = (await auth().getUserByEmail(result.email)) as {
-      email: string
-      uid: string
-    }
+    const user = await auth().getUserByEmail(result.email)
 
     const claimsDoc = await firestore().doc("/claims/claims").get()
     let data = claimsDoc.data() as {
@@ -69,8 +68,10 @@ export async function DELETE(request: NextRequest) {
 
     await firestore().doc("/claims/claims").set(data)
 
-    const customClaims = { [result.role]: false }
-    await auth().setCustomUserClaims(user.uid, customClaims)
+    const newCustomClaims = Object.assign({}, user.customClaims, {
+      [result.role]: false,
+    })
+    await auth().setCustomUserClaims(user.uid, newCustomClaims)
   } catch (e) {
     return NextResponse.json(
       {
