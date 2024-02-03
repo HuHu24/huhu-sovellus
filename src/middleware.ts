@@ -35,7 +35,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
   if (!body.email && request.url.includes("/admin")) {
     return NextResponse.redirect(
-        new URL("http://localhost:3000/huhu-sovellus/", request.url)
+      new URL("http://localhost:3000/huhu-sovellus/", request.url)
     )
   }
   if (
