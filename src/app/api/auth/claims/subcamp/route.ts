@@ -5,8 +5,8 @@ import { cookies } from "next/headers"
 
 export async function POST(request: NextRequest) {
   try {
-    const result = (await request.json()) as { alaleiri: number }
-    if (!result.alaleiri || result.alaleiri < 1 || result.alaleiri > 6) {
+    const result = (await request.json()) as { subcamp: number }
+    if (!result.subcamp || result.subcamp < 1 || result.subcamp > 6) {
       return NextResponse.json(
         {
           message:
@@ -29,13 +29,13 @@ export async function POST(request: NextRequest) {
     }
 
     await auth().setCustomUserClaims(decodedClaims.uid, {
-      subcamp: result.alaleiri,
+      subcamp: result.subcamp,
     })
 
     return NextResponse.json(
       {
         message: "Subcamp selected",
-        subcamp: result.alaleiri,
+        subcamp: result.subcamp,
       },
       { status: 200 }
     )
