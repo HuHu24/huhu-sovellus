@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
   const data = await responseAPI.json()
   const body = data as {
-    claims: { admin?: boolean; subcamp?: boolean; safety?: boolean }
+    claims: { admin?: boolean; subcampLeader?: boolean; safety?: boolean }
     email?: string
   }
 

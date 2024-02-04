@@ -8,7 +8,7 @@ import AccessList from "@/app/admin/access/accessList"
 
 export default function Access() {
   const [admin, setAdmin] = useState<string[]>([])
-  const [subcamp, setSubcamp] = useState<string[]>([])
+  const [subcampLeader, setSubcampLeader] = useState<string[]>([])
   const [safety, setSafety] = useState<string[]>([])
 
   const [email, setEmail] = useState("")
@@ -22,17 +22,20 @@ export default function Access() {
         const data = result.data() as {
           admin: string[]
           safety: string[]
-          subcamp: string[]
+          subcampLeader: string[]
         }
         setAdmin(data.admin)
-        setSubcamp(data.subcamp)
+        setSubcampLeader(data.subcampLeader)
         setSafety(data.safety)
       }
     })
   }, [])
 
   async function addAccess() {
-    if (!["admin", "subcamp", "safety"].includes(accessType) || email == "") {
+    if (
+      !["admin", "subcampLeader", "safety"].includes(accessType) ||
+      email == ""
+    ) {
       alert("Tarkista sähköposti ja oikeustyyppi")
       return
     }
@@ -63,8 +66,8 @@ export default function Access() {
         setSafety((safety) => [...safety, email])
       }
 
-      if (accessType == "subcamp") {
-        setSubcamp((subcamp) => [...subcamp, email])
+      if (accessType == "subcampLeader") {
+        setSubcampLeader((subcamp) => [...subcamp, email])
       }
     } catch (e) {
       console.error("Selecting subcamp failed: ", e)
@@ -73,7 +76,10 @@ export default function Access() {
 
   async function removeAccess(accessType: string, email: string) {
     console.log(accessType)
-    if (!["admin", "subcamp", "safety"].includes(accessType) || email == "") {
+    if (
+      !["admin", "subcampLeader", "safety"].includes(accessType) ||
+      email == ""
+    ) {
       alert("Tarkista sähköposti ja oikeustyyppi")
       return
     }
@@ -98,11 +104,11 @@ export default function Access() {
         setSafety(safety.filter((item) => item != email))
       }
 
-      if (accessType == "subcamp") {
-        setSubcamp(subcamp.filter((item) => item != email))
+      if (accessType == "subcampLeader") {
+        setSubcampLeader(subcampLeader.filter((item) => item != email))
       }
     } catch (e) {
-      console.error("Selecting subcamp failed", e)
+      console.error(e)
     }
   }
 
@@ -145,7 +151,7 @@ export default function Access() {
               <option value="">---Valitse oikeustyyppi---</option>
               <option value="admin">Ylläpitäjä</option>
               <option value="safety">Turva</option>
-              <option value="subcamp">Alaleiri</option>
+              <option value="subcampLeader">Alaleirin johtaja</option>
             </select>
             <button
               onClick={addAccess}
@@ -167,9 +173,9 @@ export default function Access() {
             removeAccess={removeAccess}
           />
           <AccessList
-            accessListType="subcamp"
-            accessList={subcamp}
-            accessListHeading="Alaleiri"
+            accessListType="subcampLeader"
+            accessList={subcampLeader}
+            accessListHeading="Alaleirin johtaja"
             removeAccess={removeAccess}
           />
         </div>

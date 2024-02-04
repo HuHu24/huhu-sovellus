@@ -5,7 +5,7 @@ import { initFirebaseAdmin } from "@/firebaseAdmin"
 export async function POST(request: NextRequest) {
   try {
     const result = (await request.json()) as {
-      role: "admin" | "safety" | "subcamp"
+      role: "admin" | "safety" | "subcampLeader"
       email: string
     }
 
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     let data = claimsDoc.data() as {
       admin: string[]
       safety: string[]
-      subcamp: string[]
+      subcampLeader: string[]
     }
 
     data[result.role].push(user.email || "")
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const result = (await request.json()) as {
-      role: "admin" | "safety" | "subcamp"
+      role: "admin" | "safety" | "subcampLeader"
       email: string
     }
 
@@ -58,7 +58,7 @@ export async function DELETE(request: NextRequest) {
     let data = claimsDoc.data() as {
       admin: string[]
       safety: string[]
-      subcamp: string[]
+      subcampLeader: string[]
     }
 
     const newData = data[result.role].filter((item) => item !== user.email)

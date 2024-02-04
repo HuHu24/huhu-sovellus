@@ -10,7 +10,7 @@ export default async function AdminFrontpage() {
     },
   })
   const data = (await response.json()) as {
-    claims: { admin: boolean; subcamp: boolean; safety: boolean }
+    claims: { admin: boolean; subcampLeader: boolean; safety: boolean }
   }
 
   console.log("Admin page:")
@@ -47,7 +47,7 @@ export default async function AdminFrontpage() {
           </div>
           {!data.claims.admin &&
             !data.claims.safety &&
-            !data.claims.subcamp && (
+            !data.claims.subcampLeader && (
               <h1 className="absolute top-1/2 ml-4 align-middle  font-poppins text-2xl">
                 Pyydä oikeuksia sovelluskehittäjiltä
               </h1>
@@ -69,7 +69,7 @@ export default async function AdminFrontpage() {
               )}
             </>
             <>
-              {(data.claims && data.claims.subcamp) ||
+              {(data.claims && data.claims.subcampLeader) ||
               (data.claims && data.claims.admin) ? (
                 <>
                   <Link href={"/admin/releases"}>
