@@ -7,13 +7,9 @@ import { doc, getDoc } from "@firebase/firestore"
 import AccessList from "@/app/admin/access/accessList"
 
 export default function Access() {
-  const [admin, setAdmin] = useState<[{ email: string; uid: string }] | []>([])
-  const [subcamp, setSubcamp] = useState<[{ email: string; uid: string }] | []>(
-    []
-  )
-  const [safety, setSafety] = useState<[{ email: string; uid: string }] | []>(
-    []
-  )
+  const [admin, setAdmin] = useState<string[]>([])
+  const [subcamp, setSubcamp] = useState<string[]>([])
+  const [safety, setSafety] = useState<string[]>([])
 
   const [email, setEmail] = useState("")
   const [accessType, setAccessType] = useState("")
@@ -24,9 +20,9 @@ export default function Access() {
         const result = await getDoc(doc(db, "/claims/claims"))
 
         const data = result.data() as {
-          admin: [{ email: string; uid: string }]
-          safety: [{ email: string; uid: string }]
-          subcamp: [{ email: string; uid: string }]
+          admin: string[]
+          safety: string[]
+          subcamp: string[]
         }
         setAdmin(data.admin)
         setSubcamp(data.subcamp)
@@ -59,9 +55,54 @@ export default function Access() {
         return
       }
 
-      alert("Added permissions")
+      if (accessType == "admin") {
+        setAdmin((admin) => [...admin, email])
+      }
+
+      if (accessType == "safety") {
+        setSafety((safety) => [...safety, email])
+      }
+
+      if (accessType == "subcamp") {
+        setSubcamp((subcamp) => [...subcamp, email])
+      }
     } catch (e) {
       console.error("Selecting subcamp failed: ", e)
+    }
+  }
+
+  async function removeAccess(accessType: string, email: string) {
+    console.log(accessType)
+    if (!["admin", "subcamp", "safety"].includes(accessType) || email == "") {
+      alert("Tarkista sähköposti ja oikeustyyppi")
+      return
+    }
+
+    try {
+      const result = await fetch(
+        "http://localhost:3000/huhu-sovellus/api/auth/claims",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ role: accessType, email: email }),
+        }
+      )
+
+      if (accessType == "admin") {
+        setAdmin(admin.filter((item) => item != email))
+      }
+
+      if (accessType == "safety") {
+        setSafety(safety.filter((item) => item != email))
+      }
+
+      if (accessType == "subcamp") {
+        setSubcamp(subcamp.filter((item) => item != email))
+      }
+    } catch (e) {
+      console.error("Selecting subcamp failed", e)
     }
   }
 
@@ -117,16 +158,19 @@ export default function Access() {
             accessListType="admin"
             accessList={admin}
             accessListHeading="Ylläpitäjät"
+            removeAccess={removeAccess}
           />
           <AccessList
             accessListType="safety"
             accessList={safety}
             accessListHeading="Turva"
+            removeAccess={removeAccess}
           />
           <AccessList
             accessListType="subcamp"
             accessList={subcamp}
             accessListHeading="Alaleiri"
+            removeAccess={removeAccess}
           />
         </div>
       </div>

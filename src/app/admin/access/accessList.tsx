@@ -1,35 +1,11 @@
 import React from "react"
 
 function AccessList(props: {
-  accessList: [{ email: string; uid: string }] | []
+  accessList: string[]
   accessListHeading: string
   accessListType: string
+  removeAccess: (accessType: string, email: string) => Promise<void>
 }) {
-  async function removeAccess(accessType: string, email: string) {
-    console.log(accessType)
-    if (!["admin", "subcamp", "safety"].includes(accessType) || email == "") {
-      alert("Tarkista sähköposti ja oikeustyyppi")
-      return
-    }
-
-    try {
-      const result = await fetch(
-        "http://localhost:3000/huhu-sovellus/api/auth/claims",
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ role: accessType, email: email }),
-        }
-      )
-
-      alert("Removed permissions")
-    } catch (e) {
-      console.error("Selecting subcamp failed", e)
-    }
-  }
-
   if (props.accessList.length != 0) {
     return (
       <div className="z-10 flex w-full max-w-[500px] flex-col gap-2">
@@ -37,12 +13,14 @@ function AccessList(props: {
           {props.accessListHeading}
         </h2>
         <>
-          {props.accessList.map((user) => (
+          {props.accessList.map((email) => (
             <>
               <div className="place-items-top flex h-11 w-full rounded-[20px] bg-oslo p-2">
-                <h1 className="font-poppins text-lg ">{user.email}</h1>
+                <h1 className="font-poppins text-lg ">{email.toString()}</h1>
                 <button
-                  onClick={() => removeAccess(props.accessListType, user.email)}
+                  onClick={() =>
+                    props.removeAccess(props.accessListType, email)
+                  }
                   className="ml-auto"
                 >
                   <span className="material-symbols-outlined text-2xl">

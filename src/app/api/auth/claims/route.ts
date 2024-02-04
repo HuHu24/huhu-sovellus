@@ -15,12 +15,12 @@ export async function POST(request: NextRequest) {
 
     const claimsDoc = await firestore().doc("/claims/claims").get()
     let data = claimsDoc.data() as {
-      admin: [{ email: string; uid: string }]
-      safety: [{ email: string; uid: string }]
-      subcamp: [{ email: string; uid: string }]
+      admin: string[]
+      safety: string[]
+      subcamp: string[]
     }
 
-    data[result.role].push({ email: user.email || "", uid: user.uid })
+    data[result.role].push(user.email || "")
     await firestore().doc("/claims/claims").set(data)
 
     const customClaims = Object.assign({}, user.customClaims, {
@@ -56,15 +56,13 @@ export async function DELETE(request: NextRequest) {
 
     const claimsDoc = await firestore().doc("/claims/claims").get()
     let data = claimsDoc.data() as {
-      admin: [{ email: string; uid: string }]
-      safety: [{ email: string; uid: string }]
-      subcamp: [{ email: string; uid: string }]
+      admin: string[]
+      safety: string[]
+      subcamp: string[]
     }
 
-    const newData = data[result.role].filter(
-      (item) => item.email !== user.email && item.uid !== user.uid
-    )
-    data[result.role] = newData as [{ email: string; uid: string }]
+    const newData = data[result.role].filter((item) => item !== user.email)
+    data[result.role] = newData as string[]
 
     await firestore().doc("/claims/claims").set(data)
 
