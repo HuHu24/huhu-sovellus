@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { NextResponse } from "next/server"
 
 export async function middleware(request: NextRequest, response: NextResponse) {
   const session = request.cookies.get("session")
@@ -20,7 +20,6 @@ export async function middleware(request: NextRequest, response: NextResponse) {
       },
     }
   )
-
   //Return to /login if token is not authorized
   if (responseAPI.status != 200) {
     return NextResponse.redirect(
@@ -28,13 +27,29 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     )
   }
 
-  const body = (await responseAPI.json()) as {
-    claims: { admin?: boolean; subcamp?: boolean; safety?: boolean }
+  const data = await responseAPI.json()
+  const body = data as {
+    claims: { admin?: boolean; subcampLeader?: boolean; safety?: boolean }
+    email?: string
   }
 
-  if (body.claims.admin && request.url.endsWith("claims")) {
+  if (!body.email && request.url.includes("/admin")) {
     return NextResponse.redirect(
-      new URL("http://localhost:3000/huhu-sovellus", request.url)
+      new URL("http://localhost:3000/huhu-sovellus/", request.url)
+    )
+  }
+  if (
+    (!body.claims || body.claims.admin !== true) &&
+    (request.url.endsWith("claims") || request.url.endsWith("access"))
+  ) {
+    if (request.url.endsWith("access")) {
+      return NextResponse.redirect(
+        new URL("http://localhost:3000/huhu-sovellus/auth/signin", request.url)
+      )
+    }
+    return NextResponse.json(
+      { message: "Admin permissions required" },
+      { status: 403 }
     )
   }
 

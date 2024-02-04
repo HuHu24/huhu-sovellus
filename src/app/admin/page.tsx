@@ -10,8 +10,11 @@ export default async function AdminFrontpage() {
     },
   })
   const data = (await response.json()) as {
-    claims: { admin: boolean; subcamp: boolean; safety: boolean }
+    claims: { admin: boolean; subcampLeader: boolean; safety: boolean }
   }
+
+  console.log("Admin page:")
+  console.log(data.claims)
 
   return (
     <>
@@ -42,21 +45,32 @@ export default async function AdminFrontpage() {
             <p className="text-2xl">Uusia yhteydenottoja: 0</p>
             <div></div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            {data.claims.safety || data.claims.admin ? (
-              <Link href={"/admin/chat"}>
-                <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-soul">
-                  <span className="material-symbols-outlined text-9xl">
-                    forum
-                  </span>
-                  <h3 className="text-2xl">Turvachat</h3>
-                </div>
-              </Link>
-            ) : (
-              <></>
+          {!data.claims.admin &&
+            !data.claims.safety &&
+            !data.claims.subcampLeader && (
+              <h1 className="absolute top-1/2 ml-4 align-middle  font-poppins text-2xl">
+                Pyydä oikeuksia sovelluskehittäjiltä
+              </h1>
             )}
+          <div className="z-20 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             <>
-              {data.claims.subcamp || data.claims.admin ? (
+              {(data.claims && data.claims.safety) ||
+              (data.claims && data.claims.admin) ? (
+                <Link href={"/admin/chat"}>
+                  <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-soul">
+                    <span className="material-symbols-outlined text-9xl">
+                      forum
+                    </span>
+                    <h3 className="text-2xl">Turvachat</h3>
+                  </div>
+                </Link>
+              ) : (
+                <></>
+              )}
+            </>
+            <>
+              {(data.claims && data.claims.subcampLeader) ||
+              (data.claims && data.claims.admin) ? (
                 <>
                   <Link href={"/admin/releases"}>
                     <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-tokio text-helsinki">
@@ -79,7 +93,7 @@ export default async function AdminFrontpage() {
                 <></>
               )}
             </>
-            {data.claims.admin ? (
+            {data.claims && data.claims.admin ? (
               <Link href={"/admin/access"}>
                 <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-buenos_aires text-helsinki">
                   <span className="material-symbols-outlined text-9xl">
