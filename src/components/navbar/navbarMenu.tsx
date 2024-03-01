@@ -1,25 +1,48 @@
+import { auth } from "@/firebase"
+import { onAuthStateChanged } from "firebase/auth"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
-interface NavbarMenuProps {
-  // Array of pairs of titles and links assigned to them
-  items: [string, string][]
-  classes: string
-}
+const NavbarMenu = (props: { classes: String }) => {
+  const [isAuthenticated, setIsAuthenticaded] = useState(false)
 
-const NavbarMenu = ({ items, classes }: NavbarMenuProps) => {
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user && user.email) {
+        setIsAuthenticaded(true)
+        return
+      }
+      setIsAuthenticaded(false)
+    })
+  }, [])
+
   return (
     <div
-      className={`${classes} fixed bottom-[70px] right-0 flex h-[calc(100%-70px)] w-full max-w-[240px] flex-col items-center  divide-y bg-gray pt-5 transition-all`}
+      className={`${props.classes} fixed bottom-[70px] right-0 flex h-[calc(100%-70px)] w-full max-w-[240px] flex-col items-center  divide-y bg-gray pt-5 transition-all`}
     >
-      {items.map((item, i) => (
+      {isAuthenticated ? (
+        <>
+          <Link className="py-3 font-poppins text-3xl text-tokio" href="/admin">
+            Tekijäpaneeli
+          </Link>
+          <Link
+            className="py-3 font-poppins text-3xl text-tokio"
+            href="/auth/signout"
+          >
+            Kirjaudu ulos
+          </Link>
+        </>
+      ) : (
         <Link
           className="py-3 font-poppins text-3xl text-tokio"
-          href={item[1]}
-          key={i}
+          href="/auth/signin"
         >
-          {item[0]}
+          Kirjaudu
         </Link>
-      ))}
+      )}
+      <Link className="py-3 font-poppins text-3xl text-tokio" href="/settings">
+        Asetukset
+      </Link>
     </div>
   )
 }
