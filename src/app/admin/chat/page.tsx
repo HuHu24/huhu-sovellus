@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from "next/link"
 
 export default async function ChatMenu() {
   return (
     <>
       <div className="relative h-full w-full overflow-hidden bg-helsinki">
-        <div className="bg-oslo inline-flex h-[68px] w-full flex-col items-start justify-start gap-2.5 p-2.5">
+        <div className="inline-flex h-[68px] w-full flex-col items-start justify-start gap-2.5 bg-oslo p-2.5">
           <div className="inline-flex items-center justify-between self-stretch">
             <div className="absolute h-12 w-12"></div>
             <div className="material-symbols-outlined z-10 text-[49px] text-ateena">
@@ -22,14 +22,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -37,14 +38,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -52,14 +54,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -67,14 +70,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -82,14 +86,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -97,14 +102,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -112,14 +118,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -127,14 +134,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -142,14 +150,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -157,14 +166,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
@@ -172,14 +182,15 @@ export default async function ChatMenu() {
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
-              <p className="w-[85%] truncate mr-auto">
-                Kisdsjkj sjklödf jklsdjklf sdjklf  sfjks kfskljfs sfjklsjklfjkls dfj sjklfjklsf sjklfsdjklf
+              <p className="mr-auto w-[85%] truncate">
+                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
+                dfj sjklfjklsf sjklfsdjklf
               </p>
-              <div className="bg-barcelona p-1 h-6 rounded-lg flex place-items-center">
-                <p className="text-center w-full text-helsinki">1</p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
               </div>
             </div>
-            <div className="bg-oslo w-full h-0.5 my-2 rounded-full"/>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
           </Link>
         </div>
       </div>

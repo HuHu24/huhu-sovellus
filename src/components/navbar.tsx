@@ -31,7 +31,9 @@ const Navbar = () => {
         onClick={toggle}
       />
       <div
-        className={`${isOpen ? "right-0" : "right-[-250px]"} fixed bottom-[70px] flex h-[calc(100%-70px)] w-full max-w-[240px] flex-col items-center divide-y bg-gray pt-5 transition-all`}
+        className={`${
+          isOpen ? "right-0" : "right-[-250px]"
+        } fixed bottom-[70px] flex h-[calc(100%-70px)] w-full max-w-[240px] flex-col items-center divide-y bg-gray pt-5 transition-all`}
       >
         <Link href="/chat">
           <p className="py-3 font-poppins text-3xl text-tokio">Turvachat</p>
@@ -39,10 +41,14 @@ const Navbar = () => {
         {isAuthenticated ? (
           <>
             <Link href="/admin">
-              <p className="py-3 font-poppins text-3xl text-tokio">Tekijäpaneeli</p>
+              <p className="py-3 font-poppins text-3xl text-tokio">
+                Tekijäpaneeli
+              </p>
             </Link>
             <Link href="/auth/signout">
-              <p className="py-3 font-poppins text-3xl text-tokio">Kirjaudu ulos</p>
+              <p className="py-3 font-poppins text-3xl text-tokio">
+                Kirjaudu ulos
+              </p>
             </Link>
           </>
         ) : (
@@ -57,23 +63,23 @@ const Navbar = () => {
       <div className="box-border flex h-[70px] w-full shrink-0 flex-row items-center justify-between overflow-hidden bg-gray px-4">
         <Link href="/" className="flex">
           <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
-              cottage
-            </span>
+            cottage
+          </span>
         </Link>
         <Link href="/releases" className="flex">
           <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
-              full_coverage
+            full_coverage
           </span>
         </Link>
         <Link href="/timetable" className="flex">
           <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
-              event_note
-            </span>
+            event_note
+          </span>
         </Link>
         <Link href="/map" className="flex">
           <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
-              distance
-            </span>
+            distance
+          </span>
         </Link>
         <div onClick={toggle}>
           <span
