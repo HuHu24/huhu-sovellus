@@ -13,9 +13,6 @@ export default async function AdminFrontpage() {
     claims: { admin: boolean; subcampLeader: boolean; safety: boolean }
   }
 
-  console.log("Admin page:")
-  console.log(data.claims)
-
   return (
     <>
       <div className="relative h-full w-full overflow-hidden bg-helsinki">
