@@ -4,14 +4,8 @@ import React, { useState } from "react"
 import NavbarMenu from "./navbarMenu"
 import { NavbarButton } from "@/components/navbar/navbarButton"
 
-const exampleItems: [string, string][] = [
-  ["Luo käyttäjä", "/auth/signup"],
-  ["Kirjaudu", "/auth/signin"],
-  ["Asetukset", "/settings"],
-]
-
 const Navbar = () => {
-  const [isOpen, setState] = useState<boolean>(false)
+  const [isOpen, setState] = useState(false)
   const toggle = () => {
     if (isOpen) setState(false)
     else setState(true)
@@ -26,7 +20,6 @@ const Navbar = () => {
         onClick={toggle}
       />
       <NavbarMenu
-        items={exampleItems}
         classes={`${isOpen ? "right-0" : "right-[-250px]"}`}
       ></NavbarMenu>
       <div className="box-border flex h-[70px] w-full shrink-0 flex-row items-center justify-between overflow-hidden bg-gray px-4">
