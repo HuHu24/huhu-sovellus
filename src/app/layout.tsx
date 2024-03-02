@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import localFont from "next/font/local"
-import Navbar from "../components/navbar/navbar"
+import Navbar from "../components/navbar"
 import Head from "next/head"
 import { initFirebaseAdmin } from "@/firebaseAdmin"
 
