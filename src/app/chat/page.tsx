@@ -1,19 +1,75 @@
 "use client"
 
 import { FormEventHandler, useEffect, useRef, useState } from "react"
+import { onAuthStateChanged } from "@firebase/auth"
+import { auth, db } from "@/firebase"
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+} from "@firebase/firestore"
+
+interface MessageType {
+  sentTime: Date
+  body: string
+  sender: "user" | "safety"
+}
+
+function Message(props: { body: string; sender: "user" | "safety" }) {
+  return (
+    <>
+      {props.sender === "user" ? (
+        <div className="flex w-full">
+          <div className="w-2/4"></div>
+          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
+            {props.body}
+          </div>
+        </div>
+      ) : (
+        <div className="flex w-full">
+          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
+            {props.body}
+          </div>
+          <div className="w-2/4"></div>
+        </div>
+      )}
+    </>
+  )
+}
 
 export default function Home() {
-  const [message, setMessage] = useState("")
+  const [messageBody, setMessageBody] = useState("")
+  const [messages, setMessages] = useState<MessageType[]>()
+  const [userUid, setUserUid] = useState("")
   const chatContainerRef = useRef<any>()
 
   useEffect(() => {
-    // Scroll to the bottom on component mount
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUserUid(user.uid)
+
+        const data = await getDocs(
+          query(collection(db, "chats", user.uid, "messages"))
+        )
+        const temp = data.docs.map((doc) => doc.data()) as MessageType[]
+        console.log(temp)
+        setMessages(temp)
+      } else {
+        setUserUid("")
+      }
+    })
+
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
     }
   }, [])
 
-  const handleSendMessage = (event: FormEventHandler<HTMLFormElement>) => {
+  const handleSendMessage = async (
+    event: FormEventHandler<HTMLFormElement>
+  ) => {
     event.preventDefault()
     // Handle sending the message logic here
 
@@ -22,8 +78,19 @@ export default function Home() {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
     }
 
-    // Clear the message input
-    setMessage("")
+    try {
+      console.log(userUid)
+      await addDoc(collection(db, "chats", userUid, "messages"), {
+        sentTime: new Date(),
+        body: messageBody,
+        sender: "user",
+      })
+
+      setMessageBody("")
+    } catch (e) {
+      console.log(e)
+      alert("Error")
+    }
   }
 
   return (
@@ -43,59 +110,12 @@ export default function Home() {
         ref={chatContainerRef}
         className="flex h-full w-full flex-col gap-4 overflow-auto p-3"
       >
-        <div className="flex w-full">
-          <div className="w-2/4"></div>
-          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-        </div>
-        <div className="flex w-full">
-          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-          <div className="w-2/4"></div>
-        </div>
-        <div className="flex w-full">
-          <div className="w-2/4"></div>
-          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-        </div>
-        <div className="flex w-full">
-          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-          <div className="w-2/4"></div>
-        </div>
-        <div className="flex w-full">
-          <div className="w-2/4"></div>
-          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-        </div>
-        <div className="flex w-full">
-          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-          <div className="w-2/4"></div>
-        </div>
-        <div>
-          <br />
-          <br />
-          <br />
-        </div>
+        {messages?.map((singleMessage) => (
+          <Message body={singleMessage.body} sender={singleMessage.sender} />
+        ))}
+        <br />
+        <br />
+        <br />
       </div>
       <div className="fixed bottom-0 z-30 box-border flex h-[90px] w-screen bg-gray">
         <form
@@ -103,8 +123,8 @@ export default function Home() {
           onSubmit={handleSendMessage}
         >
           <textarea
-            onChange={(event) => setMessage(event.target.value)}
-            value={message}
+            onChange={(event) => setMessageBody(event.target.value)}
+            value={messageBody}
             className="h-full w-full rounded-lg bg-barcelona p-2 text-xl text-helsinki"
             placeholder="Kirjoita viesti..."
             required={true}
