@@ -7,7 +7,10 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   //Return to /login if don't have a session
   if (!session) {
     return NextResponse.redirect(
-      new URL(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/auth/signin`, request.url)
+      new URL(
+        `${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/auth/signin`,
+        request.url
+      )
     )
   }
 
@@ -23,7 +26,10 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   //Return to /login if token is not authorized
   if (responseAPI.status != 200) {
     return NextResponse.redirect(
-      new URL(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/auth/signin`, request.url)
+      new URL(
+        `${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/auth/signin`,
+        request.url
+      )
     )
   }
 
@@ -44,7 +50,10 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   ) {
     if (request.url.endsWith("access")) {
       return NextResponse.redirect(
-        new URL(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/auth/signin`, request.url)
+        new URL(
+          `${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/auth/signin`,
+          request.url
+        )
       )
     }
     return NextResponse.json(
