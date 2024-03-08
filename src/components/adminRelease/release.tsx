@@ -57,7 +57,7 @@ export const Release = () => {
                     <div>
                         <Link href={"./notifications/release/"}
                               className="material-symbols-outlined text-ateena text-[50px]">notifications_active</Link>
-                        <Link href={"./releases/release/edit"}
+                        <Link href={"./releases/release"}
                               className="material-symbols-outlined text-ateena mr-2 text-[50px]">edit</Link>
                     </div>
                 </div>
