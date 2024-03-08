@@ -4,8 +4,7 @@ import { cookies } from "next/headers"
 
 export default async function AdminFrontpage() {
   const session = cookies().get("session")?.value || ""
-  const response = await fetch("http://localhost:3000/huhu-sovellus/api/auth", {
-    headers: {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth`, {    headers: {
       Cookie: `session=${session || ""}`,
     },
   })

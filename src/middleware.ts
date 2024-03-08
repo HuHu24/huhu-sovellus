@@ -7,13 +7,13 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   //Return to /login if don't have a session
   if (!session) {
     return NextResponse.redirect(
-      new URL("http://localhost:3000/huhu-sovellus/auth/signin", request.url)
+      new URL(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/auth/signin`, request.url)
     )
   }
 
   //Call the authentication endpoint
   const responseAPI = await fetch(
-    "http://localhost:3000/huhu-sovellus/api/auth",
+    `${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth`,
     {
       headers: {
         Cookie: `session=${session?.value}`,
@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   //Return to /login if token is not authorized
   if (responseAPI.status != 200) {
     return NextResponse.redirect(
-      new URL("http://localhost:3000/huhu-sovellus/auth/signin", request.url)
+      new URL(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/auth/signin`, request.url)
     )
   }
 
@@ -35,7 +35,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
   if (!body.email && request.url.includes("/admin")) {
     return NextResponse.redirect(
-      new URL("http://localhost:3000/huhu-sovellus/", request.url)
+      new URL(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/`, request.url)
     )
   }
   if (
@@ -44,7 +44,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   ) {
     if (request.url.endsWith("access")) {
       return NextResponse.redirect(
-        new URL("http://localhost:3000/huhu-sovellus/auth/signin", request.url)
+        new URL(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/auth/signin`, request.url)
       )
     }
     return NextResponse.json(

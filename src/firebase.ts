@@ -46,7 +46,7 @@ export const loginWithEmailAndPassword = async (
       },
     })
 
-    location.replace("http://localhost:3000/huhu-sovellus/admin")
+    location.replace(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/admin`)
   } catch (e) {
     console.error("Error: " + e)
   }
@@ -60,14 +60,14 @@ export const signUpWithEmailAndPassword = async (
     const user = await createUserWithEmailAndPassword(auth, email, password)
     console.log("Created account for " + user.user.email)
 
-    await fetch("http://localhost:3000/huhu-sovellus/api/auth", {
+    await fetch(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${await user.user.getIdToken()}`,
       },
     })
 
-    location.replace("http://localhost:3000/huhu-sovellus/admin")
+    location.replace(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/admin`)
   } catch (e) {
     console.error("Error: " + e)
   }
@@ -76,7 +76,7 @@ export const signUpWithEmailAndPassword = async (
 export const signInAnonymously = async () => {
   try {
     const user = await fbSignInAnonymously(auth)
-    await fetch("http://localhost:3000/huhu-sovellus/api/auth", {
+    await fetch(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${await user.user.getIdToken()}`,
