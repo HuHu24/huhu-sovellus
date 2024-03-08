@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { format } from "date-fns"
 
-import Menu_button from "@/components/adminRelease/menu_button"
+import MenuButton from "@/components/adminRelease/menuButton"
 
 export default function Home() {
   const [imageSrc, setImageSrc] = useState("/huhu-sovellus/huhuymp.png")
@@ -67,14 +67,14 @@ export default function Home() {
             action=""
             className="mt-2 flex h-[80%] flex-col justify-between"
           >
-            <Menu_button
+            <MenuButton
               title="Kohderyhmä"
               options={["Kaikki", "Alaleiri", "Tekijät"]}
               onOptionChange={(option) =>
                 handleOptionChange("Kohderyhma", option)
               }
-            ></Menu_button>
-            <Menu_button
+            ></MenuButton>
+            <MenuButton
               title="Alaleiri"
               className={
                 selectedOptions.Kohderyhma !== "Alaleiri"
@@ -85,13 +85,13 @@ export default function Home() {
               onOptionChange={(option) =>
                 handleOptionChange("Alaleiri", option)
               }
-            ></Menu_button>
-            <Menu_button
+            ></MenuButton>
+            <MenuButton
               title="Ajastus"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) => handleOptionChange("Ajastus", option)}
-            ></Menu_button>
-            <Menu_button
+            ></MenuButton>
+            <MenuButton
               title="a"
               options={["a"]}
               className={
@@ -101,14 +101,14 @@ export default function Home() {
               }
               isTimeInput={true}
               onOptionChange={(option) => handleOptionChange("a", option)}
-            ></Menu_button>
-            <Menu_button
-              title="Piilotettu"
-              options={["Kyllä", "Ei"]}
+            ></MenuButton>
+            <MenuButton
+              title="Julkaisu"
+              options={["Ei", "Kyllä"]}
               onOptionChange={(option) =>
-                handleOptionChange("Piilotettu", option)
+                handleOptionChange("Julkaistu", option)
               }
-            ></Menu_button>
+            ></MenuButton>
             <div
               style={{
                 display: "flex",
@@ -117,7 +117,7 @@ export default function Home() {
               }}
             >
               <input
-                className="h-full w-1/2 cursor-pointer rounded-2xl bg-tokio font-poppins text-xl font-bold"
+                className="h-full w-1/2 cursor-pointer rounded-2xl bg-tokio p-2 font-poppins text-xl font-bold"
                 value="tallenna"
                 type="submit"
               ></input>
@@ -181,23 +181,23 @@ export default function Home() {
             <div className="ml-0 mt-4 whitespace-normal font-poppins text-2xl ">
               <p>{today}</p>
             </div>
-            <textarea
+            <input
               form={"main"}
               placeholder="Julkaisija"
               required={true}
-              className={`ml-0 w-full resize-none whitespace-normal font-poppins text-2xl ${
+              className={`ml-0 w-full resize-none whitespace-normal p-1 font-poppins text-2xl ${
                 lightMode
                   ? "bg-ateena text-helsinki"
                   : "bg-helsinki text-ateena"
               }
                       `}
-            ></textarea>
+            ></input>
           </div>
           <textarea
             form={"main"}
             placeholder="Aloita kirjoittaminen tästä"
             required={true}
-            className={`mt-2 h-full w-screen  break-words text-xl ${
+            className={`mt-2 h-full w-screen break-words  p-1 text-xl ${
               lightMode ? "bg-ateena text-helsinki" : "bg-helsinki text-ateena"
             }`}
           ></textarea>

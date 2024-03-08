@@ -8,7 +8,7 @@ interface MenuButtonProps {
   onOptionChange?: (option: string) => void
 }
 
-export const Menu_button = ({
+export const MenuButton = ({
   title,
   options,
   isTimeInput,
@@ -83,4 +83,4 @@ export const Menu_button = ({
     </div>
   )
 }
-export default Menu_button
+export default MenuButton
