@@ -1,8 +1,37 @@
 "use client"
 
 import { FormEventHandler, useEffect, useRef, useState } from "react"
+import { usePathname, useRouter } from "next/navigation"
+import { collection, getDocs } from "@firebase/firestore"
+import { db } from "@/firebase"
+import { Message as MessageType } from "@/types/message"
+import Message from "@/components/chat/message"
 
 export default function Home() {
+  const router = useRouter()
+  const pathname = usePathname()
+  const [messages, setMessages] = useState<MessageType[]>()
+
+  useEffect(() => {
+    const match = pathname.match("[^/]*$")
+    const chatId: string = match[0] || ""
+
+    if (chatId === "") {
+      router.replace("/admin/chat")
+    }
+
+    getDocs(collection(db, "chats", "G1mo7TWE94RbfLYOd4RXdiJmgRv2", "messages"))
+      .then((data) => {
+        const filteredMessages = data.docs.map((doc) =>
+          doc.data()
+        ) as MessageType[]
+        setMessages(filteredMessages)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }, [])
+
   const [message, setMessage] = useState("")
   const chatContainerRef = useRef<any>()
 
@@ -43,54 +72,9 @@ export default function Home() {
         ref={chatContainerRef}
         className="flex h-full w-full flex-col gap-4 overflow-auto p-3"
       >
-        <div className="flex w-full">
-          <div className="w-2/4"></div>
-          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-        </div>
-        <div className="flex w-full">
-          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-          <div className="w-2/4"></div>
-        </div>
-        <div className="flex w-full">
-          <div className="w-2/4"></div>
-          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-        </div>
-        <div className="flex w-full">
-          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-          <div className="w-2/4"></div>
-        </div>
-        <div className="flex w-full">
-          <div className="w-2/4"></div>
-          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-        </div>
-        <div className="flex w-full">
-          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-          <div className="w-2/4"></div>
-        </div>
+        {messages?.map((singleMessage) => (
+          <Message body={singleMessage.body} sender={singleMessage.sender} />
+        ))}
         <div>
           <br />
           <br />

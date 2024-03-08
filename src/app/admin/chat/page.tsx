@@ -1,4 +1,6 @@
 import Link from "next/link"
+import Conversation from "@/app/admin/chat/conversation"
+import { Suspense } from "react"
 
 export default async function ChatMenu() {
   return (
@@ -16,182 +18,16 @@ export default async function ChatMenu() {
           </div>
         </div>
         <div className="flex h-full w-full flex-col gap-1 overflow-auto p-3">
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
-          <Link href="/admin/chat/placeholder">
-            <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
-              <p className="text-lg">xx:xx</p>
-            </div>
-            <div className="flex place-items-center">
-              <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
-              </p>
-              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
-                <p className="w-full text-center text-helsinki">1</p>
-              </div>
-            </div>
-            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
-          </Link>
+          <Suspense>
+            <Conversation
+              id={" G1mo7TWE94RbfLYOd4RXdiJmgRv2 "}
+              latestsMessage={
+                "Tässä jotain diipa daapaa vai pitääkö edes olla mitään"
+              }
+              time={undefined}
+              title={"---Chatin title tähän--"}
+            />
+          </Suspense>
         </div>
       </div>
     </>

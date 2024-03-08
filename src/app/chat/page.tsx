@@ -11,34 +11,8 @@ import {
   query,
   setDoc,
 } from "@firebase/firestore"
-
-interface MessageType {
-  sentTime: Date
-  body: string
-  sender: "user" | "safety"
-}
-
-function Message(props: { body: string; sender: "user" | "safety" }) {
-  return (
-    <>
-      {props.sender === "user" ? (
-        <div className="flex w-full">
-          <div className="w-2/4"></div>
-          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            {props.body}
-          </div>
-        </div>
-      ) : (
-        <div className="flex w-full">
-          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            {props.body}
-          </div>
-          <div className="w-2/4"></div>
-        </div>
-      )}
-    </>
-  )
-}
+import { Message as MessageType } from "@/types/message"
+import Message from "@/components/chat/message"
 
 export default function Home() {
   const [messageBody, setMessageBody] = useState("")
