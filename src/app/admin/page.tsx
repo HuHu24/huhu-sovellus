@@ -4,10 +4,14 @@ import { cookies } from "next/headers"
 
 export default async function AdminFrontpage() {
   const session = cookies().get("session")?.value || ""
-  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth`, {    headers: {
-      Cookie: `session=${session || ""}`,
-    },
-  })
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth`,
+    {
+      headers: {
+        Cookie: `session=${session || ""}`,
+      },
+    }
+  )
   const data = (await response.json()) as {
     claims: { admin: boolean; subcampLeader: boolean; safety: boolean }
   }
