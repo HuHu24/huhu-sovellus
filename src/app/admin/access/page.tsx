@@ -42,7 +42,7 @@ export default function Access() {
 
     try {
       const result = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth/claims`,
+        `${process.env.NEXT_PUBLIC_URL}/api/auth/claims`,
         {
           method: "POST",
           headers: {
@@ -86,7 +86,7 @@ export default function Access() {
 
     try {
       const result = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth/claims`,
+        `${process.env.NEXT_PUBLIC_URL}/api/auth/claims`,
         {
           method: "DELETE",
           headers: {

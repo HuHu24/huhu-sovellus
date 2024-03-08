@@ -8,7 +8,7 @@ export default function Home() {
     try {
       await signInAnonymously()
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth/claims/subcamp`,
+        `${process.env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`,
         {
           method: "POST",
           headers: {
