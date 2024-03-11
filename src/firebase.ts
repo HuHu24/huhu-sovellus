@@ -1,12 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
-import { getAnalytics } from "firebase/analytics"
 import { getFirestore } from "firebase/firestore"
 import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
   signInAnonymously as fbSignInAnonymously,
+  signOut as fbSignOut,
 } from "@firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -82,6 +82,14 @@ export const signInAnonymously = async () => {
         Authorization: `Bearer ${await user.user.getIdToken()}`,
       },
     })
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+}
+
+export const signOut = async () => {
+  try {
+    await fbSignOut(auth)
   } catch (e) {
     console.error("Error: " + e)
   }
