@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
-import { getAnalytics } from "firebase/analytics"
 import { getFirestore } from "firebase/firestore"
 import {
   createUserWithEmailAndPassword,
@@ -8,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInAnonymously as fbSignInAnonymously,
 } from "@firebase/auth"
+import { env } from "@/env"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -46,7 +46,7 @@ export const loginWithEmailAndPassword = async (
       },
     })
 
-    location.replace(`${process.env.NEXT_PUBLIC_URL}/admin`)
+    location.replace(`${env.NEXT_PUBLIC_URL}/admin`)
   } catch (e) {
     console.error("Error: " + e)
   }
@@ -60,14 +60,14 @@ export const signUpWithEmailAndPassword = async (
     const user = await createUserWithEmailAndPassword(auth, email, password)
     console.log("Created account for " + user.user.email)
 
-    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth`, {
+    await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${await user.user.getIdToken()}`,
       },
     })
 
-    location.replace(`${process.env.NEXT_PUBLIC_URL}/admin`)
+    location.replace(`${env.NEXT_PUBLIC_URL}/admin`)
   } catch (e) {
     console.error("Error: " + e)
   }
@@ -76,7 +76,7 @@ export const signUpWithEmailAndPassword = async (
 export const signInAnonymously = async () => {
   try {
     const user = await fbSignInAnonymously(auth)
-    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth`, {
+    await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${await user.user.getIdToken()}`,

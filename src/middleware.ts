@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
+import { env } from "@/env"
 
 export async function middleware(request: NextRequest, response: NextResponse) {
   const session = request.cookies.get("session")
@@ -7,12 +8,12 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   //Return to /login if don't have a session
   if (!session) {
     return NextResponse.redirect(
-      new URL(`${process.env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
+      new URL(`${env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
     )
   }
 
   //Call the authentication endpoint
-  const responseAPI = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth`, {
+  const responseAPI = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`, {
     headers: {
       Cookie: `session=${session?.value}`,
     },
@@ -20,7 +21,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   //Return to /login if token is not authorized
   if (responseAPI.status != 200) {
     return NextResponse.redirect(
-      new URL(`${process.env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
+      new URL(`${env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
     )
   }
 
@@ -32,7 +33,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
   if (!body.email && request.url.includes("/admin")) {
     return NextResponse.redirect(
-      new URL(`${process.env.NEXT_PUBLIC_URL}/`, request.url)
+      new URL(`${env.NEXT_PUBLIC_URL}/`, request.url)
     )
   }
   if (
@@ -41,7 +42,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   ) {
     if (request.url.endsWith("access")) {
       return NextResponse.redirect(
-        new URL(`${process.env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
+        new URL(`${env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
       )
     }
     return NextResponse.json(

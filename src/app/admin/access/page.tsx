@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "@firebase/auth"
 import { auth, db, signInAnonymously } from "@/firebase"
 import { doc, getDoc } from "@firebase/firestore"
 import AccessList from "@/app/admin/access/accessList"
+import { env } from "@/env"
 
 export default function Access() {
   const [admin, setAdmin] = useState<string[]>([])
@@ -41,16 +42,13 @@ export default function Access() {
     }
 
     try {
-      const result = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/auth/claims`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ role: accessType, email: email }),
-        }
-      )
+      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ role: accessType, email: email }),
+      })
 
       if (result.status >= 300) {
         const body = (await result.json()) as { message: string }
@@ -85,16 +83,13 @@ export default function Access() {
     }
 
     try {
-      const result = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/auth/claims`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ role: accessType, email: email }),
-        }
-      )
+      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ role: accessType, email: email }),
+      })
 
       if (accessType == "admin") {
         setAdmin(admin.filter((item) => item != email))
