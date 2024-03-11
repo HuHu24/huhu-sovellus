@@ -8,6 +8,7 @@ import {
   signInAnonymously as fbSignInAnonymously,
   signOut as fbSignOut,
 } from "@firebase/auth"
+import { env } from "@/env"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -39,14 +40,14 @@ export const loginWithEmailAndPassword = async (
     const user = await signInWithEmailAndPassword(auth, email, password)
     console.log("Logged in as " + user.user.email)
 
-    await fetch("/huhu-sovellus/api/auth", {
+    await fetch("/api/auth", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${await user.user.getIdToken()}`,
       },
     })
 
-    location.replace(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/admin`)
+    location.replace(`${env.NEXT_PUBLIC_URL}/admin`)
   } catch (e) {
     console.error("Error: " + e)
   }
@@ -60,14 +61,14 @@ export const signUpWithEmailAndPassword = async (
     const user = await createUserWithEmailAndPassword(auth, email, password)
     console.log("Created account for " + user.user.email)
 
-    await fetch(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth`, {
+    await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${await user.user.getIdToken()}`,
       },
     })
 
-    location.replace(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/admin`)
+    location.replace(`${env.NEXT_PUBLIC_URL}/admin`)
   } catch (e) {
     console.error("Error: " + e)
   }
@@ -76,7 +77,7 @@ export const signUpWithEmailAndPassword = async (
 export const signInAnonymously = async () => {
   try {
     const user = await fbSignInAnonymously(auth)
-    await fetch(`${process.env.NEXT_PUBLIC_URL}/huhu-sovellus/api/auth`, {
+    await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${await user.user.getIdToken()}`,

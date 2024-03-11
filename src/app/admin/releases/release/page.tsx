@@ -7,7 +7,7 @@ import { format } from "date-fns"
 import MenuButton from "@/components/adminRelease/menuButton"
 
 export default function Home() {
-  const [imageSrc, setImageSrc] = useState("/huhu-sovellus/huhuymp.png")
+  const [imageSrc, setImageSrc] = useState("/huhuymp.png")
   const [selectedOptions, setSelectedOptions] = useState({
     Ajastus: "Ei",
     Kohderyhma: "Kaikki",
