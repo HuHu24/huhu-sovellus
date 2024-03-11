@@ -18,13 +18,16 @@ export default async function ChatMenu() {
         <div className="flex h-full w-full flex-col gap-1 overflow-auto p-3">
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -34,13 +37,16 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -50,13 +56,16 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -66,13 +75,16 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -82,13 +94,16 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -98,13 +113,16 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -114,13 +132,16 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -130,13 +151,16 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -146,13 +170,16 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -162,13 +189,16 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>
@@ -178,13 +208,92 @@ export default async function ChatMenu() {
           </Link>
           <Link href="/admin/chat/placeholder">
             <div className="flex place-items-center">
-              <h2 className="mr-auto text-3xl">Kissa</h2>
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
               <p className="text-lg">xx:xx</p>
             </div>
             <div className="flex place-items-center">
               <p className="mr-auto w-[85%] truncate">
-                Kisdsjkj sjklödf jklsdjklf sdjklf sfjks kfskljfs sfjklsjklfjkls
-                dfj sjklfjklsf sjklfsdjklf
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
+              </p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
+              </div>
+            </div>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
+          </Link>
+          <Link href="/admin/chat/placeholder">
+            <div className="flex place-items-center">
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
+              <p className="text-lg">xx:xx</p>
+            </div>
+            <div className="flex place-items-center">
+              <p className="mr-auto w-[85%] truncate">
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
+              </p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
+              </div>
+            </div>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
+          </Link>
+          <Link href="/admin/chat/placeholder">
+            <div className="flex place-items-center">
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
+              <p className="text-lg">xx:xx</p>
+            </div>
+            <div className="flex place-items-center">
+              <p className="mr-auto w-[85%] truncate">
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
+              </p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
+              </div>
+            </div>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
+          </Link>
+          <Link href="/admin/chat/placeholder">
+            <div className="flex place-items-center">
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
+              <p className="text-lg">xx:xx</p>
+            </div>
+            <div className="flex place-items-center">
+              <p className="mr-auto w-[85%] truncate">
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
+              </p>
+              <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
+                <p className="w-full text-center text-helsinki">1</p>
+              </div>
+            </div>
+            <div className="my-2 h-0.5 w-full rounded-full bg-oslo" />
+          </Link>
+          <Link href="/admin/chat/placeholder">
+            <div className="flex place-items-center">
+              <h2 className="mr-auto text-3xl">Esimerkkiotsikko</h2>
+              <p className="text-lg">xx:xx</p>
+            </div>
+            <div className="flex place-items-center">
+              <p className="mr-auto w-[85%] truncate">
+                Hienoa kuulla! Se saattaa viitata siihen, että jokin
+                käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+                vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+                ongelman. Onko sinulla tietoturvapäivityksiä tai
+                ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
               </p>
               <div className="flex h-6 place-items-center rounded-lg bg-barcelona p-1">
                 <p className="w-full text-center text-helsinki">1</p>

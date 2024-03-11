@@ -58,5 +58,5 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
 //Add your protected routes
 export const config = {
-  matcher: ["/api/auth/claims/:path*", "/admin/:path*"],
+  matcher: ["/api/auth/claims/:path*"],
 }

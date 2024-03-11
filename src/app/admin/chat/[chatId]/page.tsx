@@ -13,7 +13,7 @@ export default function Home() {
     }
   }, [])
 
-  const handleSendMessage = (event: FormEventHandler<HTMLFormElement>) => {
+  const handleSendMessage = (event: any) => {
     event.preventDefault()
     // Handle sending the message logic here
 
@@ -44,50 +44,92 @@ export default function Home() {
         className="flex h-full w-full flex-col gap-4 overflow-auto p-3"
       >
         <div className="flex w-full">
-          <div className="w-2/4"></div>
-          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
-          </div>
-        </div>
-        <div className="flex w-full">
           <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
+            Hei! Kuinka voin auttaa sinua tänään?
           </div>
           <div className="w-2/4"></div>
         </div>
         <div className="flex w-full">
           <div className="w-2/4"></div>
           <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
+            Minulla on ongelma tietokoneeni kanssa. Se ei käynnisty oikein.
           </div>
         </div>
         <div className="flex w-full">
           <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
+            Voi ei, se kuulostaa harmittavalta. Mitä tarkalleen ottaen tapahtuu,
+            kun yrität käynnistää tietokonetta?
           </div>
           <div className="w-2/4"></div>
         </div>
         <div className="flex w-full">
           <div className="w-2/4"></div>
           <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
+            Tietokone näyttää vain mustaa ruutua eikä reagoi mihinkään.
           </div>
         </div>
         <div className="flex w-full">
           <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
-            ajklajkls jklasjkl djkla ajklsd jklasdjklöas jkldajkl sdjklasd
-            jklasj kldasjkld sjklfjkls jklfs klf jklsfjk lsdjklfjkls ddfjkls
-            fsdjklf jklsdfj klsjkld jklsdfjk lsjklöf
+            Ymmärrän. Ensimmäisenä voit kokeilla sammuttaa tietokoneen kokonaan
+            ja käynnistää sen uudelleen. Jos se ei auta, voimme tarkastella
+            muita mahdollisia syitä. Onko sinulla varmuuskopiota tärkeistä
+            tiedostoista?
+          </div>
+          <div className="w-2/4"></div>
+        </div>
+        <div className="flex w-full">
+          <div className="w-2/4"></div>
+          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
+            En ole tehnyt varmuuskopiota pitkään aikaan.
+          </div>
+        </div>
+        <div className="flex w-full">
+          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
+            Ei hätää, yritetään ensin ratkaista käynnistysongelma ja sitten
+            voimme keskustella varmuuskopioinnista. Kokeile ensin
+            uudelleenkäynnistystä ja kerro, mitä tapahtuu.
+          </div>
+          <div className="w-2/4"></div>
+        </div>
+        <div className="flex w-full">
+          <div className="w-2/4"></div>
+          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
+            Ok, odota hetki.
+          </div>
+        </div>
+        <div className="flex w-full">
+          <div className="w-2/4"></div>
+          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
+            Valitettavasti se ei auttanut. Musta ruutu on edelleen.
+          </div>
+        </div>
+        <div className="flex w-full">
+          <div className="break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
+            Selvä. Tässä vaiheessa voit yrittää käynnistää tietokoneen
+            vikasietotilassa. Yleensä se onnistuu painamalla F8-näppäintä
+            käynnistyksen aikana. Kokeile sitä ja kerro, mitä tapahtuu.
+          </div>
+          <div className="w-2/4"></div>
+        </div>
+        <div className="flex w-full">
+          <div className="w-2/4"></div>
+          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
+            Hyvä idea, kokeilen heti.
+          </div>
+        </div>
+        <div className="flex w-full">
+          <div className="w-2/4"></div>
+          <div className="ml-auto break-all rounded-lg bg-buenos_aires p-2 text-lg text-helsinki">
+            Wau, se toimi! Nyt olen vikasietotilassa.
+          </div>
+        </div>
+        <div className="flex w-full">
+          <div className="ml-auto break-all rounded-lg bg-barcelona p-2 text-lg text-helsinki">
+            Hienoa kuulla! Se saattaa viitata siihen, että jokin
+            käynnistysohjelma tai ajuri aiheuttaa ongelman. Voimme jatkaa
+            vianetsintää ja selvittää, mikä tarkalleen ottaen aiheuttaa
+            ongelman. Onko sinulla tietoturvapäivityksiä tai
+            ohjelmistopäivityksiä, joita et ole asentanut viime aikoina?
           </div>
           <div className="w-2/4"></div>
         </div>
