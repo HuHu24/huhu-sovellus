@@ -6,7 +6,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signInAnonymously as fbSignInAnonymously,
-  signOut,
+  signOut as fbSignOut,
 } from "@firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -87,9 +87,9 @@ export const signInAnonymously = async () => {
   }
 }
 
-export const sign_out = async () => {
+export const signOut = async () => {
   try {
-    await signOut(auth)
+    await fbSignOut(auth)
   } catch (e) {
     console.error("Error: " + e)
   }
