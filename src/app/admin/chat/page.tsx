@@ -1,8 +1,16 @@
-import Link from "next/link"
-import Conversation from "@/app/admin/chat/conversation"
-import { Suspense } from "react"
+import Chat from "@/app/admin/chat/chat"
+import { initFirebaseAdmin } from "@/firebaseAdmin"
+import { firestore } from "firebase-admin"
+import { Chat as ChatType } from "@/types/chat"
 
 export default async function ChatMenu() {
+  await initFirebaseAdmin()
+  let data: ChatType[] = []
+  const docs = await firestore().collection("/chats").get()
+  docs.forEach((tempDoc) => {
+    data.push({ ...tempDoc.data(), id: tempDoc.id } as ChatType)
+  })
+
   return (
     <>
       <div className="relative h-full w-full overflow-hidden bg-helsinki">
@@ -18,16 +26,9 @@ export default async function ChatMenu() {
           </div>
         </div>
         <div className="flex h-full w-full flex-col gap-1 overflow-auto p-3">
-          <Suspense>
-            <Conversation
-              id={"G1mo7TWE94RbfLYOd4RXdiJmgRv2 "}
-              latestsMessage={
-                "Tässä jotain diipa daapaa vai pitääkö edes olla mitään"
-              }
-              time={undefined}
-              title={"---Chatin title tähän--"}
-            />
-          </Suspense>
+          {data.map((chat) => {
+            return <Chat chat={chat} />
+          })}
         </div>
       </div>
     </>
