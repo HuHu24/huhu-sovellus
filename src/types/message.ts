@@ -1,5 +1,5 @@
 export interface Message {
-  sentTime: Date
+  createdAt: Date
   body: string
   sender: "user" | "safety"
 }

@@ -6,10 +6,10 @@ import { auth, db } from "@/firebase"
 import {
   addDoc,
   collection,
-  doc,
-  getDocs,
+  limit,
+  onSnapshot,
+  orderBy,
   query,
-  setDoc,
 } from "@firebase/firestore"
 import { Message as MessageType } from "@/types/message"
 import Message from "@/components/chat/message"
@@ -24,13 +24,24 @@ export default function Home() {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUserUid(user.uid)
-
-        const data = await getDocs(
-          query(collection(db, "chats", user.uid, "messages"))
+        const q = query(
+          collection(db, "chats", user.uid, "messages"),
+          orderBy("createdAt", "desc"),
+          limit(20)
         )
-        const temp = data.docs.map((doc) => doc.data()) as MessageType[]
-        console.log(temp)
-        setMessages(temp)
+
+        const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+          const fetchedMessages: MessageType[] = []
+          QuerySnapshot.forEach((doc) => {
+            const data = doc.data() as MessageType
+            fetchedMessages.push(data)
+          })
+          const sortedMessages = fetchedMessages.sort((a, b) => {
+            return a.createdAt > b.createdAt
+          })
+          setMessages(sortedMessages)
+        })
+        return () => unsubscribe
       } else {
         setUserUid("")
       }
@@ -53,16 +64,15 @@ export default function Home() {
     }
 
     try {
-      console.log(userUid)
       await addDoc(collection(db, "chats", userUid, "messages"), {
-        sentTime: new Date(),
+        createdAt: new Date(),
         body: messageBody,
         sender: "user",
       })
 
       setMessageBody("")
     } catch (e) {
-      console.log(e)
+      console.error(e)
       alert("Error")
     }
   }
@@ -91,9 +101,11 @@ export default function Home() {
             admin={false}
           />
         ))}
-        <br />
-        <br />
-        <br />
+        <div>
+          <br />
+          <br />
+          <br />
+        </div>
       </div>
       <div className="fixed bottom-0 z-30 box-border flex h-[90px] w-screen bg-gray">
         <form

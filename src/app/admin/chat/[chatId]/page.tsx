@@ -2,7 +2,15 @@
 
 import { FormEventHandler, useEffect, useRef, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
-import { addDoc, collection, getDocs } from "@firebase/firestore"
+import {
+  addDoc,
+  collection,
+  getDocs,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+} from "@firebase/firestore"
 import { db } from "@/firebase"
 import { Message as MessageType } from "@/types/message"
 import Message from "@/components/chat/message"
@@ -18,7 +26,6 @@ export default function Home() {
   useEffect(() => {
     const match = pathname.match("[^/]*$")
     let localChatId = ""
-    console.log(match[0])
     if (match) {
       setChatId(match[0].toString())
     }
@@ -26,20 +33,28 @@ export default function Home() {
     localChatId = match[0] || ""
 
     if (localChatId === "") {
-      console.log(chatId)
       router.replace("/admin/chat")
     }
 
-    getDocs(collection(db, "chats", "G1mo7TWE94RbfLYOd4RXdiJmgRv2", "messages"))
-      .then((data) => {
-        const filteredMessages = data.docs.map((doc) =>
-          doc.data()
-        ) as MessageType[]
-        setMessages(filteredMessages)
+    const q = query(
+      collection(db, "chats", localChatId, "messages"),
+      orderBy("createdAt", "desc"),
+      limit(20)
+    )
+
+    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      const fetchedMessages: MessageType[] = []
+      QuerySnapshot.forEach((doc) => {
+        const data = doc.data() as MessageType
+        fetchedMessages.push(data)
       })
-      .catch((error) => {
-        console.error(error)
+      const sortedMessages = fetchedMessages.sort((a, b) => {
+        return a.createdAt > b.createdAt
       })
+      setMessages(sortedMessages)
+    })
+
+    return unsubscribe
   }, [])
 
   useEffect(() => {
@@ -62,14 +77,14 @@ export default function Home() {
 
     try {
       await addDoc(collection(db, "chats", chatId, "messages"), {
-        sentTime: new Date(),
+        createdAt: new Date(),
         body: message,
         sender: "admin",
       })
 
       setMessage("")
     } catch (e) {
-      console.log(e)
+      console.error(e)
       alert("Error")
     }
   }
