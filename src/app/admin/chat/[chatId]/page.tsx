@@ -2,7 +2,7 @@
 
 import { FormEventHandler, useEffect, useRef, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
-import { collection, getDocs } from "@firebase/firestore"
+import { addDoc, collection, getDocs } from "@firebase/firestore"
 import { db } from "@/firebase"
 import { Message as MessageType } from "@/types/message"
 import Message from "@/components/chat/message"
@@ -11,12 +11,22 @@ export default function Home() {
   const router = useRouter()
   const pathname = usePathname()
   const [messages, setMessages] = useState<MessageType[]>()
+  const [chatId, setChatId] = useState("")
+  const [message, setMessage] = useState("")
+  const chatContainerRef = useRef<any>()
 
   useEffect(() => {
     const match = pathname.match("[^/]*$")
-    const chatId: string = match[0] || ""
+    let localChatId = ""
+    console.log(match[0])
+    if (match) {
+      setChatId(match[0].toString())
+    }
 
-    if (chatId === "") {
+    localChatId = match[0] || ""
+
+    if (localChatId === "") {
+      console.log(chatId)
       router.replace("/admin/chat")
     }
 
@@ -32,9 +42,6 @@ export default function Home() {
       })
   }, [])
 
-  const [message, setMessage] = useState("")
-  const chatContainerRef = useRef<any>()
-
   useEffect(() => {
     // Scroll to the bottom on component mount
     if (chatContainerRef.current) {
@@ -42,7 +49,9 @@ export default function Home() {
     }
   }, [])
 
-  const handleSendMessage = (event: FormEventHandler<HTMLFormElement>) => {
+  const handleSendMessage = async (
+    event: FormEventHandler<HTMLFormElement>
+  ) => {
     event.preventDefault()
     // Handle sending the message logic here
 
@@ -51,8 +60,18 @@ export default function Home() {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
     }
 
-    // Clear the message input
-    setMessage("")
+    try {
+      await addDoc(collection(db, "chats", chatId, "messages"), {
+        sentTime: new Date(),
+        body: message,
+        sender: "admin",
+      })
+
+      setMessage("")
+    } catch (e) {
+      console.log(e)
+      alert("Error")
+    }
   }
 
   return (
@@ -73,7 +92,11 @@ export default function Home() {
         className="flex h-full w-full flex-col gap-4 overflow-auto p-3"
       >
         {messages?.map((singleMessage) => (
-          <Message body={singleMessage.body} sender={singleMessage.sender} />
+          <Message
+            body={singleMessage.body}
+            sender={singleMessage.sender}
+            admin={true}
+          />
         ))}
         <div>
           <br />

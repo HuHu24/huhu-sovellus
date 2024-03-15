@@ -20,7 +20,7 @@ export default async function ChatMenu() {
         <div className="flex h-full w-full flex-col gap-1 overflow-auto p-3">
           <Suspense>
             <Conversation
-              id={" G1mo7TWE94RbfLYOd4RXdiJmgRv2 "}
+              id={"G1mo7TWE94RbfLYOd4RXdiJmgRv2 "}
               latestsMessage={
                 "Tässä jotain diipa daapaa vai pitääkö edes olla mitään"
               }

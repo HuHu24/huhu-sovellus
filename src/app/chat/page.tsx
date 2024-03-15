@@ -85,7 +85,11 @@ export default function Home() {
         className="flex h-full w-full flex-col gap-4 overflow-auto p-3"
       >
         {messages?.map((singleMessage) => (
-          <Message body={singleMessage.body} sender={singleMessage.sender} />
+          <Message
+            body={singleMessage.body}
+            sender={singleMessage.sender}
+            admin={false}
+          />
         ))}
         <br />
         <br />
