@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEventHandler, useEffect, useRef, useState } from "react"
+import {FormEvent, FormEventHandler, useEffect, useRef, useState} from "react"
 import { usePathname, useRouter } from "next/navigation"
 import {
   addDoc,
@@ -31,7 +31,9 @@ export default function Home() {
       setChatId(match[0].toString())
     }
 
-    localChatId = match[0] || ""
+    if (match) {
+      localChatId = match[0] || ""
+    }
 
     if (localChatId === "") {
       router.replace("/admin/chat")
@@ -50,7 +52,7 @@ export default function Home() {
         fetchedMessages.push(data)
       })
       const sortedMessages = fetchedMessages.sort((a, b) => {
-        return a.createdAt > b.createdAt
+        return a.createdAt > b.createdAt as unknown as number
       })
       setMessages(sortedMessages)
     })
@@ -66,12 +68,10 @@ export default function Home() {
   }, [])
 
   const handleSendMessage = async (
-    event: FormEventHandler<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault()
-    // Handle sending the message logic here
 
-    // Scroll to the bottom after sending a message
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
     }
@@ -80,7 +80,7 @@ export default function Home() {
       updateDoc(doc(db, "chats", chatId), {
         hasBeenRead: {
           admin: true,
-          user: false
+          user: false,
         },
         latestMessage: {
           body: message,
@@ -119,6 +119,7 @@ export default function Home() {
         className="flex h-full w-full flex-col gap-4 overflow-auto p-3"
       >
         {messages?.map((singleMessage) => (
+          // eslint-disable-next-line react/jsx-key
           <Message
             body={singleMessage.body}
             sender={singleMessage.sender}

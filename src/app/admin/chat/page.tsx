@@ -27,6 +27,7 @@ export default async function ChatMenu() {
         </div>
         <div className="flex h-full w-full flex-col gap-1 overflow-auto p-3">
           {data.map((chat) => {
+            // eslint-disable-next-line react/jsx-key
             return <Chat chat={chat} />
           })}
         </div>

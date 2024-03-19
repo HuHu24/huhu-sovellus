@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEventHandler, useEffect, useRef, useState } from "react"
+import {FormEvent, FormEventHandler, useEffect, useRef, useState} from "react"
 import { onAuthStateChanged } from "@firebase/auth"
 import { auth, db } from "@/firebase"
 import {
@@ -41,7 +41,7 @@ export default function Home() {
             fetchedMessages.push(data)
           })
           const sortedMessages = fetchedMessages.sort((a, b) => {
-            return a.createdAt > b.createdAt
+            return a.createdAt > b.createdAt as unknown as number
           })
           setMessages(sortedMessages)
         })
@@ -57,12 +57,10 @@ export default function Home() {
   }, [])
 
   const handleSendMessage = async (
-    event: FormEventHandler<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault()
-    // Handle sending the message logic here
 
-    // Scroll to the bottom after sending a message
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
     }
@@ -89,7 +87,7 @@ export default function Home() {
         updateDoc(doc(db, "chats", userUid), {
           hasBeenRead: {
             admin: false,
-            user: true
+            user: true,
           },
           latestMessage: {
             body: messageBody,
@@ -129,9 +127,10 @@ export default function Home() {
         className="flex h-full w-full flex-col gap-4 overflow-auto p-3"
       >
         <>
-          {messages?.length > 0 ? (
+          {messages && messages.length > 0 ? (
             <>
-              {messages?.map((singleMessage) => (
+              {messages.map((singleMessage, key) => (
+                // eslint-disable-next-line react/jsx-key
                 <Message
                   body={singleMessage.body}
                   sender={singleMessage.sender}
