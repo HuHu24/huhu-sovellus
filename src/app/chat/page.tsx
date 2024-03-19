@@ -1,6 +1,6 @@
 "use client"
 
-import {FormEvent, FormEventHandler, useEffect, useRef, useState} from "react"
+import { FormEvent, FormEventHandler, useEffect, useRef, useState } from "react"
 import { onAuthStateChanged } from "@firebase/auth"
 import { auth, db } from "@/firebase"
 import {
@@ -41,7 +41,7 @@ export default function Home() {
             fetchedMessages.push(data)
           })
           const sortedMessages = fetchedMessages.sort((a, b) => {
-            return a.createdAt > b.createdAt as unknown as number
+            return (a.createdAt > b.createdAt) as unknown as number
           })
           setMessages(sortedMessages)
         })
@@ -56,9 +56,7 @@ export default function Home() {
     }
   }, [])
 
-  const handleSendMessage = async (
-    event: FormEvent<HTMLFormElement>
-  ) => {
+  const handleSendMessage = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if (chatContainerRef.current) {
