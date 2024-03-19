@@ -6,10 +6,14 @@ import { auth, db } from "@/firebase"
 import {
   addDoc,
   collection,
+  doc,
+  getDoc,
   limit,
   onSnapshot,
   orderBy,
   query,
+  setDoc,
+  updateDoc,
 } from "@firebase/firestore"
 import { Message as MessageType } from "@/types/message"
 import Message from "@/components/chat/message"
@@ -64,6 +68,36 @@ export default function Home() {
     }
 
     try {
+      let title = ""
+
+      const data = await getDoc(doc(db, "chats", userUid))
+      if (!data.exists()) {
+        title = prompt("Lisää keskustelun aihe") || ""
+
+        await setDoc(doc(db, "chats", userUid), {
+          hasBeenRead: {
+            admin: false,
+            user: true,
+          },
+          latestMessage: {
+            body: messageBody,
+            sender: "user",
+          },
+          title: title,
+        })
+      } else {
+        updateDoc(doc(db, "chats", userUid), {
+          hasBeenRead: {
+            admin: false,
+            user: true
+          },
+          latestMessage: {
+            body: messageBody,
+            sender: "user",
+          },
+        })
+      }
+
       await addDoc(collection(db, "chats", userUid, "messages"), {
         createdAt: new Date(),
         body: messageBody,

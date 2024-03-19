@@ -5,11 +5,12 @@ import { usePathname, useRouter } from "next/navigation"
 import {
   addDoc,
   collection,
-  getDocs,
+  doc,
   limit,
   onSnapshot,
   orderBy,
   query,
+  updateDoc,
 } from "@firebase/firestore"
 import { db } from "@/firebase"
 import { Message as MessageType } from "@/types/message"
@@ -76,6 +77,17 @@ export default function Home() {
     }
 
     try {
+      updateDoc(doc(db, "chats", chatId), {
+        hasBeenRead: {
+          admin: true,
+          user: false
+        },
+        latestMessage: {
+          body: message,
+          sender: "safety",
+        },
+      })
+
       await addDoc(collection(db, "chats", chatId, "messages"), {
         createdAt: new Date(),
         body: message,
