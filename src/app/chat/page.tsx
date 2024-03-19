@@ -94,13 +94,25 @@ export default function Home() {
         ref={chatContainerRef}
         className="flex h-full w-full flex-col gap-4 overflow-auto p-3"
       >
-        {messages?.map((singleMessage) => (
-          <Message
-            body={singleMessage.body}
-            sender={singleMessage.sender}
-            admin={false}
-          />
-        ))}
+        <>
+          {messages?.length > 0 ? (
+            <>
+              {messages?.map((singleMessage) => (
+                <Message
+                  body={singleMessage.body}
+                  sender={singleMessage.sender}
+                  admin={false}
+                />
+              ))}
+            </>
+          ) : (
+            <>
+              <h1 className="m-auto text-center text-3xl text-ateena">
+                Aloita keskustelu Turvan kanssa lähettämällä ensimmäinen viesti
+              </h1>
+            </>
+          )}
+        </>
         <div>
           <br />
           <br />

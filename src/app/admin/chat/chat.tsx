@@ -6,9 +6,13 @@ function Chat(props: { chat: ChatType }) {
     <Link href={`/admin/chat/${props.chat.id}`}>
       <div className="flex place-items-center">
         <h2 className="mr-auto truncate text-3xl">{props.chat.title}</h2>
-        <div className="flex h-6 place-items-center rounded-full bg-barcelona p-2">
-          <p className="w-full text-center text-helsinki">Lukematta</p>
-        </div>
+        {props.chat.hasBeenRead.admin ? (
+          <div className="flex h-6 place-items-center rounded-full bg-barcelona p-2">
+            <p className="w-full text-center text-helsinki">Lukematta</p>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="flex place-items-center">
         <p className="mr-1">
