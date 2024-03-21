@@ -73,7 +73,6 @@ export default function Access() {
   }
 
   async function removeAccess(accessType: string, email: string) {
-    console.log(accessType)
     if (
       !["admin", "subcampLeader", "safety"].includes(accessType) ||
       email == ""

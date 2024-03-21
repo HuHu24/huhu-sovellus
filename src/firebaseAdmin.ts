@@ -1,8 +1,6 @@
 import * as admin from "firebase-admin"
 import { ServiceAccount } from "firebase-admin"
 import { env } from "@/env"
-import { NextRequest } from "next/server"
-import { cookies } from "next/headers"
 
 export const initFirebaseAdmin = async () => {
   if (admin.apps.length > 0) {
