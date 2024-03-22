@@ -1,15 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import {usePathname, useRouter} from "next/navigation";
-import { getRelease } from "@/firebase";
+import { usePathname, useRouter } from "next/navigation"
+import { getRelease } from "@/firebase"
 type DataType = {
-  title: string;
-  time: string;
-  releaser: string;
-  content: string;
-  releaseId: string;
-};
+  title: string
+  time: string
+  releaser: string
+  content: string
+  releaseId: string
+}
 
 export default function Home() {
   const router = useRouter()
@@ -20,20 +20,20 @@ export default function Home() {
   useEffect(() => {
     const fetchReleaseData = async () => {
       if (releaseId) {
-        const releaseData: any = await getRelease(releaseId);
+        const releaseData: any = await getRelease(releaseId)
         const castedData: DataType = {
           title: releaseData.title,
           time: releaseData.time,
           releaser: releaseData.releaser,
           content: releaseData.content,
           releaseId: releaseData.releaseId,
-        };
-        setData(castedData);
+        }
+        setData(castedData)
       }
-    };
+    }
 
-    fetchReleaseData().catch(console.error);
-  }, []);
+    fetchReleaseData().catch(console.error)
+  }, [])
   const toggleLightMode = () => {
     setLightMode(!lightMode)
   }

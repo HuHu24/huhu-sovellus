@@ -1,21 +1,21 @@
 "use client"
-import { useEffect, useState } from 'react';
-import { getAllReleases } from '@/firebase';
-import { Release } from '@/components/release/release';
+import { useEffect, useState } from "react"
+import { getAllReleases } from "@/firebase"
+import { Release } from "@/components/release/release"
 interface releaseData {
-    id: string;
+  id: string
 }
 
 const Releases = () => {
-    const [releases, setReleases] = useState<releaseData[]>([]);
+  const [releases, setReleases] = useState<releaseData[]>([])
   useEffect(() => {
     const fetchReleases = async () => {
-      const allReleases = await getAllReleases();
-      setReleases(allReleases);
-    };
+      const allReleases = await getAllReleases()
+      setReleases(allReleases)
+    }
 
-    fetchReleases().catch(console.error);
-  }, []);
+    fetchReleases().catch(console.error)
+  }, [])
 
   return (
     <div className="w-full overflow-y-auto">
@@ -25,7 +25,7 @@ const Releases = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Releases;
+export default Releases

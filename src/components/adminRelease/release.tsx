@@ -1,20 +1,18 @@
 "use client"
 
 import Link from "next/link"
-import {useEffect, useState} from "react"
-import {getRelease} from "@/firebase";
-
+import { useEffect, useState } from "react"
+import { getRelease } from "@/firebase"
 
 interface DataType {
-  title: string;
-  releaser: string;
-  time: string;
-  importance: string;
+  title: string
+  releaser: string
+  time: string
+  importance: string
 }
 
-
 export const Release = ({ id }: { id: string }) => {
-  const [data, setData] = useState<DataType>();
+  const [data, setData] = useState<DataType>()
   useEffect(() => {
     getRelease(id).then((data: any) => {
       const castedData: DataType = {
@@ -22,10 +20,10 @@ export const Release = ({ id }: { id: string }) => {
         releaser: data.releaser,
         time: data.time,
         importance: data.importance,
-      };
-      setData(castedData);
-    });
-  }, []);
+      }
+      setData(castedData)
+    })
+  }, [])
   console.log(data)
   const [isOpen, setIsOpen] = useState(false)
   const deleteRelease = async (id: string) => {
@@ -42,7 +40,7 @@ export const Release = ({ id }: { id: string }) => {
     <div className="z-10">
       <div className="flex items-center bg-ateena bg-opacity-0">
         <Link
-        href={`./releases/${id}`}
+          href={`./releases/${id}`}
           className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena"
         >
           <img className="h-full" src="huhuymp.png" alt="" />
@@ -77,7 +75,7 @@ export const Release = ({ id }: { id: string }) => {
         >
           <div className="flex" style={{ justifyContent: "space-between" }}>
             <Link
-                href={`/releases/${id}`}
+              href={`/releases/${id}`}
               className="material-symbols-outlined text-[50px] text-ateena"
             >
               visibility
@@ -86,20 +84,20 @@ export const Release = ({ id }: { id: string }) => {
           </div>
           <div>
             <Link
-                href={`./notifications/${id}`}
+              href={`./notifications/${id}`}
               className="material-symbols-outlined text-[50px] text-ateena"
             >
               notifications_active
             </Link>
             <Link
-                href={`./releases/${id}`}
+              href={`./releases/${id}`}
               className="material-symbols-outlined mr-2 text-[50px] text-ateena"
             >
               edit
             </Link>
             <button
-                onClick={() => deleteRelease(id)}
-                className="material-symbols-outlined mr-2 text-[50px] text-ateena"
+              onClick={() => deleteRelease(id)}
+              className="material-symbols-outlined mr-2 text-[50px] text-ateena"
             >
               delete
             </button>

@@ -42,17 +42,17 @@ export async function getDecodedClaims(session: string) {
 }
 
 export async function getAllReleases() {
-  await initFirebaseAdmin();
-  const db = admin.firestore();
-  const releasesRef = db.collection('releases');
-  const snapshot = await releasesRef.get();
-  const releases = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  return releases;
+  await initFirebaseAdmin()
+  const db = admin.firestore()
+  const releasesRef = db.collection("releases")
+  const snapshot = await releasesRef.get()
+  const releases = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+  return releases
 }
 export const uploadRelease = async (data: any) => {
   try {
-    const docRef = await admin.firestore().collection('releases').add(data);
-    console.log("Document written with ID: ", docRef.id);
+    const docRef = await admin.firestore().collection("releases").add(data)
+    console.log("Document written with ID: ", docRef.id)
   } catch (e) {
     console.error("Error: " + e)
   }
@@ -61,19 +61,19 @@ export const uploadRelease = async (data: any) => {
 export const updateRelease = async (data: any) => {
   console.log(data.id)
   try {
-    await admin.firestore().collection('releases').doc(data.id).set(data);
-    console.log("Document updated with ID: ", data.id);
+    await admin.firestore().collection("releases").doc(data.id).set(data)
+    console.log("Document updated with ID: ", data.id)
   } catch (e) {
     console.error("Error: " + e)
   }
   return data
 }
 export const deleteRelease = async (id: string) => {
-    try {
-        await admin.firestore().collection('releases').doc(id).delete();
-        console.log("Document deleted with ID: ", id);
-    } catch (e) {
-        console.error("Error: " + e)
-    }
-    return id
+  try {
+    await admin.firestore().collection("releases").doc(id).delete()
+    console.log("Document deleted with ID: ", id)
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+  return id
 }
