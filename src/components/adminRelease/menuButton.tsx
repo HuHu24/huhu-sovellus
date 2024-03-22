@@ -20,11 +20,12 @@ export const MenuButton = ({
     .toLocaleTimeString()
     .slice(0, 5)
     .replace(".", ":")
-  console.log(defaultTime)
 
   const [selectedOption, setSelectedOption] = useState(options[0])
-  const [selectedDate, setSelectedDate] = useState(defaultDate)
-  const [selectedTime, setSelectedTime] = useState(defaultTime)
+  const [selectedDateTime, setSelectedDateTime] = useState({
+    date: defaultDate,
+    time: defaultTime,
+  });
 
   const handleSelect = (option: string) => {
     setSelectedOption(option)
@@ -33,11 +34,21 @@ export const MenuButton = ({
     }
   }
   const handleDateSelect = (date: string) => {
-    setSelectedDate(date)
-  }
+    setSelectedDateTime(prevState => ({ ...prevState, date }));
+    setSelectedOption(date)
+    if (onOptionChange) {
+      onOptionChange(date)
+    }
+  };
+
   const handleTimeSelect = (time: string) => {
-    setSelectedTime(time)
+    console.log("time", time);
+    setSelectedOption(time);
+    setSelectedDateTime(prevState => ({...prevState, time}));
+    if (onOptionChange){
+      onOptionChange(time);
   }
+  };
 
   return (
     <div
@@ -45,32 +56,31 @@ export const MenuButton = ({
     >
       <div className="w-1/2">
         {isTimeInput ? (
-          <input
-            type="date"
-            value={selectedDate}
-            min={"2022-01-01"}
-            onChange={(e) => handleDateSelect(e.target.value)}
-            className="text-white w-4/5 bg-oslo font-poppins text-2xl font-bold sm:text-lg"
-          />
+            <input
+                type="date"
+                value={selectedDateTime.date}
+                onChange={(e) => handleDateSelect(e.target.value) }
+                className="text-white w-4/5 bg-oslo font-poppins text-2xl font-bold sm:text-lg"
+            />
         ) : (
-          <p className="text-white font-poppins text-2xl font-bold sm:text-lg">
-            {title}
-          </p>
+            <p className="text-white font-poppins text-2xl font-bold sm:text-lg">
+              {title}
+            </p>
         )}
       </div>
       <div className=" flex h-10 w-1/2 items-center justify-between">
         {isTimeInput ? (
-          <input
-            type="time"
-            value={selectedTime}
-            onChange={(e) => handleTimeSelect(e.target.value)}
-            className="text-white sm:text-lgfont-bold w-4/5 bg-oslo font-poppins text-2xl"
-          />
+            <input
+                type="time"
+                value={selectedDateTime.time}
+                onChange={(e) => handleTimeSelect(e.target.value)}
+                className="text-white sm:text-lgfont-bold w-4/5 bg-oslo font-poppins text-2xl"
+            />
         ) : (
-          <select
-            value={selectedOption}
-            onChange={(e) => handleSelect(e.target.value)}
-            className="text-white w-4/5 bg-oslo font-poppins text-2xl font-bold sm:text-lg"
+            <select
+                value={selectedOption}
+                onChange={(e) => handleSelect(e.target.value)}
+                className="text-white w-4/5 bg-oslo font-poppins text-2xl font-bold sm:text-lg"
           >
             {options.map((option, index) => (
               <option key={index} value={option}>
