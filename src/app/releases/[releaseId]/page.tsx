@@ -1,17 +1,42 @@
 "use client"
 
-import Link from "next/link"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import {usePathname, useRouter} from "next/navigation";
+import { getRelease } from "@/firebase";
+type DataType = {
+  title: string;
+  time: string;
+  releaser: string;
+  content: string;
+  releaseId: string;
+};
 
 export default function Home() {
   const router = useRouter()
   const [lightMode, setLightMode] = useState(false)
+  const releaseId = usePathname().split("/").pop()
+  // Explicitly define the type for data
+  const [data, setData] = useState<DataType | null>(null)
+  useEffect(() => {
+    const fetchReleaseData = async () => {
+      if (releaseId) {
+        const releaseData: any = await getRelease(releaseId);
+        const castedData: DataType = {
+          title: releaseData.title,
+          time: releaseData.time,
+          releaser: releaseData.releaser,
+          content: releaseData.content,
+          releaseId: releaseData.releaseId,
+        };
+        setData(castedData);
+      }
+    };
 
+    fetchReleaseData().catch(console.error);
+  }, []);
   const toggleLightMode = () => {
     setLightMode(!lightMode)
   }
-
   return (
     <div
       className={`h-screen w-screen ${
@@ -36,8 +61,7 @@ export default function Home() {
         <div className="mt-3 w-screen">
           <div className="flex justify-between">
             <div className="grid whitespace-normal font-poppins text-5xl">
-              {" "}
-              Jaahas{" "}
+              {data?.title}
             </div>
             <button
               onClick={toggleLightMode}
@@ -49,26 +73,14 @@ export default function Home() {
             </button>
           </div>
           <div className="ml-0 mt-4 whitespace-normal font-poppins text-2xl ">
-            {" "}
-            1.11.1111 22:22
+            {data?.time}
           </div>
           <div className="ml-0 whitespace-normal font-poppins text-2xl">
-            {" "}
-            Julkaisija: Chatgpt..
+            {data?.releaser}
           </div>
         </div>
         <div className="mr-10 mt-2.5 overflow-auto break-words text-xl">
-          Moro kaikki! Joudumme vähän pettämään teidän odotuksia – meidän
-          suunnitellut herkkutreffit joudutaan siirtämään. Pahoittelut tästä,
-          mutta meillä on ollut muutama logistinen sotku, ja keittiöväki on
-          vähän pulassa. Tässä pikainen debrief: Toimitusseikkailut: Kaikki
-          tilaukset eivät saapuneet, ja ne, jotka saapuivat, näyttivät siltä
-          kuin ne olisivat kierrelleet maailmaa ennen perille pääsyään.
-          Henkilökunta puuttuu: Jotkut kokit päättivät ottaa vapaapäivän samaan
-          aikaan, joten meillä on enemmän keittiöhaasteita kuin voimme sanoa
-          &quot;keittiö&quot;. Yritetään paikata hommaa ja järkätä teille jotain
-          parempaa. Pysykää kuulolla ja pysykää nälkäisinä! Kysymyksiä? Ota
-          yhteyttä meihin. Olemme täällä sinua varten.
+          {data?.content}
           <p>Kuva: Screenshot brandikirjasta</p>
         </div>
       </div>
