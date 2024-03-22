@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
+import {doc, setDoc, Timestamp, collection, getFirestore, addDoc, getDocs} from "firebase/firestore"
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -9,6 +9,7 @@ import {
   signOut as fbSignOut,
 } from "@firebase/auth"
 import { env } from "@/env"
+import {getDoc} from "@firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -94,4 +95,21 @@ export const signOut = async () => {
   } catch (e) {
     console.error("Error: " + e)
   }
+}
+export const getRelease = async (id:string) => {
+    const docRef = doc(db, "releases", id)
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data())
+        return docSnap.data()
+    } else {
+        console.log("No such document!")
+    }
+}
+
+export const getAllReleases = async () => {
+  const releasesRef = collection(db, "releases");
+  const snapshot = await getDocs(releasesRef);
+  const releases = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return releases;
 }
