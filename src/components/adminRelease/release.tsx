@@ -1,43 +1,65 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import {useEffect, useState} from "react"
+import {getRelease} from "@/firebase";
 
-const tiedot = {
-  id: 1,
-  otsikko: "Ruoka peruttu",
-  teksti:
-    "Joo safka ei oo hoitanut hommaansa niin kuollaan nälkään. Syy kissan karv...",
-  kuva: "huhuymp.png",
-  julkaisija: "Minä/osaalue",
-  kriittisyys: "Kriittinen",
-  julkaisupvm: "6.9.2222",
+
+interface DataType {
+  title: string;
+  releaser: string;
+  time: string;
+  importance: string;
 }
-export const Release = () => {
+
+
+export const Release = ({ id }: { id: string }) => {
+  const [data, setData] = useState<DataType>();
+  useEffect(() => {
+    getRelease(id).then((data: any) => {
+      const castedData: DataType = {
+        title: data.title,
+        releaser: data.releaser,
+        time: data.time,
+        importance: data.importance,
+      };
+      setData(castedData);
+    });
+  }, []);
+  console.log(data)
   const [isOpen, setIsOpen] = useState(false)
+  const deleteRelease = async (id: string) => {
+    await fetch(`/api/releases/`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(id),
+    })
+  }
 
   return (
     <div className="z-10">
       <div className="flex items-center bg-ateena bg-opacity-0">
         <Link
-          href={"./releases/release"}
+        href={`./releases/${id}`}
           className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena"
         >
           <img className="h-full" src="huhuymp.png" alt="" />
         </Link>
         <div className="ml-1 flex w-[200px] flex-col justify-center">
           <div className="text-overflow-ellipsis overflow-hidden whitespace-nowrap break-all font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
-            {tiedot.otsikko}
+            {data?.title}
           </div>
           <div
             onClick={() => setIsOpen(!isOpen)}
             className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow"
           >
-            {"julkaistu: " + tiedot.julkaisupvm}
+            {"julkaistu: " + data?.time}
             <br />
-            {"julkaisija: " + tiedot.julkaisija}
+            {"julkaisija: " + data?.releaser}
             <br />
-            {"kriittisyys: " + tiedot.kriittisyys}
+            {"kriittisyys: " + data?.importance}
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -55,7 +77,7 @@ export const Release = () => {
         >
           <div className="flex" style={{ justifyContent: "space-between" }}>
             <Link
-              href={"./releases/release/edit"}
+                href={`/releases/${id}`}
               className="material-symbols-outlined text-[50px] text-ateena"
             >
               visibility
@@ -64,17 +86,23 @@ export const Release = () => {
           </div>
           <div>
             <Link
-              href={"./notifications/release/"}
+                href={`./notifications/${id}`}
               className="material-symbols-outlined text-[50px] text-ateena"
             >
               notifications_active
             </Link>
             <Link
-              href={"./releases/release"}
+                href={`./releases/${id}`}
               className="material-symbols-outlined mr-2 text-[50px] text-ateena"
             >
               edit
             </Link>
+            <button
+                onClick={() => deleteRelease(id)}
+                className="material-symbols-outlined mr-2 text-[50px] text-ateena"
+            >
+              delete
+            </button>
           </div>
         </div>
       ) : null}
