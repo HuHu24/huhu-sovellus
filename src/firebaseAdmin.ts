@@ -41,14 +41,6 @@ export async function getDecodedClaims(session: string) {
   return decodedClaims
 }
 
-export async function getAllReleases() {
-  await initFirebaseAdmin()
-  const db = admin.firestore()
-  const releasesRef = db.collection("releases")
-  const snapshot = await releasesRef.get()
-  const releases = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-  return releases
-}
 export const uploadRelease = async (data: any) => {
   try {
     const docRef = await admin.firestore().collection("releases").add(data)
