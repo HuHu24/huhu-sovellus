@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { format } from "date-fns"
 
@@ -8,15 +8,27 @@ import MenuButton from "@/components/adminRelease/menuButton"
 
 export default function Home() {
   const [imageSrc, setImageSrc] = useState("/huhuymp.png")
-  const [selectedOptions, setSelectedOptions] = useState({
-    Ajastus: "Ei",
-    Kohderyhma: "Kaikki",
-  })
-  const today = format(new Date(), "dd.MM.yyyy HH:mm")
   const router = useRouter()
   const [lightMode, setLightMode] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [formValues, setFormValues] = useState({
+    targetGroup: "Kaikki",
+    subcamp: "1",
+    timed: "Ei",
+    time: format(new Date(), "HH:mm"),
+    date: format(new Date(), "yyyy-MM-dd"),
+    released: "Ei",
+    title: "",
+    releaser: "",
+    content: "",
+    image: "/huhuymp.png",
+    importance: "Kriittinen",
+  })
+
   const divRef = useRef(null)
+  useEffect(() => {
+    console.log(formValues)
+  }, [formValues])
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (divRef.current && !(divRef.current as any).contains(event.target)) {
@@ -24,12 +36,32 @@ export default function Home() {
       }
     }
 
-    // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside)
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [divRef])
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const response = await fetch("/api/releases", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formValues),
+    })
+
+    if (!response.ok) {
+      console.error("Failed to submit form")
+      alert("Failed to submit form")
+    } else {
+      alert("Form submitted")
+      router.push("./")
+    }
+  }
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
@@ -46,10 +78,18 @@ export default function Home() {
   const toggleIsOpen = () => {
     setIsOpen(!isOpen)
   }
+
   const handleOptionChange = (title: string, option: string) => {
-    setSelectedOptions((prevOptions) => ({ ...prevOptions, [title]: option }))
-    console.log(selectedOptions)
+    if (title === "timeAndDate") {
+      if (option.length != 5)
+        setFormValues((prevValues) => ({ ...prevValues, ["date"]: option }))
+      else setFormValues((prevValues) => ({ ...prevValues, ["time"]: option }))
+    } else {
+      setFormValues((prevValues) => ({ ...prevValues, [title]: option }))
+    }
+    console.log(formValues)
   }
+
   return (
     <>
       <div
@@ -63,50 +103,57 @@ export default function Home() {
         </button>
         {isOpen ? (
           <form
-            id={"main"}
-            action=""
             className="mt-2 flex h-[80%] flex-col justify-between"
+            onSubmit={handleSubmit}
           >
             <MenuButton
               title="Kohderyhmä"
               options={["Kaikki", "Alaleiri", "Tekijät"]}
               onOptionChange={(option) =>
-                handleOptionChange("Kohderyhma", option)
+                handleOptionChange("targetGroup", option)
               }
             ></MenuButton>
             <MenuButton
               title="Alaleiri"
               className={
-                selectedOptions.Kohderyhma !== "Alaleiri"
+                formValues.targetGroup !== "Alaleiri"
                   ? "pointer-events-none opacity-25"
                   : ""
               }
               options={["1", "2", "3", "4"]}
+              onOptionChange={(option) => handleOptionChange("subcamp", option)}
+            ></MenuButton>
+            <MenuButton
+              title="Kriittisyys"
+              options={["Kriittinen", "Vähemmän kriittinen", "Ei kriittinen"]}
               onOptionChange={(option) =>
-                handleOptionChange("Alaleiri", option)
+                handleOptionChange("importance", option)
               }
             ></MenuButton>
+
             <MenuButton
               title="Ajastus"
               options={["Ei", "Kyllä"]}
-              onOptionChange={(option) => handleOptionChange("Ajastus", option)}
+              onOptionChange={(option) => handleOptionChange("timed", option)}
             ></MenuButton>
             <MenuButton
-              title="a"
+              title="Aika"
               options={["a"]}
               className={
-                selectedOptions.Ajastus === "Ei"
+                formValues.timed === "Ei"
                   ? "pointer-events-none opacity-25"
                   : ""
               }
               isTimeInput={true}
-              onOptionChange={(option) => handleOptionChange("a", option)}
-            ></MenuButton>
+              onOptionChange={(option) => {
+                handleOptionChange("timeAndDate", option)
+              }}
+            />
             <MenuButton
-              title="Julkaisu"
+              title="Julkaistu"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) =>
-                handleOptionChange("Julkaistu", option)
+                handleOptionChange("released", option)
               }
             ></MenuButton>
             <div
@@ -117,6 +164,7 @@ export default function Home() {
               }}
             >
               <input
+                onClick={() => handleSubmit}
                 className="h-full w-1/2 cursor-pointer rounded-2xl bg-tokio p-2 font-poppins text-xl font-bold"
                 value="tallenna"
                 type="submit"
@@ -156,16 +204,22 @@ export default function Home() {
           <div className="mt-3 w-screen">
             <div className="flex justify-between">
               <textarea
-                form={"main"}
                 required={true}
                 autoFocus={true}
                 placeholder="Otsikko"
+                value={formValues.title}
+                onChange={(e) =>
+                  setFormValues((prevValues) => ({
+                    ...prevValues,
+                    title: e.target.value,
+                  }))
+                }
                 className={`grid w-full resize-none whitespace-normal font-poppins text-5xl ${
                   lightMode
                     ? "bg-ateena text-helsinki"
                     : "bg-helsinki text-ateena"
                 }
-                      `}
+        `}
               ></textarea>
               <button
                 onClick={toggleLightMode}
@@ -179,24 +233,36 @@ export default function Home() {
               </button>
             </div>
             <div className="ml-0 mt-4 whitespace-normal font-poppins text-2xl ">
-              <p>{today}</p>
+              <p>{format(new Date(), "dd.MM.yyyy HH:mm")}</p>
             </div>
             <input
-              form={"main"}
               placeholder="Julkaisija"
               required={true}
+              value={formValues.releaser}
+              onChange={(e) =>
+                setFormValues((prevValues) => ({
+                  ...prevValues,
+                  releaser: e.target.value,
+                }))
+              }
               className={`ml-0 w-full resize-none whitespace-normal p-1 font-poppins text-2xl ${
                 lightMode
                   ? "bg-ateena text-helsinki"
                   : "bg-helsinki text-ateena"
               }
-                      `}
+        `}
             ></input>
           </div>
           <textarea
-            form={"main"}
             placeholder="Aloita kirjoittaminen tästä"
             required={true}
+            value={formValues.content}
+            onChange={(e) =>
+              setFormValues((prevValues) => ({
+                ...prevValues,
+                content: e.target.value,
+              }))
+            }
             className={`mt-2 h-full w-screen break-words  p-1 text-xl ${
               lightMode ? "bg-ateena text-helsinki" : "bg-helsinki text-ateena"
             }`}

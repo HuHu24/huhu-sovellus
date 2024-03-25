@@ -1,13 +1,6 @@
 "use client"
 import { useState } from "react"
-interface MenuButtonProps {
-  title: string
-  options: string[]
-  isTimeInput?: boolean
-  className?: string
-  onOptionChange?: (option: string) => void
-}
-
+import MenuButtonProps from "@/types/menuButton"
 export const MenuButton = ({
   title,
   options,
@@ -20,11 +13,12 @@ export const MenuButton = ({
     .toLocaleTimeString()
     .slice(0, 5)
     .replace(".", ":")
-  console.log(defaultTime)
 
   const [selectedOption, setSelectedOption] = useState(options[0])
-  const [selectedDate, setSelectedDate] = useState(defaultDate)
-  const [selectedTime, setSelectedTime] = useState(defaultTime)
+  const [selectedDateTime, setSelectedDateTime] = useState({
+    date: defaultDate,
+    time: defaultTime,
+  })
 
   const handleSelect = (option: string) => {
     setSelectedOption(option)
@@ -33,10 +27,20 @@ export const MenuButton = ({
     }
   }
   const handleDateSelect = (date: string) => {
-    setSelectedDate(date)
+    setSelectedDateTime((prevState) => ({ ...prevState, date }))
+    setSelectedOption(date)
+    if (onOptionChange) {
+      onOptionChange(date)
+    }
   }
+
   const handleTimeSelect = (time: string) => {
-    setSelectedTime(time)
+    console.log("time", time)
+    setSelectedOption(time)
+    setSelectedDateTime((prevState) => ({ ...prevState, time }))
+    if (onOptionChange) {
+      onOptionChange(time)
+    }
   }
 
   return (
@@ -47,8 +51,7 @@ export const MenuButton = ({
         {isTimeInput ? (
           <input
             type="date"
-            value={selectedDate}
-            min={"2022-01-01"}
+            value={selectedDateTime.date}
             onChange={(e) => handleDateSelect(e.target.value)}
             className="text-white w-4/5 bg-oslo font-poppins text-2xl font-bold sm:text-lg"
           />
@@ -62,7 +65,7 @@ export const MenuButton = ({
         {isTimeInput ? (
           <input
             type="time"
-            value={selectedTime}
+            value={selectedDateTime.time}
             onChange={(e) => handleTimeSelect(e.target.value)}
             className="text-white sm:text-lgfont-bold w-4/5 bg-oslo font-poppins text-2xl"
           />
@@ -72,7 +75,7 @@ export const MenuButton = ({
             onChange={(e) => handleSelect(e.target.value)}
             className="text-white w-4/5 bg-oslo font-poppins text-2xl font-bold sm:text-lg"
           >
-            {options.map((option, index) => (
+            {options.map((option: string, index: number) => (
               <option key={index} value={option}>
                 {option}
               </option>
