@@ -1,13 +1,6 @@
 "use client"
 import { useState } from "react"
-interface MenuButtonProps {
-  title: string
-  options: string[]
-  isTimeInput?: boolean
-  className?: string
-  onOptionChange?: (option: string) => void
-}
-
+import MenuButtonProps from "@/types/menuButton"
 export const MenuButton = ({
   title,
   options,
@@ -82,7 +75,7 @@ export const MenuButton = ({
             onChange={(e) => handleSelect(e.target.value)}
             className="text-white w-4/5 bg-oslo font-poppins text-2xl font-bold sm:text-lg"
           >
-            {options.map((option, index) => (
+            {options.map((option: string, index: number) => (
               <option key={index} value={option}>
                 {option}
               </option>

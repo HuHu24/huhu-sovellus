@@ -2,21 +2,13 @@
 import Link from "next/link"
 import { getAllReleases, getRelease } from "@/firebase"
 import { useEffect, useState } from "react"
-interface ReleaseData {
-  id: string
-}
-interface DataType {
-  title: string
-  releaser: string
-  time: string
-  importance: string
-}
+import { releaseData } from "@/types/releases"
 
 const Release = ({ id }: { id: string }) => {
-  const [data, setData] = useState<DataType>()
+  const [data, setData] = useState<releaseData>()
   useEffect(() => {
     getRelease(id).then((data: any) => {
-      const castedData: DataType = {
+      const castedData: releaseData = {
         title: data.title,
         releaser: data.releaser,
         time: data.time,
@@ -25,7 +17,7 @@ const Release = ({ id }: { id: string }) => {
       setData(castedData)
       console.log(data)
     })
-  }, [])
+  }, [id])
   console.log(data)
   return (
     <Link href={`/releases/${id}`} className="z-10">
@@ -48,7 +40,7 @@ const Release = ({ id }: { id: string }) => {
 }
 
 const Releases = () => {
-  const [releases, setReleases] = useState<ReleaseData[]>([])
+  const [releases, setReleases] = useState<{ id: string }[]>([])
   useEffect(() => {
     const fetchReleases = async () => {
       const allReleases = await getAllReleases()

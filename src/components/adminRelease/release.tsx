@@ -3,19 +3,13 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getRelease } from "@/firebase"
-
-interface DataType {
-  title: string
-  releaser: string
-  time: string
-  importance: string
-}
+import { releaseData } from "@/types/releases"
 
 export const Release = ({ id }: { id: string }) => {
-  const [data, setData] = useState<DataType>()
+  const [data, setData] = useState<releaseData>()
   useEffect(() => {
     getRelease(id).then((data: any) => {
-      const castedData: DataType = {
+      const castedData: releaseData = {
         title: data.title,
         releaser: data.releaser,
         time: data.time,
@@ -23,7 +17,7 @@ export const Release = ({ id }: { id: string }) => {
       }
       setData(castedData)
     })
-  }, [])
+  }, [id])
   console.log(data)
   const [isOpen, setIsOpen] = useState(false)
   const deleteRelease = async (id: string) => {

@@ -8,6 +8,9 @@ import MenuButton from "@/components/adminRelease/menuButton"
 
 export default function Home() {
   const [imageSrc, setImageSrc] = useState("/huhuymp.png")
+  const router = useRouter()
+  const [lightMode, setLightMode] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [formValues, setFormValues] = useState({
     targetGroup: "Kaikki",
     subcamp: "1",
@@ -21,6 +24,24 @@ export default function Home() {
     image: "/huhuymp.png",
     importance: "Kriittinen",
   })
+
+  const divRef = useRef(null)
+  useEffect(() => {
+    console.log(formValues)
+  }, [formValues])
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (divRef.current && !(divRef.current as any).contains(event.target)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [divRef])
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -40,27 +61,6 @@ export default function Home() {
       router.push("./")
     }
   }
-
-  const router = useRouter()
-  const [lightMode, setLightMode] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const divRef = useRef(null)
-  useEffect(() => {
-    console.log(formValues)
-  }, [formValues])
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (divRef.current && !(divRef.current as any).contains(event.target)) {
-        setIsOpen(false)
-      }
-    }
-
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [divRef])
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -103,8 +103,6 @@ export default function Home() {
         </button>
         {isOpen ? (
           <form
-            id={"main"}
-            action=""
             className="mt-2 flex h-[80%] flex-col justify-between"
             onSubmit={handleSubmit}
           >
@@ -152,7 +150,7 @@ export default function Home() {
               }}
             />
             <MenuButton
-              title="Julkaisu"
+              title="Julkaitsu"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) =>
                 handleOptionChange("released", option)
@@ -206,7 +204,6 @@ export default function Home() {
           <div className="mt-3 w-screen">
             <div className="flex justify-between">
               <textarea
-                form={"main"}
                 required={true}
                 autoFocus={true}
                 placeholder="Otsikko"
@@ -239,7 +236,6 @@ export default function Home() {
               <p>{format(new Date(), "dd.MM.yyyy HH:mm")}</p>
             </div>
             <input
-              form={"main"}
               placeholder="Julkaisija"
               required={true}
               value={formValues.releaser}
@@ -258,7 +254,6 @@ export default function Home() {
             ></input>
           </div>
           <textarea
-            form={"main"}
             placeholder="Aloita kirjoittaminen tästä"
             required={true}
             value={formValues.content}

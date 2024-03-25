@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { signOut } from "@/firebase"
-import {env} from "@/env"
+import { env } from "@/env"
 
 export async function GET(request: NextRequest) {
   cookies().delete("session")

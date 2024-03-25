@@ -26,7 +26,6 @@ export const initFirebaseAdmin = async () => {
 export async function getDecodedClaims(session: string) {
   await initFirebaseAdmin()
 
-  //Validate if the cookie exist in the request
   if (!session) {
     return null
   }

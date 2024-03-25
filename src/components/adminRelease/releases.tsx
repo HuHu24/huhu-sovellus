@@ -2,13 +2,9 @@
 import { useEffect, useState } from "react"
 import { getAllReleases } from "@/firebase"
 import { Release } from "@/components/adminRelease/release"
-interface releaseData {
-  id: string
-}
 
 const Releases = () => {
-  const [releases, setReleases] = useState<releaseData[]>([])
-  1
+  const [releases, setReleases] = useState<{ id: string }[]>([])
   useEffect(() => {
     const fetchReleases = async () => {
       const allReleases = await getAllReleases()
