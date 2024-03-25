@@ -150,7 +150,7 @@ export default function Home() {
               }}
             />
             <MenuButton
-              title="Julkaitsu"
+              title="Julkaistu"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) =>
                 handleOptionChange("released", option)
