@@ -10,6 +10,9 @@ import { getRelease } from "@/firebase"
 export default function Home() {
   const router = useRouter()
   const [imageSrc, setImageSrc] = useState("/huhuymp.png")
+  const [lightMode, setLightMode] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const releaseId = usePathname().split("/").pop() || ""
   const [formValues, setFormValues] = useState({
     targetGroup: "Kaikki",
     subcamp: "",
@@ -24,13 +27,25 @@ export default function Home() {
     id: "",
     importance: "",
   })
-  const releaseId = usePathname().split("/").pop() || ""
-  const [data, setData] = useState<any>(null)
+
   useEffect(() => {
     const fetchReleaseData = async () => {
       const releaseData = await getRelease(releaseId)
       if (releaseData) {
-        setData(releaseData)
+        setFormValues({
+          targetGroup: releaseData.targetGroup || "",
+          subcamp: releaseData.subcamp || "",
+          timed: releaseData.timed || "Ei",
+          time: releaseData.time || "",
+          date: releaseData.date || "",
+          released: releaseData.released || "Ei",
+          title: releaseData.title || "",
+          releaser: releaseData.releaser || "",
+          content: releaseData.content || "",
+          image: releaseData.image || "/huhuymp.png",
+          id: releaseId,
+          importance: releaseData.importance || "",
+        })
       }
     }
 
@@ -40,23 +55,24 @@ export default function Home() {
   }, [releaseId])
 
   useEffect(() => {
-    if (data) {
-      setFormValues({
-        targetGroup: data.targetGroup || "",
-        subcamp: data.subcamp || "",
-        timed: data.timed || "",
-        time: data.time || "",
-        date: data.date || "",
-        released: data.released || "",
-        title: data.title || "",
-        releaser: data.releaser || "",
-        content: data.content || "",
-        image: data.image || "",
-        importance: data.importance || "",
-        id: releaseId,
-      })
+    if (formValues) {
+      setFormValues((prevValues) => ({ ...prevValues, id: releaseId }))
     }
-  }, [data, releaseId])
+  }, [releaseId, formValues])
+
+  const divRef = useRef(null)
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (divRef.current && !(divRef.current as any).contains(event.target)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [divRef])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -78,26 +94,6 @@ export default function Home() {
     }
   }
 
-  const [lightMode, setLightMode] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const divRef = useRef(null)
-  useEffect(() => {
-    console.log(formValues)
-  }, [formValues])
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (divRef.current && !(divRef.current as any).contains(event.target)) {
-        setIsOpen(false)
-      }
-    }
-
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [divRef])
-
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
@@ -116,7 +112,7 @@ export default function Home() {
   }
 
   const handleOptionChange = (title: string, option: string) => {
-    if (title === "timeanddate") {
+    if (title === "timeaAndDate") {
       if (option.length != 5)
         setFormValues((prevValues) => ({ ...prevValues, ["Date"]: option }))
       else setFormValues((prevValues) => ({ ...prevValues, ["Time"]: option }))
@@ -139,8 +135,6 @@ export default function Home() {
         </button>
         {isOpen ? (
           <form
-            id={"main"}
-            action=""
             className="mt-2 flex h-[80%] flex-col justify-between"
             onSubmit={handleSubmit}
           >
@@ -188,7 +182,7 @@ export default function Home() {
               }}
             />
             <MenuButton
-              title="Julkaisu"
+              title="Julkaistu"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) =>
                 handleOptionChange("released", option)
@@ -242,7 +236,6 @@ export default function Home() {
           <div className="mt-3 w-screen">
             <div className="flex justify-between">
               <textarea
-                form={"main"}
                 required={true}
                 autoFocus={true}
                 placeholder="Otsikko"
@@ -250,7 +243,7 @@ export default function Home() {
                 onChange={(e) =>
                   setFormValues((prevValues) => ({
                     ...prevValues,
-                    Title: e.target.value,
+                    title: e.target.value,
                   }))
                 }
                 className={`grid w-full resize-none whitespace-normal font-poppins text-5xl ${
@@ -275,14 +268,13 @@ export default function Home() {
               <p>{format(new Date(), "dd.MM.yyyy HH:mm")}</p>
             </div>
             <input
-              form={"main"}
               placeholder="Julkaisija"
               required={true}
               value={formValues.releaser}
               onChange={(e) =>
                 setFormValues((prevValues) => ({
                   ...prevValues,
-                  Releaser: e.target.value,
+                  releaser: e.target.value,
                 }))
               }
               className={`ml-0 w-full resize-none whitespace-normal p-1 font-poppins text-2xl ${
@@ -294,14 +286,13 @@ export default function Home() {
             ></input>
           </div>
           <textarea
-            form={"main"}
             placeholder="Aloita kirjoittaminen tästä"
             required={true}
             value={formValues.content}
             onChange={(e) =>
               setFormValues((prevValues) => ({
                 ...prevValues,
-                Content: e.target.value,
+                content: e.target.value,
               }))
             }
             className={`mt-2 h-full w-screen break-words  p-1 text-xl ${
