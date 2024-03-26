@@ -1,9 +1,7 @@
-import type { Metadata } from "next"
+import { Metadata } from "next"
 import "./globals.css"
 import localFont from "next/font/local"
 import Navbar from "../components/navbar"
-import Head from "next/head"
-import { initFirebaseAdmin } from "@/firebaseAdmin"
 
 const poppins = localFont({
   src: "../../public/fonts/Poppins-Regular.ttf",
