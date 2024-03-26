@@ -6,6 +6,7 @@ import { env } from "@/env"
 export default function Home() {
   const router = useRouter()
   async function selectSubcamp(subcamp: number) {
+    console.log("kissa")
     try {
       await signInAnonymously()
       const res = await fetch(
