@@ -15,14 +15,19 @@ export const env = createEnv({
   clientPrefix: "NEXT_PUBLIC_",
 
   client: {
-    NEXT_PUBLIC_URL: z.string().url().optional(),
+    NEXT_PUBLIC_URL: z.string().url(),
   },
 
   /**
    * What object holds the environment variables at runtime. This is usually
    * `process.env` or `import.meta.env`.
    */
-  runtimeEnv: process.env,
+  runtimeEnv: {
+    FB_PROJECT_ID: process.env.FB_PROJECT_ID,
+    FB_PRIVATE_KEY: process.env.FB_PRIVATE_KEY,
+    FB_CLIENT_EMAIL: process.env.FB_CLIENT_EMAIL,
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
+  },
 
   /**
    * By default, this library will feed the environment variables directly to
