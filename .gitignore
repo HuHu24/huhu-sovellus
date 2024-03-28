@@ -39,3 +39,7 @@ next-env.d.ts
 .env.local
 .env.production
 .env
+
+# Https certificates
+localhost-key.pem
+localhost.pem
