@@ -2,29 +2,27 @@
 import { signInAnonymously } from "@/firebase"
 import { useRouter } from "next/navigation"
 import { env } from "@/env"
+import { saveMessagingToken } from "@/messaging"
 
 export default function Home() {
   const router = useRouter()
   async function selectSubcamp(subcamp: number) {
     try {
+      const messagingToken = await saveMessagingToken()
       await signInAnonymously()
-      const res = await fetch(
-        `${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ subcamp: subcamp }),
-        }
-      )
+      await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ subcamp: subcamp, token: messagingToken }),
+      })
 
       router.push("/")
     } catch (e) {
       console.error("Selecting subcamp failed")
     }
   }
-
   return (
     <div className="absolute z-30 flex h-screen w-full place-content-center place-items-center overflow-hidden break-all bg-helsinki text-center font-poppins text-ateena">
       <div className="mx-4 my-auto flex w-full max-w-[500px] flex-col items-center justify-between gap-[5px] rounded-[20px] bg-oslo py-2.5">
@@ -65,6 +63,7 @@ export default function Home() {
       <div className="absolute -z-10 h-screen w-screen lg:invisible">
         <img
           src="subcamp_page_background.svg"
+          alt="background"
           className="fixed bottom-0 w-full"
         />
       </div>

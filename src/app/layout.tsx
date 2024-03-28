@@ -28,9 +28,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-        <title>HuHu24 leirisovellus</title>
-      </Head>
       <body
         className={`${opensauce.variable} ${poppins.variable} h-[calc(100vh-70px)] bg-helsinki`}
       >
