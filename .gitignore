@@ -43,3 +43,9 @@ next-env.d.ts
 # Https certificates
 localhost-key.pem
 localhost.pem
+
+#Automatically generated serviceworker stuff
+
+/public/sw.js
+/public/workbox-*.js
+/public/swe-worker-development.js
