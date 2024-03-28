@@ -68,11 +68,11 @@ export const deleteRelease = async (id: string) => {
 }
 
 export const subscribeToTopic = async (token: string, topic: string) => {
-    try {
-        await admin.messaging().subscribeToTopic(token, topic)
-        console.log("Subscribed to topic: ", topic)
-    } catch (e) {
-        console.error("Error: " + e)
-    }
-    return topic
+  try {
+    await admin.messaging().subscribeToTopic(token, topic)
+    console.log("Subscribed to topic: ", topic)
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+  return topic
 }

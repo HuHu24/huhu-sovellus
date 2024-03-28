@@ -18,7 +18,12 @@ import {
 } from "@firebase/auth"
 import { env } from "@/env"
 import { getDoc } from "@firebase/firestore"
-import {getMessaging, getToken, isSupported, onMessage} from "firebase/messaging";
+import {
+  getMessaging,
+  getToken,
+  isSupported,
+  onMessage,
+} from "firebase/messaging"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -41,7 +46,7 @@ const app = initializeApp(firebaseConfig)
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app)
-export const messaging = async () => await isSupported() && getMessaging(app)
+export const messaging = async () => (await isSupported()) && getMessaging(app)
 export const auth = getAuth(app)
 
 export const loginWithEmailAndPassword = async (
@@ -124,4 +129,3 @@ export const getAllReleases = async () => {
   const releases = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
   return releases
 }
-
