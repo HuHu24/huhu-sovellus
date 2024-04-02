@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, FormEventHandler, useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import {
   addDoc,
@@ -45,19 +45,17 @@ export default function Home() {
       limit(20)
     )
 
-    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+    return onSnapshot(q, (QuerySnapshot) => {
       const fetchedMessages: MessageType[] = []
       QuerySnapshot.forEach((doc) => {
         const data = doc.data() as MessageType
         fetchedMessages.push(data)
       })
       const sortedMessages = fetchedMessages.sort((a, b) => {
-        return (a.createdAt > b.createdAt) as unknown as number
+        return (a.createdAt < b.createdAt) as unknown as number
       })
       setMessages(sortedMessages)
     })
-
-    return unsubscribe
   }, [])
 
   useEffect(() => {
@@ -116,7 +114,7 @@ export default function Home() {
         ref={chatContainerRef}
         className="flex h-full w-full flex-col gap-4 overflow-auto p-3"
       >
-        {messages?.map((singleMessage) => (
+        {messages?.toReversed().map((singleMessage) => (
           // eslint-disable-next-line react/jsx-key
           <Message
             body={singleMessage.body}
