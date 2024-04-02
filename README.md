@@ -6,19 +6,42 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Enable https on development server
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Https on localhost is only needed for developing push notifications**
+
+Don't use Firefox when developing notifications for your sanity.
+
+Install [mkcert](https://github.com/FiloSottile/mkcert)
+
+When you have downloaded the binary, install mkcert
+
+```bash
+mkcert -install
+```
+
+Include the following in your `.env.local` file
+
+```bash
+NEXT_PUBLIC_URL=https://localhost:3000
+NODE_TLS_REJECT_UNAUTHORIZED = '0'
+```
+
+Generate a certificate for localhost. Run the command in the root directory of the repository
+
+```bash
+mkcert localhost
+```
+
+Run the development server with https
+
+```bash
+npm run dev:https
+```
 
 ## Learn More
 
