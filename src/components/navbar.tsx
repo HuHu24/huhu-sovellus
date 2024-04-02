@@ -30,7 +30,7 @@ const Navbar = () => {
             home
           </span>
         </Link>
-        <Link href="/releases" className="flex">
+        <Link href="/src/components/releases" className="flex">
           <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
             breaking_news
           </span>

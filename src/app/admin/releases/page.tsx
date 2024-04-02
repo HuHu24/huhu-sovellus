@@ -1,5 +1,5 @@
-import Releases from "@/components/adminRelease/releases"
-import Sort from "@/components/adminRelease/sort"
+import Releases from "@/components/admin/releases/releases"
+import Sort from "@/components/admin/releases/sort"
 import Link from "next/link"
 
 export default function Home() {

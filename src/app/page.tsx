@@ -1,5 +1,5 @@
-import DaysTimetable from "@/components/daysTimetable"
-import Releases from "@/components/release/release_frontpage"
+import Day from "@/components/day"
+import Releases from "@/components/releases"
 export default function Home() {
   return (
     <div className="relative h-full w-full overflow-x-hidden overflow-y-scroll bg-helsinki">
@@ -14,8 +14,8 @@ export default function Home() {
         </div>
       </div>
       <div className="flex w-full flex-col gap-4 p-3">
-        <Releases />
-        <DaysTimetable />
+        <Releases direction={"horizontal"} />
+        <Day />
       </div>
     </div>
   )

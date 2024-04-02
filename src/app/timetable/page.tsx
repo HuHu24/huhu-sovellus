@@ -1,4 +1,4 @@
-import DaysTimetable from "@/components/daysTimetable"
+import Day from "@/components/day"
 
 export default function Home() {
   return (
@@ -25,12 +25,11 @@ export default function Home() {
         </div>
       </div>
       <div className=" z-20 -mt-3 flex h-full w-full flex-col gap-4 overflow-auto p-3">
-        <DaysTimetable />
-        <DaysTimetable />
-        <DaysTimetable />
-        <DaysTimetable />
-        <DaysTimetable />
-        <DaysTimetable />
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+        <Day />
       </div>
     </div>
   )

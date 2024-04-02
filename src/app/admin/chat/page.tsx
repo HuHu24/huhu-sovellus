@@ -1,4 +1,4 @@
-import Chat from "@/app/admin/chat/chat"
+import Chat from "@/components/admin/chat/chat"
 import { initFirebaseAdmin } from "@/firebaseAdmin"
 import { firestore } from "firebase-admin"
 import { Chat as ChatType } from "@/types/chat"

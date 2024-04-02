@@ -16,7 +16,7 @@ import {
   updateDoc,
 } from "@firebase/firestore"
 import { Message as MessageType } from "@/types/message"
-import Message from "@/components/chat/message"
+import Message from "@/components/message"
 
 export default function Home() {
   const [messageBody, setMessageBody] = useState("")

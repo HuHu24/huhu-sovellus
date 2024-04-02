@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { format } from "date-fns"
 
-import MenuButton from "@/components/adminRelease/menuButton"
+import MenuButton from "@/components/admin/releases/menuButton"
 
 export default function Home() {
   const [imageSrc, setImageSrc] = useState("/huhuymp.png")

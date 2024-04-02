@@ -14,7 +14,7 @@ import {
 } from "@firebase/firestore"
 import { db } from "@/firebase"
 import { Message as MessageType } from "@/types/message"
-import Message from "@/components/chat/message"
+import Message from "@/components/message"
 
 export default function Home() {
   const router = useRouter()

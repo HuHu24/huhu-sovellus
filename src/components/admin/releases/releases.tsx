@@ -1,12 +1,13 @@
 "use client"
-
-import Link from "next/link"
 import { useEffect, useState } from "react"
-import { getRelease } from "@/firebase"
+import { getAllReleases, getRelease } from "@/firebase"
 import { releaseData } from "@/types/releases"
+import Link from "next/link"
 
 export const Release = ({ id }: { id: string }) => {
   const [data, setData] = useState<releaseData>()
+  const [isOpen, setIsOpen] = useState(false)
+
   useEffect(() => {
     getRelease(id).then((data: any) => {
       const castedData: releaseData = {
@@ -18,8 +19,7 @@ export const Release = ({ id }: { id: string }) => {
       setData(castedData)
     })
   }, [id])
-  console.log(data)
-  const [isOpen, setIsOpen] = useState(false)
+
   const deleteRelease = async (id: string) => {
     await fetch(`/api/releases/`, {
       method: "DELETE",
@@ -101,3 +101,27 @@ export const Release = ({ id }: { id: string }) => {
     </div>
   )
 }
+
+const Releases = () => {
+  const [releases, setReleases] = useState<{ id: string }[]>([])
+  useEffect(() => {
+    const fetchReleases = async () => {
+      const allReleases = await getAllReleases()
+      setReleases(allReleases)
+    }
+
+    fetchReleases().catch(console.error)
+  }, [])
+
+  return (
+    <div className="w-full overflow-y-auto">
+      <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {releases.map((release) => (
+          <Release key={release.id} id={release.id} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default Releases

@@ -1,4 +1,4 @@
-import Releases from "@/components/release/releases"
+import Releases from "@/components/releases"
 
 export default function Home() {
   return (
@@ -26,7 +26,7 @@ export default function Home() {
       </div>
       <div className="z-20 -mt-3 w-full gap-4 p-3">
         <div className="flex h-screen overflow-y-scroll">
-          <Releases></Releases>
+          <Releases direction={"vertical"} />
         </div>
       </div>
     </div>

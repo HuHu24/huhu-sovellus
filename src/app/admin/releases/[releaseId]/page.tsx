@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { format } from "date-fns"
 
-import MenuButton from "@/components/adminRelease/menuButton"
+import MenuButton from "@/components/admin/releases/menuButton"
 import { getRelease } from "@/firebase"
 
 export default function Home() {
