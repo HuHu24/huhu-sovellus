@@ -20,6 +20,21 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Enable https on development server
+### https on localhost is only needed for developing push notifications
+Install [mkcert](https://github.com/FiloSottile/mkcert) and generate a certificate for localhost
+Save the certificates in the root of the project. To run the development server with https, run the following command:
+```bash
+npm run dev:https
+```
+Also include the following in your `.env.local` file
+
+```bash
+NEXT_PUBLIC_API_URL=https://localhost:3000 
+NODE_TLS_REJECT_UNAUTHORIZED = '0'
+```
+
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
