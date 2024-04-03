@@ -6,13 +6,15 @@ Main features of the app are releases and timetable.
 App also includes various other features such as safety chat, notifications, map and information pages.
 
 ## Technical overview
-HuHu leirisovellus main technologies are Next.js and Firebase. 
-The app is build with Next.js app directory and uses TypeScript. 
-Tailwind CSS is used for styling. 
+
+HuHu leirisovellus main technologies are Next.js and Firebase.
+The app is build with Next.js app directory and uses TypeScript.
+Tailwind CSS is used for styling.
 
 The app is delivered to end users as PWA.
 
 ## Development
+
 ### Getting started with the repository
 
 1. Download the repository for your local machine
@@ -34,13 +36,13 @@ npm i
 ```
 
 4. Setup [Firebase](https://firebase.google.com/)
+
    1. Create Firebase project
    2. Configure Authentication, Firestore Database, Storege, Remote Config and Messaging
       - When configuring authentication, configure both Email/Password and Anynomous
    3. Replace Firebase config at `firebase.ts`
    4. Generate new private key from project settings -> service accounts -> Firebase Admin SDK
    5. Fill in the values in `.env.local` from the private key
-   
 
 5. Configure the values below to `.env.local`
 
@@ -96,10 +98,9 @@ Figma is used to design interfaces of the app and for other diagrams to help dev
 - [Link to user interfaces](https://www.figma.com/file/Ln3PArMLgmxdIyilgOkazZ/Sovellus?type=design&t=ZucJONXrBHwmmhcD-6)
 - [Link to other diagrams and plans](https://www.figma.com/file/NfgHJLsfqPndRL8NtWJFbc/Kaikki-kaaviot?type=whiteboard&t=ZucJONXrBHwmmhcD-6)
 
-
 ## Development team
 
 Head developer and project leader is [Aaro Heroja](https://github.com/Aromiii), [aaro.heroja@partio.fi](mailto:aaro.heroja@partio.fi).
-Team includes two other developers. 
+Team includes two other developers.
 
 If you want to know more about the repository, contact [Aaro](mailto:aaro.heroja@partio.fi).
