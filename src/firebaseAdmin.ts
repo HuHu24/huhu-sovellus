@@ -76,3 +76,33 @@ export const subscribeToTopic = async (token: string, topic: string) => {
   }
   return topic
 }
+
+export const sendMessages = async (message: string,title:string , topic:string, page:string) => {
+admin.messaging().send({
+    notification: {
+        title: title,
+        body: message,
+    },
+    topic: topic,
+    })
+    .then((response) => {
+        console.log('Successfully sent message:', response);
+    })
+    .catch((error) => {
+        console.log('Error sending message:', error);
+    });
+
+}
+
+export const getMessages = async () => {
+    try {
+        const messages = await admin.firestore().collection("messages").get()
+        const messagesData = messages.docs.map((doc) => doc.data())
+        console.log("Messages: ", messagesData)
+        return messagesData
+    } catch (e) {
+        console.error("Error: " + e)
+        return []
+    }
+}
+
