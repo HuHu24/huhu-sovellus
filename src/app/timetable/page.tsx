@@ -10,7 +10,7 @@ import {
 } from "firebase/remote-config"
 import { useEffect, useState } from "react"
 
-interface TimetableProps {
+export interface TimetableProps {
   days: {
     date: string
     events: {
