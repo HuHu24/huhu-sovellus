@@ -2,12 +2,7 @@
 
 import React, { useState } from "react"
 
-interface SortProps {
-  title: string
-  options: string[]
-}
-
-const Sort: React.FC<SortProps> = ({ title, options }) => {
+const Sort = (props: { title: string; options: string[] }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
 
@@ -18,7 +13,6 @@ const Sort: React.FC<SortProps> = ({ title, options }) => {
       setSelectedOptions([...selectedOptions, option])
     }
     setIsOpen(true)
-    console.log(option)
   }
 
   return (
@@ -31,7 +25,7 @@ const Sort: React.FC<SortProps> = ({ title, options }) => {
       >
         <div className=" inline-flex h-7 items-center justify-between rounded-[20px] px-[11px] py-0.5 shadow">
           <div className="h-3 w-[60px] font-poppins text-sm font-normal leading-[10px] text-helsinki">
-            {title}
+            {props.title}
           </div>
           <div className="relative h-6 w-6">
             <div className="material-symbols-outlined left-0 top-0 h-6 text-helsinki">
@@ -45,7 +39,7 @@ const Sort: React.FC<SortProps> = ({ title, options }) => {
           isOpen ? "delay-250 max-h-[500px] rounded-b-[20px]" : "max-h-0"
         } transition-max-height duration-500 ease-in-out`}
       >
-        {options.map((option) => (
+        {props.options.map((option) => (
           <button
             key={option}
             onClick={() => handleSort(option)}

@@ -67,6 +67,7 @@ export const loginWithEmailAndPassword = async (
     location.replace(`${env.NEXT_PUBLIC_URL}/admin`)
   } catch (e) {
     console.error("Error: " + e)
+    alert("Ongelma kirjautumisessa. Tarkista salasana ja sähköposti.")
   }
 }
 
@@ -88,6 +89,7 @@ export const signUpWithEmailAndPassword = async (
     location.replace(`${env.NEXT_PUBLIC_URL}/admin`)
   } catch (e) {
     console.error("Error: " + e)
+    alert("Ongelma käyttäjän luomisessa. Tarkista salasana ja sähköposti.")
   }
 }
 

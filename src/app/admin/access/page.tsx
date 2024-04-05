@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"
 import { onAuthStateChanged } from "@firebase/auth"
 import { auth, db, signInAnonymously } from "@/firebase"
 import { doc, getDoc } from "@firebase/firestore"
-import AccessList from "@/app/admin/access/accessList"
+import AccessList from "@/components/admin/access/accessList"
 import { env } from "@/env"
 
 export default function Access() {

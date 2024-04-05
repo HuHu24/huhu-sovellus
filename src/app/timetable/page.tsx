@@ -2,7 +2,6 @@
 import DaysTimetable from "@/components/daysTimetable"
 import { env } from "@/env"
 import { getApp } from "firebase/app"
-import { getAuth } from "firebase/auth"
 import {
   fetchAndActivate,
   getRemoteConfig,

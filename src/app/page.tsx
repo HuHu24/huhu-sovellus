@@ -1,7 +1,7 @@
 "use client"
 
+import Releases from "@/components/releases"
 import DaysTimetable from "@/components/daysTimetable"
-import Releases from "@/components/release/release_frontpage"
 import { useEffect, useState } from "react"
 import { getApp } from "firebase/app"
 import {
@@ -11,6 +11,7 @@ import {
 } from "firebase/remote-config"
 import { env } from "@/env"
 import { TimetableProps } from "@/app/timetable/page"
+
 export default function Home() {
   const [timetable, setTimetable] = useState<TimetableProps>()
 
@@ -56,7 +57,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex w-full flex-col gap-4 p-3">
-        <Releases />
+        <Releases direction={"horizontal"} />
         <>
           {timetable ? (
             <DaysTimetable
