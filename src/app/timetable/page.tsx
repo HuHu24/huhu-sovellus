@@ -2,42 +2,48 @@
 import DaysTimetable from "@/components/daysTimetable"
 import { env } from "@/env"
 import { getApp } from "firebase/app"
-import { fetchAndActivate, getRemoteConfig, getString } from "firebase/remote-config"
+import {
+  fetchAndActivate,
+  getRemoteConfig,
+  getString,
+} from "firebase/remote-config"
 import { useEffect, useState } from "react"
 
 interface TimetableProps {
   days: {
-      date: string;
-      events: {
-          time: string;
-          title: string;
-          description: string;
-      }[];
-  }[];
+    date: string
+    events: {
+      time: string
+      title: string
+      description: string
+    }[]
+  }[]
 }
 
 export default function Home() {
-
   const [timetable, setTimetable] = useState<TimetableProps>()
-
 
   useEffect(() => {
     const app = getApp()
     const remoteConfig = getRemoteConfig(app)
     remoteConfig.settings.minimumFetchIntervalMillis = 30000
 
-    const subcamp = fetch(`${env.NEXT_PUBLIC_URL}/api/auth`).then(res => {
-      res.text().then(data => {
+    const subcamp = fetch(`${env.NEXT_PUBLIC_URL}/api/auth`).then((res) => {
+      res.text().then((data) => {
         return JSON.parse(data).claims.subcamp
       })
     })
 
-    fetchAndActivate(remoteConfig).then(() => {
-      const timetableData =  JSON.parse(getString(remoteConfig, `timetableSubcamp${subcamp}`))
-      setTimetable(timetableData)
-    }).catch(err => {
-      setTimetable(undefined)
-    })
+    fetchAndActivate(remoteConfig)
+      .then(() => {
+        const timetableData = JSON.parse(
+          getString(remoteConfig, `timetableSubcamp${subcamp}`)
+        )
+        setTimetable(timetableData)
+      })
+      .catch((err) => {
+        setTimetable(undefined)
+      })
   }, [])
 
   return (
@@ -64,12 +70,13 @@ export default function Home() {
         </div>
       </div>
       <div className=" z-20 -mt-3 flex h-full w-full flex-col gap-4 overflow-auto p-3">
-        { (timetable) ?
-        timetable.days.map((day, key) => (
-          <DaysTimetable key={key} date={day.date} events={day.events} />
-        )) 
-        : <DaysTimetable date="Ei aikataulua" events={[]} />
-        }
+        {timetable ? (
+          timetable.days.map((day, key) => (
+            <DaysTimetable key={key} date={day.date} events={day.events} />
+          ))
+        ) : (
+          <DaysTimetable date="Ei aikataulua" events={[]} />
+        )}
       </div>
     </div>
   )

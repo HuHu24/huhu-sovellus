@@ -4,12 +4,12 @@ import React, { useState } from "react"
 import Image from "next/image"
 
 interface EventProps {
-  time: string,
-  title: string,
+  time: string
+  title: string
   description: string
 }
 
-const Event = ({time, title, description}: EventProps) => {
+const Event = ({ time, title, description }: EventProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const arrowStyle = {
@@ -57,7 +57,9 @@ const Event = ({time, title, description}: EventProps) => {
             style={extraInfoStyle}
             className="pointer-events-none  text-left"
           >
-            <p className="pointer-events-none break-all p-2 text-left">{description}</p>
+            <p className="pointer-events-none break-all p-2 text-left">
+              {description}
+            </p>
           </div>
         </div>
       </button>
@@ -66,26 +68,29 @@ const Event = ({time, title, description}: EventProps) => {
 }
 
 interface DaysTimetableProperties {
-  date: string,
+  date: string
   events: {
-    time: string;
-    title: string;
-    description: string;
-  }[]; 
+    time: string
+    title: string
+    description: string
+  }[]
 }
 
-const DaysTimetable = ({date, events}: DaysTimetableProperties) => {
+const DaysTimetable = ({ date, events }: DaysTimetableProperties) => {
   return (
     <div className="z-10 flex flex-col gap-2">
       <div className=" flex h-12 items-center justify-center gap-2.5 rounded-[20px] bg-soul font-poppins text-2xl text-ateena">
         {date}
       </div>
       <div className="flex w-full flex-col gap-2">
-        {
-          events.map((event, key) => (
-            <Event key={key} time={event.time} title={event.title} description={event.description} />
-          ))
-        }
+        {events.map((event, key) => (
+          <Event
+            key={key}
+            time={event.time}
+            title={event.title}
+            description={event.description}
+          />
+        ))}
       </div>
     </div>
   )

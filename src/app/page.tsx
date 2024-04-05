@@ -1,7 +1,6 @@
 import DaysTimetable from "@/components/daysTimetable"
 import Releases from "@/components/release/release_frontpage"
 export default function Home() {
-
   return (
     <div className="relative h-full w-full overflow-x-hidden overflow-y-scroll bg-helsinki">
       <div className="absolute -right-40 -top-40 p-2.5">
