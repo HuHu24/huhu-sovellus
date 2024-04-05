@@ -2,6 +2,7 @@
 import DaysTimetable from "@/components/daysTimetable"
 import { env } from "@/env"
 import { getApp } from "firebase/app"
+import { getAuth } from "firebase/auth"
 import {
   fetchAndActivate,
   getRemoteConfig,
@@ -28,18 +29,21 @@ export default function Home() {
     const remoteConfig = getRemoteConfig(app)
     remoteConfig.settings.minimumFetchIntervalMillis = 30000
 
-    let subcamp: String = ""
+    let keyword: String = "Subcamp"
     fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
       .then((res) => {
         res.text().then((data) => {
-          subcamp = JSON.parse(data).claims.subcamp
+          const parsedData = JSON.parse(data)
+
+          if (parsedData.email && parsedData.email != "") keyword = "Admin"
+          else keyword += parsedData.claims.subcamp
         })
       })
       .then(() => {
         fetchAndActivate(remoteConfig)
           .then(() => {
             const timetableData = JSON.parse(
-              getString(remoteConfig, `timetableSubcamp${subcamp}`)
+              getString(remoteConfig, `timetable${keyword}`)
             )
             setTimetable(timetableData)
           })
@@ -47,7 +51,8 @@ export default function Home() {
             setTimetable(undefined)
           })
       })
-  }, [])
+
+    }, [])
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-helsinki">
