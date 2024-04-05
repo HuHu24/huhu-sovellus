@@ -28,21 +28,24 @@ export default function Home() {
     const remoteConfig = getRemoteConfig(app)
     remoteConfig.settings.minimumFetchIntervalMillis = 30000
 
-    const subcamp = fetch(`${env.NEXT_PUBLIC_URL}/api/auth`).then((res) => {
-      res.text().then((data) => {
-        return JSON.parse(data).claims.subcamp
+    let subcamp: String = ""
+    fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
+      .then((res) => {
+        res.text().then((data) => {
+          subcamp = JSON.parse(data).claims.subcamp
+        })
       })
-    })
-
-    fetchAndActivate(remoteConfig)
       .then(() => {
-        const timetableData = JSON.parse(
-          getString(remoteConfig, `timetableSubcamp${subcamp}`)
-        )
-        setTimetable(timetableData)
-      })
-      .catch((err) => {
-        setTimetable(undefined)
+        fetchAndActivate(remoteConfig)
+          .then(() => {
+            const timetableData = JSON.parse(
+              getString(remoteConfig, `timetableSubcamp${subcamp}`)
+            )
+            setTimetable(timetableData)
+          })
+          .catch((err) => {
+            setTimetable(undefined)
+          })
       })
   }, [])
 
