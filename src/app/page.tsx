@@ -1,6 +1,7 @@
 import DaysTimetable from "@/components/daysTimetable"
 import Releases from "@/components/release/release_frontpage"
 export default function Home() {
+
   return (
     <div className="relative h-full w-full overflow-x-hidden overflow-y-scroll bg-helsinki">
       <div className="absolute -right-40 -top-40 p-2.5">
@@ -15,7 +16,8 @@ export default function Home() {
       </div>
       <div className="flex w-full flex-col gap-4 p-3">
         <Releases />
-        <DaysTimetable />
+        {/* // TODO Keksi miten näytät etusivulla */}
+        {/* <DaysTimetable date={""} events={[]} /> */}
       </div>
     </div>
   )
