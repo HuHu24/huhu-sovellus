@@ -51,8 +51,7 @@ export default function Home() {
             setTimetable(undefined)
           })
       })
-
-    }, [])
+  }, [])
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-helsinki">
