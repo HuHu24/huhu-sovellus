@@ -3,7 +3,13 @@
 import React, { useState } from "react"
 import Image from "next/image"
 
-const Event = () => {
+interface EventProps {
+  time: string
+  title: string
+  description: string
+}
+
+const Event = ({ time, title, description }: EventProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const arrowStyle = {
@@ -30,10 +36,10 @@ const Event = () => {
       >
         <div className="place-items-top flex w-full p-2">
           <div className="w-12">
-            <div className="font-poppins text-lg">8:30</div>
+            <div className="font-poppins text-lg">{time}</div>
           </div>
           <div className="pointer-events-none mx-auto font-poppins text-lg font-normal text-ateena">
-            Aamupala (oispa)
+            {title}
           </div>
           <div className="w-12">
             <Image
@@ -52,10 +58,7 @@ const Event = () => {
             className="pointer-events-none  text-left"
           >
             <p className="pointer-events-none break-all p-2 text-left">
-              Extra info
-              hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-              Extra info
-              hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+              {description}
             </p>
           </div>
         </div>
@@ -64,16 +67,30 @@ const Event = () => {
   )
 }
 
-const Day = () => {
+interface DaysTimetableProperties {
+  date: string
+  events: {
+    time: string
+    title: string
+    description: string
+  }[]
+}
+
+const DaysTimetable = ({ date, events }: DaysTimetableProperties) => {
   return (
     <div className="z-10 flex flex-col gap-2">
       <div className=" flex h-12 items-center justify-center gap-2.5 rounded-[20px] bg-soul font-poppins text-2xl text-ateena">
-        Maanantai, 5.6.
+        {date}
       </div>
       <div className="flex w-full flex-col gap-2">
-        <Event />
-        <Event />
-        <Event />
+        {events.map((event, key) => (
+          <Event
+            key={key}
+            time={event.time}
+            title={event.title}
+            description={event.description}
+          />
+        ))}
       </div>
     </div>
   )

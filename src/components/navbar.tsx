@@ -24,13 +24,16 @@ const Navbar = () => {
 
   return (
     <div className="fixed bottom-0 left-0 z-20 flex w-full flex-row items-start justify-start">
-      <div className="box-border flex h-[70px] w-full shrink-0 flex-row items-center justify-between overflow-hidden bg-gray px-4">
+      <div
+        className="box-border flex h-[70px] w-full shrink-0 flex-row items-center justify-between overflow-hidden bg-gray px-4"
+        onClick={toggle}
+      >
         <Link href="/" className="flex">
           <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
             home
           </span>
         </Link>
-        <Link href="/src/components/releases" className="flex">
+        <Link href="/releases" className="flex">
           <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
             breaking_news
           </span>
@@ -57,7 +60,7 @@ const Navbar = () => {
       <div
         className={`${
           isOpen ? "visible" : "invisible"
-        } fixed left-0 top-0 h-[calc(100%-70px)] w-full bg-gray opacity-60`}
+        } fixed left-0 top-0 -z-10 h-[calc(100%-70px)] w-full bg-gray opacity-60`}
         onClick={toggle}
       />
       <div
@@ -65,28 +68,28 @@ const Navbar = () => {
           isOpen ? "right-0" : "right-[-250px]"
         } fixed bottom-[70px] flex h-[calc(100%-70px)] w-full max-w-[240px] flex-col items-center divide-y bg-gray pt-5 transition-all`}
       >
-        <Link href="/chat">
+        <Link href="/chat" onClick={toggle}>
           <p className="py-3 font-poppins text-3xl text-tokio">Turvachat</p>
         </Link>
         {isAuthenticated ? (
           <>
-            <Link href="/admin">
+            <Link href="/admin" onClick={toggle}>
               <p className="py-3 font-poppins text-3xl text-tokio">
                 Tekijäpaneeli
               </p>
             </Link>
-            <Link href="/auth/signout">
+            <Link href="/auth/signout" onClick={toggle}>
               <p className="py-3 font-poppins text-3xl text-tokio">
                 Kirjaudu ulos
               </p>
             </Link>
           </>
         ) : (
-          <Link href="/auth/signin">
+          <Link href="/auth/signin" onClick={toggle}>
             <p className="py-3 font-poppins text-3xl text-tokio">Kirjaudu</p>
           </Link>
         )}
-        <Link href="/settings">
+        <Link href="/settings" onClick={toggle}>
           <p className="py-3 font-poppins text-3xl text-tokio">Asetukset</p>
         </Link>
       </div>
