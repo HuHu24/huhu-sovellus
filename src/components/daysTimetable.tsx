@@ -96,4 +96,4 @@ const DaysTimetable = ({ date, events }: DaysTimetableProperties) => {
   )
 }
 
-export default Day
+export default DaysTimetable
