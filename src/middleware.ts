@@ -8,7 +8,6 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     request.nextUrl.pathname.endsWith("/api/auth/claims") ||
     request.nextUrl.pathname.includes("/admin/")
   ) {
-    console.log("Koira")
     if (!session) {
       return NextResponse.redirect(
         new URL(`${env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
