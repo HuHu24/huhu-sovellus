@@ -5,23 +5,23 @@ import { env } from "@/env"
 import { saveMessagingToken } from "@/messaging"
 
 export default function Home() {
-  const router = useRouter();
+  const router = useRouter()
 
   async function selectSubcamp(subcamp: number) {
     try {
-      const messagingToken = await saveMessagingToken();
-      await signInAnonymously();
+      const messagingToken = await saveMessagingToken()
+      await signInAnonymously()
       await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ subcamp: subcamp, token: messagingToken }),
-      });
+      })
 
-      router.push("/");
+      router.push("/")
     } catch (e) {
-      console.error("Selecting subcamp failed:", e);
+      console.error("Selecting subcamp failed:", e)
     }
   }
 
