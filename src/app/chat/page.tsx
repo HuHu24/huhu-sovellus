@@ -16,7 +16,7 @@ import {
   updateDoc,
 } from "@firebase/firestore"
 import { Message as MessageType } from "@/types/message"
-import Message from "@/components/chat/message"
+import Message from "@/components/message"
 
 export default function Home() {
   const [messageBody, setMessageBody] = useState("")
@@ -34,18 +34,17 @@ export default function Home() {
           limit(20)
         )
 
-        const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+        return onSnapshot(q, (QuerySnapshot) => {
           const fetchedMessages: MessageType[] = []
           QuerySnapshot.forEach((doc) => {
             const data = doc.data() as MessageType
             fetchedMessages.push(data)
           })
           const sortedMessages = fetchedMessages.sort((a, b) => {
-            return (a.createdAt > b.createdAt) as unknown as number
+            return (a.createdAt < b.createdAt) as unknown as number
           })
           setMessages(sortedMessages)
         })
-        return () => unsubscribe
       } else {
         setUserUid("")
       }
@@ -127,7 +126,7 @@ export default function Home() {
         <>
           {messages && messages.length > 0 ? (
             <>
-              {messages.map((singleMessage, key) => (
+              {messages.toReversed().map((singleMessage) => (
                 // eslint-disable-next-line react/jsx-key
                 <Message
                   body={singleMessage.body}

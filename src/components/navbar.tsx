@@ -22,6 +22,39 @@ const Navbar = () => {
   return (
     <div className="fixed bottom-0 left-0 z-20 flex w-full flex-row items-start justify-start">
       <div
+        className="box-border flex h-[70px] w-full shrink-0 flex-row items-center justify-between overflow-hidden bg-gray px-4"
+        onClick={toggle}
+      >
+        <Link href="/" className="flex">
+          <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
+            home
+          </span>
+        </Link>
+        <Link href="/releases" className="flex">
+          <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
+            breaking_news
+          </span>
+        </Link>
+        <Link href="/timetable" className="flex">
+          <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
+            calendar_month
+          </span>
+        </Link>
+        <Link href="/map" className="flex">
+          <span className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
+            map
+          </span>
+        </Link>
+        <div onClick={toggle}>
+          <span
+            className="material-symbols-outlined h-[48px] w-full cursor-pointer text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]"
+            onClick={toggle}
+          >
+            more_horiz
+          </span>
+        </div>
+      </div>
+      <div
         className={`${
           isOpen ? "visible" : "invisible"
         } fixed left-0 top-0 -z-10 h-[calc(100%-70px)] w-full bg-gray opacity-60`}

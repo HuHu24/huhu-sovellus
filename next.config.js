@@ -10,6 +10,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  reactStrictMode: true,
+  i18n: {
+    locales: ["fi"],
+    defaultLocale: "fi",
+  },
 }
 
 module.exports = withPWA(nextConfig)
