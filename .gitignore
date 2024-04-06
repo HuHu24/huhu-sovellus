@@ -47,5 +47,7 @@ localhost.pem
 #Automatically generated serviceworker stuff
 
 /public/sw.js
+/public/sw.js.map
 /public/workbox-*.js
+/public/workbox-*.js.map
 /public/swe-worker-development.js
