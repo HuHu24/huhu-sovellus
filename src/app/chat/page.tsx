@@ -31,7 +31,7 @@ export default function Home() {
         const q = query(
           collection(db, "chats", user.uid, "messages"),
           orderBy("createdAt", "desc"),
-          limit(20)
+          limit(100)
         )
 
         return onSnapshot(q, (QuerySnapshot) => {
@@ -55,8 +55,12 @@ export default function Home() {
     }
   }, [])
 
-  const handleSendMessage = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSendMessage = async (
+    event: FormEvent<HTMLFormElement> | undefined
+  ) => {
+    if (event) {
+      event.preventDefault()
+    }
 
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
@@ -157,9 +161,15 @@ export default function Home() {
           <textarea
             onChange={(event) => setMessageBody(event.target.value)}
             value={messageBody}
-            className="h-full w-full rounded-lg bg-barcelona p-2 text-xl text-helsinki"
+            className="h-full w-full resize-none rounded-lg bg-barcelona p-2 text-xl text-helsinki"
             placeholder="Kirjoita viesti..."
             required={true}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault()
+                handleSendMessage(undefined)
+              }
+            }}
           />
           <button>
             <span className="material-symbols-outlined h-[48px] w-full cursor-pointer text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
