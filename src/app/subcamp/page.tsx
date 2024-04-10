@@ -6,23 +6,25 @@ import { saveMessagingToken } from "@/messaging"
 
 export default function Home() {
   const router = useRouter()
+
   async function selectSubcamp(subcamp: number) {
     try {
-      const messagingToken = await saveMessagingToken()
-      await signInAnonymously()
+      const [messagingToken] = await Promise.all([saveMessagingToken(), signInAnonymously()]);
+
       await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ subcamp: subcamp, token: messagingToken }),
-      })
+      });
 
-      router.push("/")
+      router.push("/");
     } catch (e) {
-      console.error("Selecting subcamp failed")
+      console.error("Selecting subcamp failed:", e);
     }
   }
+
   return (
     <div className="absolute z-30 flex h-screen w-full place-content-center place-items-center overflow-hidden break-all bg-helsinki text-center font-poppins text-ateena">
       <div className="mx-4 my-auto flex w-full max-w-[500px] flex-col items-center justify-between gap-[5px] rounded-[20px] bg-oslo py-2.5">
