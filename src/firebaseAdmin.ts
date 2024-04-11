@@ -84,6 +84,11 @@ admin.messaging().send({
         body: message,
     },
     topic: topic,
+webpush: {
+        fcmOptions: {
+            link: page,
+        },
+    },
     })
     .then((response) => {
         console.log('Successfully sent message:', response);
@@ -94,15 +99,22 @@ admin.messaging().send({
 
 }
 
-export const getMessages = async () => {
+
+
+export const saveMessage = async (message: string,title:string , topic:string, page:string,email:string) => {
+    const data = {
+        title: title,
+        message: message,
+        topic: topic,
+        page: page,
+        email: email,
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    }
     try {
-        const messages = await admin.firestore().collection("messages").get()
-        const messagesData = messages.docs.map((doc) => doc.data())
-        console.log("Messages: ", messagesData)
-        return messagesData
+        const docRef = await admin.firestore().collection("messages").add(data)
+        console.log("Document written with ID: ", docRef.id)
     } catch (e) {
         console.error("Error: " + e)
-        return []
     }
+    return data
 }
-
