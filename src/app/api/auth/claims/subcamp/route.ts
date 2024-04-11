@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   try {
     const result = (await request.json()) as { subcamp: number; token: string }
     const decodedClaims = await getDecodedClaims(
-        cookies().get("session")?.value || ""
+      cookies().get("session")?.value || ""
     )
 
     if (!isValidSubcamp(result.subcamp) || !decodedClaims?.uid) {
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     await Promise.all([
       subscribeToTopic(result.token, result.subcamp.toString()),
-      subscribeToTopic(result.token, "Kaikki")
+      subscribeToTopic(result.token, "Kaikki"),
     ])
 
     await auth().setCustomUserClaims(decodedClaims.uid, {

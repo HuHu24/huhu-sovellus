@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   if (
     request.nextUrl.pathname.endsWith("/api/auth/claims") ||
     request.nextUrl.pathname.includes("/admin/") ||
-      request.nextUrl.pathname.includes("/api/messages")
+    request.nextUrl.pathname.includes("/api/messages")
   ) {
     if (!session) {
       return NextResponse.redirect(
