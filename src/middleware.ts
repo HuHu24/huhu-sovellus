@@ -6,7 +6,8 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   const session = request.cookies.get("session")
   if (
     request.nextUrl.pathname.endsWith("/api/auth/claims") ||
-    request.nextUrl.pathname.includes("/admin/")
+    request.nextUrl.pathname.includes("/admin/") ||
+      request.nextUrl.pathname.includes("/api/messages")
   ) {
     if (!session) {
       return NextResponse.redirect(
