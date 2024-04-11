@@ -6,9 +6,9 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   const session = request.cookies.get("session")
   if (
     request.nextUrl.pathname.endsWith("/api/auth/claims") ||
-    request.nextUrl.pathname.includes("/admin/")
+    request.nextUrl.pathname.includes("/admin/") ||
+    request.nextUrl.pathname.includes("/api/messages")
   ) {
-    console.log("Koira")
     if (!session) {
       return NextResponse.redirect(
         new URL(`${env.NEXT_PUBLIC_URL}/auth/signin`, request.url)

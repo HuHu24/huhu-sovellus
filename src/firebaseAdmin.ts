@@ -76,3 +76,55 @@ export const subscribeToTopic = async (token: string, topic: string) => {
   }
   return topic
 }
+
+export const sendMessages = async (
+  message: string,
+  title: string,
+  topic: string,
+  page: string
+) => {
+  admin
+    .messaging()
+    .send({
+      notification: {
+        title: title,
+        body: message,
+      },
+      topic: topic,
+      webpush: {
+        fcmOptions: {
+          link: page,
+        },
+      },
+    })
+    .then((response) => {
+      console.log("Successfully sent message:", response)
+    })
+    .catch((error) => {
+      console.log("Error sending message:", error)
+    })
+}
+
+export const saveMessage = async (
+  message: string,
+  title: string,
+  topic: string,
+  page: string,
+  email: string
+) => {
+  const data = {
+    title: title,
+    message: message,
+    topic: topic,
+    page: page,
+    email: email,
+    timestamp: admin.firestore.FieldValue.serverTimestamp(),
+  }
+  try {
+    const docRef = await admin.firestore().collection("messages").add(data)
+    console.log("Document written with ID: ", docRef.id)
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+  return data
+}
