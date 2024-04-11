@@ -4,21 +4,30 @@ import { getDecodedClaims, subscribeToTopic } from "@/firebaseAdmin"
 import { cookies } from "next/headers"
 
 export async function POST(request: NextRequest) {
-  const result = (await request.json()) as { subcamp: number; token: string }
-  const decodedClaims = await getDecodedClaims(
-    cookies().get("session")?.value || ""
-  )
+  try {
+    const result = (await request.json()) as { subcamp: number; token: string }
+    const decodedClaims = await getDecodedClaims(
+        cookies().get("session")?.value || ""
+    )
 
-  if (!isValidSubcamp(result.subcamp) || !decodedClaims?.uid) {
+    if (!isValidSubcamp(result.subcamp) || !decodedClaims?.uid) {
+      throw new Error("Invalid subcamp or missing uid in decoded claims")
+    }
+
+    await Promise.all([
+      subscribeToTopic(result.token, result.subcamp.toString()),
+      subscribeToTopic(result.token, "Kaikki")
+    ])
+
+    await auth().setCustomUserClaims(decodedClaims.uid, {
+      subcamp: result.subcamp,
+    })
+
+    return successResponse(result.subcamp)
+  } catch (error) {
+    console.error(error)
     return errorResponse()
   }
-
-  await subscribeToTopic(result.token, result.subcamp.toString())
-  await auth().setCustomUserClaims(decodedClaims.uid, {
-    subcamp: result.subcamp,
-  })
-
-  return successResponse(result.subcamp)
 }
 
 function isValidSubcamp(subcamp: number) {
