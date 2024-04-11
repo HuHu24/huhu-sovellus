@@ -25,7 +25,7 @@ export default function Home() {
 
   const handleSubmit = async (data: any) => {
     if (data.title.length <= 3 || data.message.length <= 3) {
-      window.alert("Missing or insufficient data")
+      alert("Missing or insufficient data")
       return null
     }
     const response = await fetch("/api/messaging", {
@@ -69,7 +69,7 @@ export default function Home() {
               handleOptionChange("title", event.target.value)
             }
             className="w-[80%] rounded-lg bg-barcelona p-1 text-xl text-helsinki"
-            placeholder="Otiskko..."
+            placeholder="Otsikko..."
           />
           <input
             onChange={(event) =>
