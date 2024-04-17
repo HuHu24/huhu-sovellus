@@ -1,5 +1,4 @@
 import Releases from "@/components/admin/releases/releases"
-import Sort from "@/components/admin/releases/sort"
 import Link from "next/link"
 
 export default function Home() {
@@ -19,22 +18,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="absolute flex w-screen justify-center gap-3">
-        <Sort
-          title="Alaleiri"
-          options={["Ananas", "Tomaatti", "Pasteija", "a", "jaahaas"]}
-        ></Sort>
-        <Sort
-          title="julkaisija"
-          options={["Julkaisupäivä", "Julkaisija", "Kriittisyys"]}
-        ></Sort>
-        <Sort
-          title="Kriittiisyys"
-          options={["Kriittinen", "Jotain", "Jotain2"]}
-        ></Sort>
-      </div>
-
-      <div className="z-30 mt-12 w-full gap-4 p-3">
+      <div className="z-30 w-full gap-4 p-3">
         <div className="flex h-screen overflow-y-scroll">
           <Releases></Releases>
         </div>
