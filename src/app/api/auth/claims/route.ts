@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
   }
 
   return NextResponse.json(
-    { message: "added admin custom claims" },
+    { message: "added custom claims" },
     { status: 200 }
   )
 }
