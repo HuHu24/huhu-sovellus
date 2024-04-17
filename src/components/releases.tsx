@@ -43,12 +43,12 @@ const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: strin
 
   let displayTime = '';
   if (data) {
-    displayTime = formatDateTime(data.date, data.time)
+    displayTime = formatDateTime(data?.date, data?.time)
   }
   if (data?.hidden) {
     return null
   }
-  if (data?.timed && new Date() < new Date(data.date + 'T' + data.time)) {
+  if (data?.timed && new Date() < new Date(data?.date + 'T' + data?.time)) {
     return null
   }
   if (data?.targetGroup == "Alaleiri" && data?.subcamp != userSubcamp) {
