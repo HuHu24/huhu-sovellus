@@ -1,9 +1,10 @@
 "use client"
 import { useEffect, useState } from "react"
-import { getAllReleases, getRelease } from "@/firebase"
+import {getAllReleases, getRelease} from "@/firebase"
 import { releaseData } from "@/types/releases"
 import Link from "next/link"
 import { parse, format } from 'date-fns'
+
 function formatDateTime(date: string, time: string): string {
   const parsedDate = parse(date, 'yyyy-MM-dd', new Date())
   const parsedTime = parse(time, 'HH:mm', new Date())
@@ -18,8 +19,7 @@ function formatDateTime(date: string, time: string): string {
 
   return format(dateTime, 'dd.MM HH:mm')
 }
-
-const HorizontalRelease = ({ id }: { id: string }) => {
+const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string }) => {
   const [data, setData] = useState<releaseData>()
   useEffect(() => {
     getRelease(id).then((data: any) => {
@@ -30,6 +30,8 @@ const HorizontalRelease = ({ id }: { id: string }) => {
         date: data.date,
         hidden: data.hidden,
         timed: data.timed,
+        targetGroup: data.targetGroup,
+        subcamp: data.subcamp
       }
       setData(castedData)
       console.log(data)
@@ -46,6 +48,9 @@ const HorizontalRelease = ({ id }: { id: string }) => {
     return null
   }
   if (data?.timed && new Date() < new Date(data.date + 'T' + data.time)) {
+    return null
+  }
+  if (data?.targetGroup == "Alaleiri" && data?.subcamp != userSubcamp) {
     return null
   }
   return (
@@ -67,7 +72,7 @@ const HorizontalRelease = ({ id }: { id: string }) => {
   )
 }
 
-const VerticalRelease = ({ id }: { id: string }) => {
+const VerticalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string }) => {
   const [data, setData] = useState<releaseData>()
 
   useEffect(() => {
@@ -79,6 +84,8 @@ const VerticalRelease = ({ id }: { id: string }) => {
         date: data.date,
         hidden: data.hidden,
         timed: data.timed,
+        targetGroup: data.targetGroup,
+        subcamp: data.subcamp
       }
       setData(castedData)
     })
@@ -93,6 +100,10 @@ const VerticalRelease = ({ id }: { id: string }) => {
   if (data?.timed && new Date() < new Date(data.date + 'T' + data.time)) {
     return null
   }
+  if (data?.targetGroup == "Alaleiri" && data?.subcamp != userSubcamp) {
+    return null
+  }
+
   return (
     <Link href={`/releases/${id}`} className="z-10">
       <div className="flex items-center bg-ateena bg-opacity-0">
@@ -115,26 +126,25 @@ const VerticalRelease = ({ id }: { id: string }) => {
   )
 }
 
-const Releases = (props: { direction: "vertical" | "horizontal" }) => {
+const Releases = (props: { direction: "vertical" | "horizontal", userSubcamp: string }) => {
   const [releases, setReleases] = useState<{ id: string }[]>([])
   useEffect(() => {
     getAllReleases().then(setReleases).catch(console.error)
   }, [])
-
   return (
       <>
         {props.direction === "vertical" ? (
             <div className="w-full overflow-y-auto">
               <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {releases.map(({ id }) => (
-                    <VerticalRelease key={id} id={id} />
+                    <VerticalRelease key={id} id={id} userSubcamp={props.userSubcamp} />
                 ))}
               </div>
             </div>
         ) : (
             <div className="flex overflow-x-auto">
               {releases.map((release) => (
-                  <HorizontalRelease key={release.id} id={release.id} />
+                  <HorizontalRelease key={release.id} id={release.id} userSubcamp={props.userSubcamp} />
               ))}
             </div>
         )}
