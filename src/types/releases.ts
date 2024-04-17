@@ -3,4 +3,6 @@ export interface releaseData {
   releaser: string
   time: string
   date: string
+  hidden: boolean
+  timed: boolean
 }

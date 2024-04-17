@@ -28,6 +28,8 @@ const HorizontalRelease = ({ id }: { id: string }) => {
         releaser: data.releaser,
         time: data.time,
         date: data.date,
+        hidden: data.hidden,
+        timed: data.timed,
       }
       setData(castedData)
       console.log(data)
@@ -39,6 +41,12 @@ const HorizontalRelease = ({ id }: { id: string }) => {
   let displayTime = '';
   if (data) {
     displayTime = formatDateTime(data.date, data.time)
+  }
+  if (data?.hidden) {
+    return null
+  }
+  if (data?.timed && new Date() < new Date(data.date + 'T' + data.time)) {
+    return null
   }
   return (
     <Link href={`/releases/${id}`} className="z-10">
@@ -69,6 +77,8 @@ const VerticalRelease = ({ id }: { id: string }) => {
         releaser: data.releaser,
         time: data.time,
         date: data.date,
+        hidden: data.hidden,
+        timed: data.timed,
       }
       setData(castedData)
     })
@@ -77,7 +87,12 @@ const VerticalRelease = ({ id }: { id: string }) => {
   if (data) {
     displayTime = formatDateTime(data.date, data.time)
   }
-
+  if (data?.hidden) {
+    return null
+  }
+  if (data?.timed && new Date() < new Date(data.date + 'T' + data.time)) {
+    return null
+  }
   return (
     <Link href={`/releases/${id}`} className="z-10">
       <div className="flex items-center bg-ateena bg-opacity-0">
@@ -107,23 +122,23 @@ const Releases = (props: { direction: "vertical" | "horizontal" }) => {
   }, [])
 
   return (
-    <>
-      {props.direction === "vertical" ? (
-        <div className="w-full overflow-y-auto">
-          <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {releases.map(({ id }) => (
-              <VerticalRelease key={id} id={id} />
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className="flex overflow-x-auto">
-          {releases.map((release) => (
-            <HorizontalRelease key={release.id} id={release.id} />
-          ))}
-        </div>
-      )}
-    </>
+      <>
+        {props.direction === "vertical" ? (
+            <div className="w-full overflow-y-auto">
+              <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {releases.map(({ id }) => (
+                    <VerticalRelease key={id} id={id} />
+                ))}
+              </div>
+            </div>
+        ) : (
+            <div className="flex overflow-x-auto">
+              {releases.map((release) => (
+                  <HorizontalRelease key={release.id} id={release.id} />
+              ))}
+            </div>
+        )}
+      </>
   )
 }
 
