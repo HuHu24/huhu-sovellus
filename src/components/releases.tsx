@@ -31,7 +31,8 @@ const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: strin
         hidden: data.hidden,
         timed: data.timed,
         targetGroup: data.targetGroup,
-        subcamp: data.subcamp
+        subcamp: data.subcamp,
+        content: data.content
       }
       setData(castedData)
       console.log(data)
@@ -59,11 +60,11 @@ const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: strin
         <div className="flex h-[150px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
           <img className="h-full" src="huhuymp.png" alt="" />
         </div>
-        <div className="w-[180px] whitespace-normal font-poppins font-normal text-ateena shadow-helsinki text-shadow">
+        <div className="w-[180px] whitespace-normal font-poppins text-xl text-ateena shadow-helsinki text-shadow">
           {data?.title}
         </div>
-        <div className="w-[180px] whitespace-normal font-poppins font-normal text-ateena shadow-helsinki text-shadow">
-          {data?.releaser}
+        <div className="w-[180px] whitespace-normal break-all font-poppins font-normal text-ateena shadow-helsinki text-shadow overflow-hidden line-clamp-2">
+          {data?.content}
         </div>
         <div className="w-full overflow-hidden whitespace-normal font-opensauce text-sm font-normal text-ateena shadow-helsinki text-shadow">
           {displayTime}        </div>
@@ -85,7 +86,8 @@ const VerticalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string 
         hidden: data.hidden,
         timed: data.timed,
         targetGroup: data.targetGroup,
-        subcamp: data.subcamp
+        subcamp: data.subcamp,
+        content: data.content
       }
       setData(castedData)
     })
@@ -111,13 +113,13 @@ const VerticalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string 
           <img className="h-full" src="huhuymp.png" alt="" />
         </div>
         <div className="ml-[20px] flex w-[150px] flex-col justify-center">
-          <div className="text-overflow-ellipsis overflow-hidden whitespace-nowrap break-all font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
+          <div className="text-overflow-ellipsis overflow-hidden whitespace-nowrap font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
             {data?.title}
           </div>
           <div className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow">
             {displayTime}
             <br />
-            {data?.releaser}
+            {data?.content}
             <br />
           </div>
         </div>

@@ -7,4 +7,5 @@ export interface releaseData {
   timed: boolean
   targetGroup:string
   subcamp:string
+  content:string
 }
