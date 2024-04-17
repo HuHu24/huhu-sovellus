@@ -3,6 +3,21 @@ import { useEffect, useState } from "react"
 import { getAllReleases, getRelease } from "@/firebase"
 import { releaseData } from "@/types/releases"
 import Link from "next/link"
+import { parse, format } from 'date-fns'
+function formatDateTime(date: string, time: string): string {
+  const parsedDate = parse(date, 'yyyy-MM-dd', new Date())
+  const parsedTime = parse(time, 'HH:mm', new Date())
+
+  const dateTime = new Date(
+      parsedDate.getFullYear(),
+      parsedDate.getMonth(),
+      parsedDate.getDate(),
+      parsedTime.getHours(),
+      parsedTime.getMinutes()
+  )
+
+  return format(dateTime, 'dd.MM HH:mm')
+}
 
 const HorizontalRelease = ({ id }: { id: string }) => {
   const [data, setData] = useState<releaseData>()
@@ -12,13 +27,19 @@ const HorizontalRelease = ({ id }: { id: string }) => {
         title: data.title,
         releaser: data.releaser,
         time: data.time,
-        importance: data.importance,
+        date: data.date,
       }
       setData(castedData)
       console.log(data)
     })
   }, [id])
   console.log(data)
+
+
+  let displayTime = '';
+  if (data) {
+    displayTime = formatDateTime(data.date, data.time)
+  }
   return (
     <Link href={`/releases/${id}`} className="z-10">
       <div className="mr-4 flex flex-col">
@@ -32,8 +53,7 @@ const HorizontalRelease = ({ id }: { id: string }) => {
           {data?.releaser}
         </div>
         <div className="w-full overflow-hidden whitespace-normal font-opensauce text-sm font-normal text-ateena shadow-helsinki text-shadow">
-          {data?.time}
-        </div>
+          {displayTime}        </div>
       </div>
     </Link>
   )
@@ -48,11 +68,15 @@ const VerticalRelease = ({ id }: { id: string }) => {
         title: data.title,
         releaser: data.releaser,
         time: data.time,
-        importance: data.importance,
+        date: data.date,
       }
       setData(castedData)
     })
   }, [id])
+  let displayTime = ''
+  if (data) {
+    displayTime = formatDateTime(data.date, data.time)
+  }
 
   return (
     <Link href={`/releases/${id}`} className="z-10">
@@ -65,11 +89,10 @@ const VerticalRelease = ({ id }: { id: string }) => {
             {data?.title}
           </div>
           <div className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow">
-            {data?.time}
+            {displayTime}
             <br />
             {data?.releaser}
             <br />
-            {data?.importance}
           </div>
         </div>
       </div>
