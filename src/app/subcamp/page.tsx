@@ -9,7 +9,10 @@ export default function Home() {
 
   async function selectSubcamp(subcamp: number) {
     try {
-      const [messagingToken] = await Promise.all([saveMessagingToken(), signInAnonymously()]);
+      const [messagingToken] = await Promise.all([
+        saveMessagingToken(),
+        signInAnonymously(),
+      ])
 
       await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
         method: "POST",
@@ -17,11 +20,11 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ subcamp: subcamp, token: messagingToken }),
-      });
+      })
 
-      router.push("/");
+      router.push("/")
     } catch (e) {
-      console.error("Selecting subcamp failed:", e);
+      console.error("Selecting subcamp failed:", e)
     }
   }
 
