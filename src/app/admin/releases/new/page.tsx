@@ -17,12 +17,11 @@ export default function Home() {
     timed: "Ei",
     time: format(new Date(), "HH:mm"),
     date: format(new Date(), "yyyy-MM-dd"),
-    released: "Ei",
+    hidden: false,
     title: "",
     releaser: "",
     content: "",
     image: "/huhuymp.png",
-    importance: "Kriittinen",
   })
 
   const divRef = useRef(null)
@@ -84,7 +83,11 @@ export default function Home() {
       if (option.length != 5)
         setFormValues((prevValues) => ({ ...prevValues, ["date"]: option }))
       else setFormValues((prevValues) => ({ ...prevValues, ["time"]: option }))
-    } else {
+    }
+    else if (title === "hidden" || title === "timed" ) {
+      option === "Kyllä" ? setFormValues((prevValues) => ({ ...prevValues, [title]: true })) : setFormValues((prevValues) => ({ ...prevValues, [title]: false }))
+    }
+    else {
       setFormValues((prevValues) => ({ ...prevValues, [title]: option }))
     }
     console.log(formValues)
@@ -124,14 +127,6 @@ export default function Home() {
               onOptionChange={(option) => handleOptionChange("subcamp", option)}
             ></MenuButton>
             <MenuButton
-              title="Kriittisyys"
-              options={["Kriittinen", "Vähemmän kriittinen", "Ei kriittinen"]}
-              onOptionChange={(option) =>
-                handleOptionChange("importance", option)
-              }
-            ></MenuButton>
-
-            <MenuButton
               title="Ajastus"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) => handleOptionChange("timed", option)}
@@ -140,9 +135,9 @@ export default function Home() {
               title="Aika"
               options={["a"]}
               className={
-                formValues.timed === "Ei"
-                  ? "pointer-events-none opacity-25"
-                  : ""
+                formValues.timed
+                  ? ""
+                  : "pointer-events-none opacity-25"
               }
               isTimeInput={true}
               onOptionChange={(option) => {
@@ -150,10 +145,10 @@ export default function Home() {
               }}
             />
             <MenuButton
-              title="Julkaistu"
+              title="Piilotettu"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) =>
-                handleOptionChange("released", option)
+                handleOptionChange("hidden", option)
               }
             ></MenuButton>
             <div

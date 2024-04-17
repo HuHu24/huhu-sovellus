@@ -3,6 +3,23 @@ import { useEffect, useState } from "react"
 import { getAllReleases, getRelease } from "@/firebase"
 import { releaseData } from "@/types/releases"
 import Link from "next/link"
+import {format, parse} from "date-fns";
+
+
+function formatDateTime(date: string, time: string): string {
+  const parsedDate = parse(date, 'yyyy-MM-dd', new Date())
+  const parsedTime = parse(time, 'HH:mm', new Date())
+
+  const dateTime = new Date(
+      parsedDate.getFullYear(),
+      parsedDate.getMonth(),
+      parsedDate.getDate(),
+      parsedTime.getHours(),
+      parsedTime.getMinutes()
+  )
+
+  return format(dateTime, 'dd.MM HH:mm')
+}
 
 export const Release = ({ id }: { id: string }) => {
   const [data, setData] = useState<releaseData>()
@@ -22,7 +39,10 @@ export const Release = ({ id }: { id: string }) => {
       setData(castedData)
     })
   }, [id])
-
+  let displayTime = '';
+  if (data) {
+    displayTime = formatDateTime(data?.date, data?.time)
+  }
 
   return (
     <div className="z-10">
@@ -40,7 +60,7 @@ export const Release = ({ id }: { id: string }) => {
           <div
             className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow"
           >
-            {"julkaistu: " + data?.time}
+            {"julkaistu: " + displayTime}
             <br />
             {"julkaisija: " + data?.releaser}
             <br />

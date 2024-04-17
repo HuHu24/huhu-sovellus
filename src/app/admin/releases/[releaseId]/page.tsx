@@ -17,16 +17,15 @@ export default function Home() {
   const [formValues, setFormValues] = useState({
     targetGroup: "Kaikki",
     subcamp: "",
-    timed: "Ei",
+    timed: false,
     time: "",
     date: "",
-    released: "Ei",
+    hidden: false,
     title: "",
     releaser: "",
     content: "",
     image: "/huhuymp.png",
     id: "",
-    importance: "",
   })
 
   useEffect(() => {
@@ -36,16 +35,15 @@ export default function Home() {
         setFormValues({
           targetGroup: releaseData.targetGroup || "",
           subcamp: releaseData.subcamp || "",
-          timed: releaseData.timed || "Ei",
+          timed: releaseData.timed,
           time: releaseData.time || "",
           date: releaseData.date || "",
-          released: releaseData.released || "Ei",
+          hidden: releaseData.hidden,
           title: releaseData.title || "",
           releaser: releaseData.releaser || "",
           content: releaseData.content || "",
           image: releaseData.image || "/huhuymp.png",
           id: releaseId,
-          importance: releaseData.importance || "",
         })
       }
     }
@@ -113,15 +111,18 @@ export default function Home() {
   }
 
   const handleOptionChange = (title: string, option: string) => {
-    if (title === "timeaAndDate") {
+    if (title === "timeAndDate") {
       if (option.length != 5)
-        setFormValues((prevValues) => ({ ...prevValues, ["Date"]: option }))
-      else setFormValues((prevValues) => ({ ...prevValues, ["Time"]: option }))
-    } else {
+        setFormValues((prevValues) => ({ ...prevValues, ["date"]: option }))
+      else setFormValues((prevValues) => ({ ...prevValues, ["time"]: option }))
+    }
+    else if (title === "hidden" || title === "timed" ) {
+      option === "Kyllä" ? setFormValues((prevValues) => ({ ...prevValues, [title]: true })) : setFormValues((prevValues) => ({ ...prevValues, [title]: false }))
+    }
+    else {
       setFormValues((prevValues) => ({ ...prevValues, [title]: option }))
     }
     console.log(formValues)
-
   }
   const deleteRelease = async (id: string) => {
     if (confirm("Haluatko varmasti poistaa tämän tiedotteen?")) {
@@ -186,9 +187,9 @@ export default function Home() {
               title="Aika"
               options={["a"]}
               className={
-                formValues.timed === "Ei"
-                  ? "pointer-events-none opacity-25"
-                  : ""
+                formValues.timed
+                  ? ""
+                  : "pointer-events-none opacity-25"
               }
               isTimeInput={true}
               onOptionChange={(option) => {
