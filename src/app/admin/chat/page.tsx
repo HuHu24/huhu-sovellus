@@ -1,15 +1,8 @@
 import Chat from "@/components/admin/chat/chat"
-import { initFirebaseAdmin } from "@/firebaseAdmin"
-import { firestore } from "firebase-admin"
-import { Chat as ChatType } from "@/types/chat"
+import {getChats} from "@/firebaseAdmin"
 
 export default async function ChatMenu() {
-  await initFirebaseAdmin()
-  let data: ChatType[] = []
-  const docs = await firestore().collection("/chats").get()
-  docs.forEach((tempDoc) => {
-    data.push({ ...tempDoc.data(), id: tempDoc.id } as ChatType)
-  })
+const data = await getChats()
 
   return (
     <>
