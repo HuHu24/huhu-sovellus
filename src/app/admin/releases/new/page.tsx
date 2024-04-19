@@ -83,11 +83,11 @@ export default function Home() {
       if (option.length != 5)
         setFormValues((prevValues) => ({ ...prevValues, ["date"]: option }))
       else setFormValues((prevValues) => ({ ...prevValues, ["time"]: option }))
-    }
-    else if (title === "hidden" || title === "timed" ) {
-      option === "Kyllä" ? setFormValues((prevValues) => ({ ...prevValues, [title]: true })) : setFormValues((prevValues) => ({ ...prevValues, [title]: false }))
-    }
-    else {
+    } else if (title === "hidden" || title === "timed") {
+      option === "Kyllä"
+        ? setFormValues((prevValues) => ({ ...prevValues, [title]: true }))
+        : setFormValues((prevValues) => ({ ...prevValues, [title]: false }))
+    } else {
       setFormValues((prevValues) => ({ ...prevValues, [title]: option }))
     }
     console.log(formValues)
@@ -135,9 +135,7 @@ export default function Home() {
               title="Aika"
               options={["a"]}
               className={
-                formValues.timed
-                  ? ""
-                  : "pointer-events-none opacity-25"
+                formValues.timed ? "" : "pointer-events-none opacity-25"
               }
               isTimeInput={true}
               onOptionChange={(option) => {
@@ -147,9 +145,7 @@ export default function Home() {
             <MenuButton
               title="Piilotettu"
               options={["Ei", "Kyllä"]}
-              onOptionChange={(option) =>
-                handleOptionChange("hidden", option)
-              }
+              onOptionChange={(option) => handleOptionChange("hidden", option)}
             ></MenuButton>
             <div
               style={{

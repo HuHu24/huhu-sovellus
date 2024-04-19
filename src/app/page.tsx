@@ -13,7 +13,7 @@ import { env } from "@/env"
 import { TimetableProps } from "@/app/timetable/page"
 
 export default function Home() {
-    const [subcamp,setSubcamp] = useState<string>("")
+  const [subcamp, setSubcamp] = useState<string>("")
   const [timetable, setTimetable] = useState<TimetableProps>()
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Home() {
           const parsedData = JSON.parse(data)
           if (parsedData.email && parsedData.email != "") keyword = "Admin"
           else keyword += parsedData.claims.subcamp
-            setSubcamp(parsedData.claims.subcamp)
+          setSubcamp(parsedData.claims.subcamp)
         })
       })
       .then(() => {

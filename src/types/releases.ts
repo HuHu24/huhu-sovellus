@@ -5,8 +5,8 @@ export interface releaseData {
   date: string
   hidden: boolean
   timed: boolean
-  targetGroup:string
-  subcamp:string
-  content:string
-  image:string
+  targetGroup: string
+  subcamp: string
+  content: string
+  image: string
 }

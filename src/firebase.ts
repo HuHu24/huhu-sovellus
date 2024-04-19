@@ -24,7 +24,7 @@ import {
   isSupported,
   onMessage,
 } from "firebase/messaging"
-import {getDownloadURL, getStorage, ref, uploadBytes} from "@firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "@firebase/storage"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -134,10 +134,10 @@ export const getAllReleases = async () => {
 }
 const storage = getStorage(app)
 export const uploadImage = async (file: File) => {
-  const storageRef = ref(storage, `images/${file.name+Date.now()}`);
+  const storageRef = ref(storage, `images/${file.name + Date.now()}`)
   await uploadBytes(storageRef, file).then((snapshot) => {
-    console.log('Uploaded a blob or file!');
-  });
-  console.log('File available at', getDownloadURL(storageRef));
-    return getDownloadURL(storageRef)
+    console.log("Uploaded a blob or file!")
+  })
+  console.log("File available at", getDownloadURL(storageRef))
+  return getDownloadURL(storageRef)
 }

@@ -1,22 +1,22 @@
 "use client"
 import Releases from "@/components/releases"
-import {useEffect, useState} from "react";
-import {env} from "@/env";
+import { useEffect, useState } from "react"
+import { env } from "@/env"
 
 export default function Home() {
-    const [subcamp,setSubcamp] = useState<string>("")
-    useEffect(() => {
-        fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
-            .then((res) => {
-                return res.text();
-            })
-            .then((data) => {
-                const parsedData = JSON.parse(data);
-                setSubcamp(parsedData.claims.subcamp);
-            });
-    }, []);
+  const [subcamp, setSubcamp] = useState<string>("")
+  useEffect(() => {
+    fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
+      .then((res) => {
+        return res.text()
+      })
+      .then((data) => {
+        const parsedData = JSON.parse(data)
+        setSubcamp(parsedData.claims.subcamp)
+      })
+  }, [])
 
-    return (
+  return (
     <div className="relative h-full w-full overflow-hidden bg-helsinki">
       <div className="bg-white inline-flex h-[68px] w-full flex-col items-start justify-start gap-2.5 bg-opacity-0 p-2.5">
         <div className="bg-white inline-flex items-center justify-between self-stretch bg-opacity-0">

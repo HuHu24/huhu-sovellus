@@ -5,8 +5,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { format } from "date-fns"
 
 import MenuButton from "@/components/admin/releases/menuButton"
-import {getRelease, uploadImage} from "@/firebase"
-
+import { getRelease, uploadImage } from "@/firebase"
 
 export default function Home() {
   const router = useRouter()
@@ -77,7 +76,7 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formValues,),
+      body: JSON.stringify(formValues),
     })
 
     if (!response.ok) {
@@ -89,14 +88,19 @@ export default function Home() {
     }
   }
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0]
     if (file) {
       const reader = new FileReader()
       reader.onloadend = async () => {
         try {
           const imageUrl = await uploadImage(file)
-          setFormValues((prevValues) => ({ ...prevValues, ["image"]: imageUrl }))
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            ["image"]: imageUrl,
+          }))
           console.log(formValues)
           console.log("File uploaded successfully")
         } catch (error) {
@@ -118,18 +122,17 @@ export default function Home() {
       if (option.length != 5)
         setFormValues((prevValues) => ({ ...prevValues, ["date"]: option }))
       else setFormValues((prevValues) => ({ ...prevValues, ["time"]: option }))
-    }
-    else if (title === "hidden" || title === "timed" ) {
-      option === "Kyllä" ? setFormValues((prevValues) => ({ ...prevValues, [title]: true })) : setFormValues((prevValues) => ({ ...prevValues, [title]: false }))
-    }
-    else {
+    } else if (title === "hidden" || title === "timed") {
+      option === "Kyllä"
+        ? setFormValues((prevValues) => ({ ...prevValues, [title]: true }))
+        : setFormValues((prevValues) => ({ ...prevValues, [title]: false }))
+    } else {
       setFormValues((prevValues) => ({ ...prevValues, [title]: option }))
     }
     console.log(formValues)
   }
   const deleteRelease = async (id: string) => {
     if (confirm("Haluatko varmasti poistaa tämän tiedotteen?")) {
-
       await fetch(`/api/releases/`, {
         method: "DELETE",
         headers: {
@@ -190,9 +193,7 @@ export default function Home() {
               title="Aika"
               options={["a"]}
               className={
-                formValues.timed
-                  ? ""
-                  : "pointer-events-none opacity-25"
+                formValues.timed ? "" : "pointer-events-none opacity-25"
               }
               isTimeInput={true}
               onOptionChange={(option) => {
@@ -224,67 +225,65 @@ export default function Home() {
         ) : null}
       </div>
       <div
-          className={`h-screen w-screen overflow-hidden ${
-              lightMode ? "bg-ateena" : "bg-helsinki"
-          } mb-4 overflow-y-auto overflow-x-hidden`}
+        className={`h-screen w-screen overflow-hidden ${
+          lightMode ? "bg-ateena" : "bg-helsinki"
+        } mb-4 overflow-y-auto overflow-x-hidden`}
       >
         <div
-            className={`flex h-auto max-h-[50%] w-auto max-w-[100%] items-center justify-center`}
+          className={`flex h-auto max-h-[50%] w-auto max-w-[100%] items-center justify-center`}
         >
           <input
-              accept="image/*"
-              type="file"
-              onChange={handleImageUpload}
-              className="absolute h-full w-full border-helsinki align-middle"
-              alt=""
+            accept="image/*"
+            type="file"
+            onChange={handleImageUpload}
+            className="absolute h-full w-full border-helsinki align-middle"
+            alt=""
           />
 
-          <img src={formValues.image} className="" alt=""/>
+          <img src={formValues.image} className="" alt="" />
         </div>
         <button onClick={() => router.back()} className="z-10">
-          <div
-              className="material-symbols-outlined fixed left-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
+          <div className="material-symbols-outlined fixed left-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
             arrow_left_alt
           </div>
         </button>
-        <button    onClick={() => deleteRelease(releaseId)} className="z-10">
-          <div
-              className="material-symbols-outlined fixed right-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
+        <button onClick={() => deleteRelease(releaseId)} className="z-10">
+          <div className="material-symbols-outlined fixed right-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
             delete
           </div>
         </button>
         <div
-            className={`relative h-full  w-full ${
-                lightMode ? "bg-ateena text-helsinki" : "bg-helsinki text-ateena"
-            }`}
+          className={`relative h-full  w-full ${
+            lightMode ? "bg-ateena text-helsinki" : "bg-helsinki text-ateena"
+          }`}
         >
           <div className="mt-3 w-screen">
             <div className="flex justify-between">
               <textarea
-                  required={true}
-                  autoFocus={true}
-                  placeholder="Otsikko"
-                  value={formValues.title}
-                  onChange={(e) =>
-                      setFormValues((prevValues) => ({
-                        ...prevValues,
-                        title: e.target.value,
-                      }))
-                  }
-                  className={`grid w-full resize-none whitespace-normal font-poppins text-5xl ${
-                      lightMode
-                          ? "bg-ateena text-helsinki"
-                          : "bg-helsinki text-ateena"
-                  }
+                required={true}
+                autoFocus={true}
+                placeholder="Otsikko"
+                value={formValues.title}
+                onChange={(e) =>
+                  setFormValues((prevValues) => ({
+                    ...prevValues,
+                    title: e.target.value,
+                  }))
+                }
+                className={`grid w-full resize-none whitespace-normal font-poppins text-5xl ${
+                  lightMode
+                    ? "bg-ateena text-helsinki"
+                    : "bg-helsinki text-ateena"
+                }
         `}
               ></textarea>
               <button
-                  onClick={toggleLightMode}
-                  className={`material-symbols-outlined mr-8 text-5xl ${
-                      lightMode
-                          ? "bg-ateena text-helsinki"
-                          : "bg-helsinki text-ateena"
-                  }`}
+                onClick={toggleLightMode}
+                className={`material-symbols-outlined mr-8 text-5xl ${
+                  lightMode
+                    ? "bg-ateena text-helsinki"
+                    : "bg-helsinki text-ateena"
+                }`}
               >
                 {lightMode ? "dark_mode" : "light_mode"}
               </button>
@@ -293,36 +292,36 @@ export default function Home() {
               <p>{format(new Date(), "dd.MM.yyyy HH:mm")}</p>
             </div>
             <input
-                placeholder="Julkaisija"
-                required={true}
-                value={formValues.releaser}
-                onChange={(e) =>
-                    setFormValues((prevValues) => ({
-                      ...prevValues,
-                      releaser: e.target.value,
-                    }))
-                }
-                className={`ml-0 w-full resize-none whitespace-normal p-1 font-poppins text-2xl ${
-                    lightMode
-                        ? "bg-ateena text-helsinki"
-                        : "bg-helsinki text-ateena"
-                }
+              placeholder="Julkaisija"
+              required={true}
+              value={formValues.releaser}
+              onChange={(e) =>
+                setFormValues((prevValues) => ({
+                  ...prevValues,
+                  releaser: e.target.value,
+                }))
+              }
+              className={`ml-0 w-full resize-none whitespace-normal p-1 font-poppins text-2xl ${
+                lightMode
+                  ? "bg-ateena text-helsinki"
+                  : "bg-helsinki text-ateena"
+              }
         `}
             ></input>
           </div>
           <textarea
-              placeholder="Aloita kirjoittaminen tästä"
-              required={true}
-              value={formValues.content}
-              onChange={(e) =>
-                  setFormValues((prevValues) => ({
-                    ...prevValues,
-                    content: e.target.value,
-                  }))
-              }
-              className={`mt-2 h-full w-screen break-words  p-1 text-xl ${
-                  lightMode ? "bg-ateena text-helsinki" : "bg-helsinki text-ateena"
-              }`}
+            placeholder="Aloita kirjoittaminen tästä"
+            required={true}
+            value={formValues.content}
+            onChange={(e) =>
+              setFormValues((prevValues) => ({
+                ...prevValues,
+                content: e.target.value,
+              }))
+            }
+            className={`mt-2 h-full w-screen break-words  p-1 text-xl ${
+              lightMode ? "bg-ateena text-helsinki" : "bg-helsinki text-ateena"
+            }`}
           ></textarea>
         </div>
       </div>

@@ -3,22 +3,21 @@ import { useEffect, useState } from "react"
 import { getAllReleases, getRelease } from "@/firebase"
 import { releaseData } from "@/types/releases"
 import Link from "next/link"
-import {format, parse} from "date-fns";
-
+import { format, parse } from "date-fns"
 
 function formatDateTime(date: string, time: string): string {
-  const parsedDate = parse(date, 'yyyy-MM-dd', new Date())
-  const parsedTime = parse(time, 'HH:mm', new Date())
+  const parsedDate = parse(date, "yyyy-MM-dd", new Date())
+  const parsedTime = parse(time, "HH:mm", new Date())
 
   const dateTime = new Date(
-      parsedDate.getFullYear(),
-      parsedDate.getMonth(),
-      parsedDate.getDate(),
-      parsedTime.getHours(),
-      parsedTime.getMinutes()
+    parsedDate.getFullYear(),
+    parsedDate.getMonth(),
+    parsedDate.getDate(),
+    parsedTime.getHours(),
+    parsedTime.getMinutes()
   )
 
-  return format(dateTime, 'dd.MM HH:mm')
+  return format(dateTime, "dd.MM HH:mm")
 }
 
 export const Release = ({ id }: { id: string }) => {
@@ -35,12 +34,12 @@ export const Release = ({ id }: { id: string }) => {
         targetGroup: data.targetGroup,
         subcamp: data.subcamp,
         content: data.content,
-        image: data.image
+        image: data.image,
       }
       setData(castedData)
     })
   }, [id])
-  let displayTime = '';
+  let displayTime = ""
   if (data) {
     displayTime = formatDateTime(data?.date, data?.time)
   }
@@ -58,18 +57,15 @@ export const Release = ({ id }: { id: string }) => {
           <div className="text-overflow-ellipsis overflow-hidden whitespace-nowrap break-all font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
             {data?.title}
           </div>
-          <div
-            className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow"
-          >
+          <div className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow">
             {"julkaistu: " + displayTime}
             <br />
             {"julkaisija: " + data?.releaser}
             <br />
-            {"Piilotettu: "+ data?.hidden}
+            {"Piilotettu: " + data?.hidden}
             <br />
-            {"Ajastettu: "+ data?.timed}
+            {"Ajastettu: " + data?.timed}
           </div>
-
         </div>
       </div>
     </div>

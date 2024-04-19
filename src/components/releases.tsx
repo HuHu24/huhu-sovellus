@@ -1,25 +1,31 @@
 "use client"
 import { useEffect, useState } from "react"
-import {getAllReleases, getRelease} from "@/firebase"
+import { getAllReleases, getRelease } from "@/firebase"
 import { releaseData } from "@/types/releases"
 import Link from "next/link"
-import { parse, format } from 'date-fns'
+import { parse, format } from "date-fns"
 
 function formatDateTime(date: string, time: string): string {
-  const parsedDate = parse(date, 'yyyy-MM-dd', new Date())
-  const parsedTime = parse(time, 'HH:mm', new Date())
+  const parsedDate = parse(date, "yyyy-MM-dd", new Date())
+  const parsedTime = parse(time, "HH:mm", new Date())
 
   const dateTime = new Date(
-      parsedDate.getFullYear(),
-      parsedDate.getMonth(),
-      parsedDate.getDate(),
-      parsedTime.getHours(),
-      parsedTime.getMinutes()
+    parsedDate.getFullYear(),
+    parsedDate.getMonth(),
+    parsedDate.getDate(),
+    parsedTime.getHours(),
+    parsedTime.getMinutes()
   )
 
-  return format(dateTime, 'dd.MM HH:mm')
+  return format(dateTime, "dd.MM HH:mm")
 }
-const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string }) => {
+const HorizontalRelease = ({
+  id,
+  userSubcamp,
+}: {
+  id: string
+  userSubcamp: string
+}) => {
   const [data, setData] = useState<releaseData>()
   useEffect(() => {
     getRelease(id).then((data: any) => {
@@ -33,7 +39,7 @@ const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: strin
         timed: data.timed,
         targetGroup: data.targetGroup,
         subcamp: data.subcamp,
-        content: data.content
+        content: data.content,
       }
       setData(castedData)
       console.log(data)
@@ -41,15 +47,14 @@ const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: strin
   }, [id])
   console.log(data)
 
-
-  let displayTime = '';
+  let displayTime = ""
   if (data) {
     displayTime = formatDateTime(data?.date, data?.time)
   }
   if (data?.hidden) {
     return null
   }
-  if (data?.timed && new Date() < new Date(data?.date + 'T' + data?.time)) {
+  if (data?.timed && new Date() < new Date(data?.date + "T" + data?.time)) {
     return null
   }
   if (data?.targetGroup == "Alaleiri" && data?.subcamp != userSubcamp) {
@@ -64,17 +69,24 @@ const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: strin
         <div className="w-[180px] whitespace-normal font-poppins text-xl text-ateena shadow-helsinki text-shadow">
           {data?.title}
         </div>
-        <div className="w-[180px] whitespace-normal break-all font-poppins font-normal text-ateena shadow-helsinki text-shadow overflow-hidden line-clamp-2">
+        <div className="line-clamp-2 w-[180px] overflow-hidden whitespace-normal break-all font-poppins font-normal text-ateena shadow-helsinki text-shadow">
           {data?.content}
         </div>
         <div className="w-full overflow-hidden whitespace-normal font-opensauce text-sm font-normal text-ateena shadow-helsinki text-shadow">
-          {displayTime}        </div>
+          {displayTime}{" "}
+        </div>
       </div>
     </Link>
   )
 }
 
-const VerticalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string }) => {
+const VerticalRelease = ({
+  id,
+  userSubcamp,
+}: {
+  id: string
+  userSubcamp: string
+}) => {
   const [data, setData] = useState<releaseData>()
 
   useEffect(() => {
@@ -89,19 +101,19 @@ const VerticalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string 
         targetGroup: data.targetGroup,
         subcamp: data.subcamp,
         content: data.content,
-        image: data.image
+        image: data.image,
       }
       setData(castedData)
     })
   }, [id])
-  let displayTime = ''
+  let displayTime = ""
   if (data) {
     displayTime = formatDateTime(data.date, data.time)
   }
   if (data?.hidden) {
     return null
   }
-  if (data?.timed && new Date() < new Date(data.date + 'T' + data.time)) {
+  if (data?.timed && new Date() < new Date(data.date + "T" + data.time)) {
     return null
   }
   if (data?.targetGroup == "Alaleiri" && data?.subcamp != userSubcamp) {
@@ -130,29 +142,40 @@ const VerticalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string 
   )
 }
 
-const Releases = (props: { direction: "vertical" | "horizontal", userSubcamp: string }) => {
+const Releases = (props: {
+  direction: "vertical" | "horizontal"
+  userSubcamp: string
+}) => {
   const [releases, setReleases] = useState<{ id: string }[]>([])
   useEffect(() => {
     getAllReleases().then(setReleases).catch(console.error)
   }, [])
   return (
-      <>
-        {props.direction === "vertical" ? (
-            <div className="w-full overflow-y-auto">
-              <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {releases.map(({ id }) => (
-                    <VerticalRelease key={id} id={id} userSubcamp={props.userSubcamp} />
-                ))}
-              </div>
-            </div>
-        ) : (
-            <div className="flex overflow-x-auto">
-              {releases.map((release) => (
-                  <HorizontalRelease key={release.id} id={release.id} userSubcamp={props.userSubcamp} />
-              ))}
-            </div>
-        )}
-      </>
+    <>
+      {props.direction === "vertical" ? (
+        <div className="w-full overflow-y-auto">
+          <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {releases.map(({ id }) => (
+              <VerticalRelease
+                key={id}
+                id={id}
+                userSubcamp={props.userSubcamp}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="flex overflow-x-auto">
+          {releases.map((release) => (
+            <HorizontalRelease
+              key={release.id}
+              id={release.id}
+              userSubcamp={props.userSubcamp}
+            />
+          ))}
+        </div>
+      )}
+    </>
   )
 }
 
