@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin"
-import { ServiceAccount } from "firebase-admin"
+import { firestore, ServiceAccount } from "firebase-admin"
 import { env } from "@/env"
+import { Chat as ChatType } from "@/types/chat"
 
 export const initFirebaseAdmin = async () => {
   if (admin.apps.length > 0) {
@@ -126,5 +127,14 @@ export const saveMessage = async (
   } catch (e) {
     console.error("Error: " + e)
   }
+  return data
+}
+
+export const getChats = async () => {
+  let data: ChatType[] = []
+  const docs = await firestore().collection("/chats").get()
+  docs.forEach((tempDoc) => {
+    data.push({ ...tempDoc.data(), id: tempDoc.id } as ChatType)
+  })
   return data
 }
