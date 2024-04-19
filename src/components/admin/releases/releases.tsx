@@ -34,7 +34,8 @@ export const Release = ({ id }: { id: string }) => {
         timed: data.timed,
         targetGroup: data.targetGroup,
         subcamp: data.subcamp,
-        content: data.content
+        content: data.content,
+        image: data.image
       }
       setData(castedData)
     })
@@ -51,7 +52,7 @@ export const Release = ({ id }: { id: string }) => {
           href={`./releases/${id}`}
           className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena"
         >
-          <img className="h-full" src="huhuymp.png" alt="" />
+          <img className="h-full" src={data?.image} alt="" />
         </Link>
         <div className="ml-1 flex w-[200px] flex-col justify-center">
           <div className="text-overflow-ellipsis overflow-hidden whitespace-nowrap break-all font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
