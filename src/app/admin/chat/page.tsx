@@ -1,8 +1,8 @@
 import Chat from "@/components/admin/chat/chat"
-import {getChats} from "@/firebaseAdmin"
+import { getChats } from "@/firebaseAdmin"
 
 export default async function ChatMenu() {
-const data = await getChats()
+  const data = await getChats()
 
   return (
     <>
