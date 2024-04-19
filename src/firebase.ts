@@ -24,6 +24,7 @@ import {
   isSupported,
   onMessage,
 } from "firebase/messaging"
+import { Chat } from "@/types/chat"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -130,4 +131,13 @@ export const getAllReleases = async () => {
   const snapshot = await getDocs(releasesRef)
   const releases = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
   return releases
+}
+
+export const getChats = async () => {
+  let data: Chat[] = []
+  const docs = await getDocs(collection(db, "/chats"))
+  docs.forEach((tempDoc) => {
+    data.push({ ...tempDoc.data(), id: tempDoc.id } as Chat)
+  })
+  return data
 }
