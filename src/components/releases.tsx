@@ -24,6 +24,7 @@ const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: strin
   useEffect(() => {
     getRelease(id).then((data: any) => {
       const castedData: releaseData = {
+        image: data.image,
         title: data.title,
         releaser: data.releaser,
         time: data.time,
@@ -58,7 +59,7 @@ const HorizontalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: strin
     <Link href={`/releases/${id}`} className="z-10">
       <div className="mr-4 flex flex-col">
         <div className="flex h-[150px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
-          <img className="h-full" src="huhuymp.png" alt="" />
+          <img className="h-full" src={data?.image} alt="" />
         </div>
         <div className="w-[180px] whitespace-normal font-poppins text-xl text-ateena shadow-helsinki text-shadow">
           {data?.title}
@@ -87,7 +88,8 @@ const VerticalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string 
         timed: data.timed,
         targetGroup: data.targetGroup,
         subcamp: data.subcamp,
-        content: data.content
+        content: data.content,
+        image: data.image
       }
       setData(castedData)
     })
@@ -110,7 +112,7 @@ const VerticalRelease = ({ id, userSubcamp }: { id: string, userSubcamp: string 
     <Link href={`/releases/${id}`} className="z-10">
       <div className="flex items-center bg-ateena bg-opacity-0">
         <div className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
-          <img className="h-full" src="huhuymp.png" alt="" />
+          <img className="h-full" src={data?.image} alt="" />
         </div>
         <div className="ml-[20px] flex w-[150px] flex-col justify-center">
           <div className="text-overflow-ellipsis overflow-hidden whitespace-nowrap font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">

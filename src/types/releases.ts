@@ -8,4 +8,5 @@ export interface releaseData {
   targetGroup:string
   subcamp:string
   content:string
+  image:string
 }

@@ -9,6 +9,7 @@ type DataType = {
   releaser: string
   content: string
   releaseId: string
+  image: string
 }
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
           releaser: releaseData.releaser,
           content: releaseData.content,
           releaseId: releaseData.releaseId,
+          image: releaseData.image,
         }
         setData(castedData)
       }
@@ -44,9 +46,9 @@ export default function Home() {
       } mb-4 overflow-y-auto overflow-x-hidden`}
     >
       <div
-        className={`flex h-1/4 w-full items-center justify-center bg-ateena align-top`}
+        className={`flex items-center justify-center bg-ateena align-top`}
       >
-        <img src="huhuymp.png" className="h-full align-middle" alt="" />
+        <img src={data?.image} className="h-auto object-contain max-w-full drop-shadow-md rounded-m" alt=""/>
         <button onClick={() => router.back()} className="z-10">
           <div className="material-symbols-outlined fixed left-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
             arrow_left_alt
@@ -81,7 +83,6 @@ export default function Home() {
         </div>
         <div className="mr-10 mt-2.5 overflow-auto break-words text-xl">
           {data?.content}
-          <p>Kuva: Screenshot brandikirjasta</p>
         </div>
       </div>
     </div>

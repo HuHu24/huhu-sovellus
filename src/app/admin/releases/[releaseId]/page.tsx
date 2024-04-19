@@ -5,12 +5,11 @@ import { usePathname, useRouter } from "next/navigation"
 import { format } from "date-fns"
 
 import MenuButton from "@/components/admin/releases/menuButton"
-import { getRelease } from "@/firebase"
+import {getRelease, uploadImage} from "@/firebase"
 
 
 export default function Home() {
   const router = useRouter()
-  const [imageSrc, setImageSrc] = useState("/huhuymp.png")
   const [lightMode, setLightMode] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const releaseId = usePathname().split("/").pop() || ""
@@ -54,10 +53,8 @@ export default function Home() {
   }, [releaseId])
 
   useEffect(() => {
-    if (formValues) {
-      setFormValues((prevValues) => ({ ...prevValues, id: releaseId }))
-    }
-  }, [releaseId, formValues])
+    setFormValues((prevValues) => ({ ...prevValues, id: releaseId }))
+  }, [releaseId])
 
   const divRef = useRef(null)
   useEffect(() => {
@@ -75,13 +72,12 @@ export default function Home() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     const response = await fetch("/api/releases", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formValues),
+      body: JSON.stringify(formValues,),
     })
 
     if (!response.ok) {
@@ -93,12 +89,19 @@ export default function Home() {
     }
   }
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
       const reader = new FileReader()
-      reader.onloadend = () => {
-        setImageSrc(reader.result as string)
+      reader.onloadend = async () => {
+        try {
+          const imageUrl = await uploadImage(file)
+          setFormValues((prevValues) => ({ ...prevValues, ["image"]: imageUrl }))
+          console.log(formValues)
+          console.log("File uploaded successfully")
+        } catch (error) {
+          console.error("Error uploading file:", error)
+        }
       }
       reader.readAsDataURL(file)
     }
@@ -236,7 +239,7 @@ export default function Home() {
               alt=""
           />
 
-          <img src={imageSrc} className="" alt=""/>
+          <img src={formValues.image} className="" alt=""/>
         </div>
         <button onClick={() => router.back()} className="z-10">
           <div
