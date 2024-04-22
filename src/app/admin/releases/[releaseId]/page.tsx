@@ -179,7 +179,7 @@ export default function Home() {
               onOptionChange={(option) => handleOptionChange("subcamp", option)}
             ></MenuButton>
             <MenuButton
-                value={formValues.timed ? "Kyllä" : "Ei"}
+              value={formValues.timed ? "Kyllä" : "Ei"}
               title="Ajastus"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) => handleOptionChange("timed", option)}
@@ -187,7 +187,7 @@ export default function Home() {
             <MenuButton
               title="Aika"
               options={["a"]}
-              value={[formValues.date,formValues.time]}
+              value={[formValues.date, formValues.time]}
               className={
                 formValues.timed ? "" : "pointer-events-none opacity-25"
               }
@@ -200,9 +200,7 @@ export default function Home() {
               title="Piilotettu"
               value={formValues.hidden ? "Kyllä" : "Ei"}
               options={["Ei", "Kyllä"]}
-              onOptionChange={(option) =>
-                handleOptionChange("hidden", option)
-              }
+              onOptionChange={(option) => handleOptionChange("hidden", option)}
             ></MenuButton>
             <div
               style={{
@@ -325,4 +323,3 @@ export default function Home() {
     </>
   )
 }
-

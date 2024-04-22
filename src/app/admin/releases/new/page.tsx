@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { format } from "date-fns"
 
 import MenuButton from "@/components/admin/releases/menuButton"
-import {uploadImage} from "@/firebase";
+import { uploadImage } from "@/firebase"
 
 export default function Home() {
   const [imageSrc, setImageSrc] = useState("/huhuymp.png")
@@ -63,7 +63,7 @@ export default function Home() {
   }
 
   const handleImageUpload = async (
-      event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0]
     if (file) {
