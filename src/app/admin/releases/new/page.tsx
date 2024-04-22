@@ -193,7 +193,7 @@ export default function Home() {
             alt=""
           />
 
-          <img src={imageSrc} className="" alt="" />
+          <img src={formValues.image} className="h-auto max-w-[100%]" alt="" />
         </div>
         <button onClick={() => router.back()} className="z-10">
           <div className="material-symbols-outlined fixed left-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">

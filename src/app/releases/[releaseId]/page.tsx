@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { getRelease } from "@/firebase"
 type DataType = {
@@ -48,9 +48,10 @@ export default function Home() {
       <div className={`flex items-center justify-center bg-ateena align-top`}>
         <img
           src={data?.image}
-          className="rounded-m h-auto max-w-full object-contain drop-shadow-md"
+          className="rounded-m h-auto max-w-[100%] object-contain drop-shadow-md"
           alt=""
         />
+
         <button onClick={() => router.back()} className="z-10">
           <div className="material-symbols-outlined fixed left-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
             arrow_left_alt

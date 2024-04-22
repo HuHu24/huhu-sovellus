@@ -22,16 +22,17 @@ export const MenuButton = ({
   })
 
   useEffect(() => {
-    if (isTimeInput) {
-      setSelectedDateTime({
-        // @ts-ignore
-        date: value[0] || defaultDate,
-        // @ts-ignore
-        time: value[1] || defaultTime,
-      })
-    } else {
-      setSelectedOption(value || options[0])
-    }
+    if (value)
+      if (isTimeInput) {
+        setSelectedDateTime({
+          // @ts-ignore
+          date: value[0] || defaultDate,
+          // @ts-ignore
+          time: value[1] || defaultTime,
+        })
+      } else {
+        setSelectedOption(value || options[0])
+      }
   }, [value, options, isTimeInput, defaultDate, defaultTime])
 
   const handleSelect = (option: string) => {
