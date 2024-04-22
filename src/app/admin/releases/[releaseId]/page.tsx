@@ -13,7 +13,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false)
   const releaseId = usePathname().split("/").pop() || ""
   const [formValues, setFormValues] = useState({
-    targetGroup: "Kaikki",
+    targetGroup: "Alaleiri",
     subcamp: "",
     timed: false,
     time: "",
@@ -161,6 +161,7 @@ export default function Home() {
           >
             <MenuButton
               title="Kohderyhmä"
+              value={formValues.targetGroup}
               options={["Kaikki", "Alaleiri", "Tekijät"]}
               onOptionChange={(option) =>
                 handleOptionChange("targetGroup", option)
@@ -168,6 +169,7 @@ export default function Home() {
             ></MenuButton>
             <MenuButton
               title="Alaleiri"
+              value={formValues.subcamp}
               className={
                 formValues.targetGroup !== "Alaleiri"
                   ? "pointer-events-none opacity-25"
@@ -177,14 +179,7 @@ export default function Home() {
               onOptionChange={(option) => handleOptionChange("subcamp", option)}
             ></MenuButton>
             <MenuButton
-              title="Kriittisyys"
-              options={["Kriittinen", "Vähemmän kriittinen", "Ei kriittinen"]}
-              onOptionChange={(option) =>
-                handleOptionChange("importance", option)
-              }
-            ></MenuButton>
-
-            <MenuButton
+                value={formValues.timed ? "Kyllä" : "Ei"}
               title="Ajastus"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) => handleOptionChange("timed", option)}
@@ -192,6 +187,7 @@ export default function Home() {
             <MenuButton
               title="Aika"
               options={["a"]}
+              value={[formValues.date,formValues.time]}
               className={
                 formValues.timed ? "" : "pointer-events-none opacity-25"
               }
@@ -201,10 +197,11 @@ export default function Home() {
               }}
             />
             <MenuButton
-              title="Julkaistu"
+              title="Piilotettu"
+              value={formValues.hidden ? "Kyllä" : "Ei"}
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) =>
-                handleOptionChange("released", option)
+                handleOptionChange("hidden", option)
               }
             ></MenuButton>
             <div
@@ -328,3 +325,4 @@ export default function Home() {
     </>
   )
 }
+

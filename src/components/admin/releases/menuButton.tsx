@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import {useEffect, useState} from "react"
 import MenuButtonProps from "@/types/menuButton"
 export const MenuButton = ({
   title,
@@ -7,6 +7,7 @@ export const MenuButton = ({
   isTimeInput,
   className,
   onOptionChange,
+    value
 }: MenuButtonProps & { onOptionChange?: (option: string) => void }) => {
   const defaultDate = new Date().toISOString().split("T")[0]
   const defaultTime = new Date()
@@ -14,11 +15,25 @@ export const MenuButton = ({
     .slice(0, 5)
     .replace(".", ":")
 
-  const [selectedOption, setSelectedOption] = useState(options[0])
+  const [selectedOption, setSelectedOption] = useState(value || options[0])
   const [selectedDateTime, setSelectedDateTime] = useState({
     date: defaultDate,
     time: defaultTime,
   })
+
+  useEffect(() => {
+    if (isTimeInput) {
+      setSelectedDateTime({
+        // @ts-ignore
+        date: value[0] || defaultDate,
+        // @ts-ignore
+        time: value[1]|| defaultTime
+      });
+    } else {
+      setSelectedOption(value || options[0]);
+    }
+  }, [value, options, isTimeInput, defaultDate, defaultTime]);
+
 
   const handleSelect = (option: string) => {
     setSelectedOption(option)
