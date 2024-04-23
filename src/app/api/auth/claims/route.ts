@@ -37,10 +37,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  return NextResponse.json(
-    { message: "added admin custom claims" },
-    { status: 200 }
-  )
+  return NextResponse.json({ message: "added custom claims" }, { status: 200 })
 }
 
 export async function DELETE(request: NextRequest) {

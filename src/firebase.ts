@@ -8,9 +8,15 @@ import {
   signInWithEmailAndPassword,
   signOut as fbSignOut,
 } from "@firebase/auth"
-import {env} from "@/env"
-import {getDoc} from "@firebase/firestore"
-import {getMessaging, isSupported,} from "firebase/messaging"
+import { env } from "@/env"
+import { getDoc } from "@firebase/firestore"
+import {
+  getMessaging,
+  getToken,
+  isSupported,
+  onMessage,
+} from "firebase/messaging"
+import { Chat } from "@/types/chat"
 import {getDownloadURL, getStorage, ref, uploadBytes} from "@firebase/storage"
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -139,4 +145,13 @@ export const uploadImage = async (file: File) => {
     console.error("Error uploading image: ", error)
     throw error
   }
+}
+
+export const getChats = async () => {
+  let data: Chat[] = []
+  const docs = await getDocs(collection(db, "/chats"))
+  docs.forEach((tempDoc) => {
+    data.push({ ...tempDoc.data(), id: tempDoc.id } as Chat)
+  })
+  return data
 }
