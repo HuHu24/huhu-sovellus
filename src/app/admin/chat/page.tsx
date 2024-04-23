@@ -1,15 +1,18 @@
+"use client"
+import React, { useEffect, useState } from "react"
 import Chat from "@/components/admin/chat/chat"
-import { initFirebaseAdmin } from "@/firebaseAdmin"
-import { firestore } from "firebase-admin"
-import { Chat as ChatType } from "@/types/chat"
+import { getChats } from "@/firebase"
+import { Chat as chatType } from "@/types/chat"
+export default function ChatMenu() {
+  const [data, setData] = useState<chatType[]>([])
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getChats()
+      setData(result)
+    }
 
-export default async function ChatMenu() {
-  await initFirebaseAdmin()
-  let data: ChatType[] = []
-  const docs = await firestore().collection("/chats").get()
-  docs.forEach((tempDoc) => {
-    data.push({ ...tempDoc.data(), id: tempDoc.id } as ChatType)
-  })
+    fetchData()
+  }, [])
 
   return (
     <>
