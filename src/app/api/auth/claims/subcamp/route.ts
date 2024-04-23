@@ -13,13 +13,17 @@ export async function POST(request: NextRequest) {
     if (!isValidSubcamp(result.subcamp) || !decodedClaims?.uid) {
       throw new Error("Invalid subcamp or missing uid in decoded claims")
     }
-
-    await Promise.all([
-      subscribeToTopic(result.token, result.subcamp.toString()),
-      subscribeToTopic(result.token, "Kaikki"),
-    ])
+    if (result.token) {
+      await Promise.all([
+        subscribeToTopic(result.token, result.subcamp.toString()),
+        subscribeToTopic(result.token, "Kaikki"),
+      ])
+    }
+    const user = await auth().getUser(decodedClaims.uid)
+    console.log(user)
 
     await auth().setCustomUserClaims(decodedClaims.uid, {
+      ...user.customClaims,
       subcamp: result.subcamp,
     })
 
