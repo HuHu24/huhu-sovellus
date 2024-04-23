@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import {initializeApp} from "firebase/app"
-import {collection, doc, getDocs, getFirestore,} from "firebase/firestore"
+import { initializeApp } from "firebase/app"
+import { collection, doc, getDocs, getFirestore } from "firebase/firestore"
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -8,10 +8,10 @@ import {
   signInWithEmailAndPassword,
   signOut as fbSignOut,
 } from "@firebase/auth"
-import {env} from "@/env"
-import {getDoc} from "@firebase/firestore"
-import {getMessaging, isSupported,} from "firebase/messaging"
-import {getDownloadURL, getStorage, ref, uploadBytes} from "@firebase/storage"
+import { env } from "@/env"
+import { getDoc } from "@firebase/firestore"
+import { getMessaging, isSupported } from "firebase/messaging"
+import { getDownloadURL, getStorage, ref, uploadBytes } from "@firebase/storage"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
