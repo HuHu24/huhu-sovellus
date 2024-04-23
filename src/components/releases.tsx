@@ -148,7 +148,13 @@ const Releases = (props: {
 }) => {
   const [releases, setReleases] = useState<{ id: string }[]>([])
   useEffect(() => {
-    getAllReleases().then(setReleases).catch(console.error)
+    getAllReleases()
+      .then((releases) => {
+        // @ts-ignore
+        releases.sort((a, b) => b.timestamp - a.timestamp)
+        setReleases(releases)
+      })
+      .catch(console.error)
   }, [])
   return (
     <>

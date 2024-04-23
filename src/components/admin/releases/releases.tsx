@@ -75,12 +75,13 @@ export const Release = ({ id }: { id: string }) => {
 const Releases = () => {
   const [releases, setReleases] = useState<{ id: string }[]>([])
   useEffect(() => {
-    const fetchReleases = async () => {
-      const allReleases = await getAllReleases()
-      setReleases(allReleases)
-    }
-
-    fetchReleases().catch(console.error)
+    getAllReleases()
+      .then((releases) => {
+        // @ts-ignore
+        releases.sort((a, b) => b.timestamp - a.timestamp)
+        setReleases(releases)
+      })
+      .catch(console.error)
   }, [])
 
   return (
