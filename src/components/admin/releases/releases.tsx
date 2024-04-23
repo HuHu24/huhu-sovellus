@@ -3,31 +3,45 @@ import { useEffect, useState } from "react"
 import { getAllReleases, getRelease } from "@/firebase"
 import { releaseData } from "@/types/releases"
 import Link from "next/link"
+import { format, parse } from "date-fns"
+
+function formatDateTime(date: string, time: string): string {
+  const parsedDate = parse(date, "yyyy-MM-dd", new Date())
+  const parsedTime = parse(time, "HH:mm", new Date())
+
+  const dateTime = new Date(
+    parsedDate.getFullYear(),
+    parsedDate.getMonth(),
+    parsedDate.getDate(),
+    parsedTime.getHours(),
+    parsedTime.getMinutes()
+  )
+
+  return format(dateTime, "dd.MM HH:mm")
+}
 
 export const Release = ({ id }: { id: string }) => {
   const [data, setData] = useState<releaseData>()
-  const [isOpen, setIsOpen] = useState(false)
-
   useEffect(() => {
     getRelease(id).then((data: any) => {
       const castedData: releaseData = {
         title: data.title,
         releaser: data.releaser,
         time: data.time,
-        importance: data.importance,
+        date: data.date,
+        hidden: data.hidden,
+        timed: data.timed,
+        targetGroup: data.targetGroup,
+        subcamp: data.subcamp,
+        content: data.content,
+        image: data.image,
       }
       setData(castedData)
     })
   }, [id])
-
-  const deleteRelease = async (id: string) => {
-    await fetch(`/api/releases/`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(id),
-    })
+  let displayTime = ""
+  if (data) {
+    displayTime = formatDateTime(data?.date, data?.time)
   }
 
   return (
@@ -37,67 +51,23 @@ export const Release = ({ id }: { id: string }) => {
           href={`./releases/${id}`}
           className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena"
         >
-          <img className="h-full" src="huhuymp.png" alt="" />
+          <img className="h-full" src={data?.image} alt="" />
         </Link>
         <div className="ml-1 flex w-[200px] flex-col justify-center">
           <div className="text-overflow-ellipsis overflow-hidden whitespace-nowrap break-all font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
             {data?.title}
           </div>
-          <div
-            onClick={() => setIsOpen(!isOpen)}
-            className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow"
-          >
-            {"julkaistu: " + data?.time}
+          <div className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow">
+            {"julkaistu: " + displayTime}
             <br />
             {"julkaisija: " + data?.releaser}
             <br />
-            {"kriittisyys: " + data?.importance}
+            {"Piilotettu: " + data?.hidden}
+            <br />
+            {"Ajastettu: " + data?.timed}
           </div>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="material-symbols-outlined z-20 mt-1 flex justify-between text-[49px] text-tokio"
-          >
-            <a>visibility_lock</a>
-            <a>keyboard_arrow_down</a>
-          </button>
         </div>
       </div>
-      {isOpen ? (
-        <div
-          className="relative z-10 flex h-[50px] w-full rounded-[10px] bg-soul"
-          style={{ justifyContent: "space-between" }}
-        >
-          <div className="flex" style={{ justifyContent: "space-between" }}>
-            <Link
-              href={`/releases/${id}`}
-              className="material-symbols-outlined text-[50px] text-ateena"
-            >
-              visibility
-            </Link>
-            <p className="-mt-1.5 ml-2 font-opensauce text-[40px]">200</p>
-          </div>
-          <div>
-            <Link
-              href={`./notifications/${id}`}
-              className="material-symbols-outlined text-[50px] text-ateena"
-            >
-              notifications_active
-            </Link>
-            <Link
-              href={`./releases/${id}`}
-              className="material-symbols-outlined mr-2 text-[50px] text-ateena"
-            >
-              edit
-            </Link>
-            <button
-              onClick={() => deleteRelease(id)}
-              className="material-symbols-outlined mr-2 text-[50px] text-ateena"
-            >
-              delete
-            </button>
-          </div>
-        </div>
-      ) : null}
     </div>
   )
 }
@@ -105,12 +75,13 @@ export const Release = ({ id }: { id: string }) => {
 const Releases = () => {
   const [releases, setReleases] = useState<{ id: string }[]>([])
   useEffect(() => {
-    const fetchReleases = async () => {
-      const allReleases = await getAllReleases()
-      setReleases(allReleases)
-    }
-
-    fetchReleases().catch(console.error)
+    getAllReleases()
+      .then((releases) => {
+        // @ts-ignore
+        releases.sort((a, b) => b.timestamp - a.timestamp)
+        setReleases(releases)
+      })
+      .catch(console.error)
   }, [])
 
   return (

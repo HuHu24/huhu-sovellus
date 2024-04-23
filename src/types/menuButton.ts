@@ -4,4 +4,5 @@ export default interface MenuButtonProps {
   isTimeInput?: boolean
   className?: string
   onOptionChange?: (option: string) => void
+  value?: string | string[]
 }

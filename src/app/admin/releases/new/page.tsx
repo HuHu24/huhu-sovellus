@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { format } from "date-fns"
 
 import MenuButton from "@/components/admin/releases/menuButton"
+import { uploadImage } from "@/firebase"
 
 export default function Home() {
   const [imageSrc, setImageSrc] = useState("/huhuymp.png")
@@ -17,12 +18,11 @@ export default function Home() {
     timed: "Ei",
     time: format(new Date(), "HH:mm"),
     date: format(new Date(), "yyyy-MM-dd"),
-    released: "Ei",
+    hidden: false,
     title: "",
     releaser: "",
     content: "",
     image: "/huhuymp.png",
-    importance: "Kriittinen",
   })
 
   const divRef = useRef(null)
@@ -62,12 +62,24 @@ export default function Home() {
     }
   }
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0]
     if (file) {
       const reader = new FileReader()
-      reader.onloadend = () => {
-        setImageSrc(reader.result as string)
+      reader.onloadend = async () => {
+        try {
+          const imageUrl = await uploadImage(file)
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            ["image"]: imageUrl,
+          }))
+          console.log(formValues)
+          console.log("File uploaded successfully")
+        } catch (error) {
+          console.error("Error uploading file:", error)
+        }
       }
       reader.readAsDataURL(file)
     }
@@ -84,6 +96,10 @@ export default function Home() {
       if (option.length != 5)
         setFormValues((prevValues) => ({ ...prevValues, ["date"]: option }))
       else setFormValues((prevValues) => ({ ...prevValues, ["time"]: option }))
+    } else if (title === "hidden" || title === "timed") {
+      option === "Kyllä"
+        ? setFormValues((prevValues) => ({ ...prevValues, [title]: true }))
+        : setFormValues((prevValues) => ({ ...prevValues, [title]: false }))
     } else {
       setFormValues((prevValues) => ({ ...prevValues, [title]: option }))
     }
@@ -124,14 +140,6 @@ export default function Home() {
               onOptionChange={(option) => handleOptionChange("subcamp", option)}
             ></MenuButton>
             <MenuButton
-              title="Kriittisyys"
-              options={["Kriittinen", "Vähemmän kriittinen", "Ei kriittinen"]}
-              onOptionChange={(option) =>
-                handleOptionChange("importance", option)
-              }
-            ></MenuButton>
-
-            <MenuButton
               title="Ajastus"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) => handleOptionChange("timed", option)}
@@ -140,9 +148,7 @@ export default function Home() {
               title="Aika"
               options={["a"]}
               className={
-                formValues.timed === "Ei"
-                  ? "pointer-events-none opacity-25"
-                  : ""
+                formValues.timed ? "" : "pointer-events-none opacity-25"
               }
               isTimeInput={true}
               onOptionChange={(option) => {
@@ -150,11 +156,9 @@ export default function Home() {
               }}
             />
             <MenuButton
-              title="Julkaistu"
+              title="Piilotettu"
               options={["Ei", "Kyllä"]}
-              onOptionChange={(option) =>
-                handleOptionChange("released", option)
-              }
+              onOptionChange={(option) => handleOptionChange("hidden", option)}
             ></MenuButton>
             <div
               style={{
@@ -189,7 +193,7 @@ export default function Home() {
             alt=""
           />
 
-          <img src={imageSrc} className="" alt="" />
+          <img src={formValues.image} className="h-auto max-w-[100%]" alt="" />
         </div>
         <button onClick={() => router.back()} className="z-10">
           <div className="material-symbols-outlined fixed left-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">

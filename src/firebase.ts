@@ -1,29 +1,17 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
-import {
-  doc,
-  setDoc,
-  Timestamp,
-  collection,
-  getFirestore,
-  addDoc,
-  getDocs,
-} from "firebase/firestore"
+import { collection, doc, getDocs, getFirestore } from "firebase/firestore"
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  signInWithEmailAndPassword,
   signInAnonymously as fbSignInAnonymously,
+  signInWithEmailAndPassword,
   signOut as fbSignOut,
 } from "@firebase/auth"
 import { env } from "@/env"
 import { getDoc } from "@firebase/firestore"
-import {
-  getMessaging,
-  getToken,
-  isSupported,
-  onMessage,
-} from "firebase/messaging"
+import { getMessaging, isSupported } from "firebase/messaging"
+import { getDownloadURL, getStorage, ref, uploadBytes } from "@firebase/storage"
 import { Chat } from "@/types/chat"
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -129,8 +117,29 @@ export const getRelease = async (id: string) => {
 export const getAllReleases = async () => {
   const releasesRef = collection(db, "releases")
   const snapshot = await getDocs(releasesRef)
-  const releases = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-  return releases
+  return snapshot.docs.map((doc) => {
+    const data = doc.data()
+    return {
+      id: doc.id,
+      ...data,
+      timestamp: new Date(`${data.date}T${data.time}`),
+    }
+  })
+}
+const storage = getStorage(app)
+export const uploadImage = async (file: File) => {
+  try {
+    const storageRef = ref(storage, `images/${file.name + Date.now()}`)
+    await uploadBytes(storageRef, file).then(() => {
+      console.log("Uploaded a blob or file!")
+    })
+    console.log("File available at", await getDownloadURL(storageRef))
+
+    return getDownloadURL(storageRef)
+  } catch (error) {
+    console.error("Error uploading image: ", error)
+    throw error
+  }
 }
 
 export const getChats = async () => {

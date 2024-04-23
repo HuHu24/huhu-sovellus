@@ -5,27 +5,25 @@ import { usePathname, useRouter } from "next/navigation"
 import { format } from "date-fns"
 
 import MenuButton from "@/components/admin/releases/menuButton"
-import { getRelease } from "@/firebase"
+import { getRelease, uploadImage } from "@/firebase"
 
 export default function Home() {
   const router = useRouter()
-  const [imageSrc, setImageSrc] = useState("/huhuymp.png")
   const [lightMode, setLightMode] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const releaseId = usePathname().split("/").pop() || ""
   const [formValues, setFormValues] = useState({
-    targetGroup: "Kaikki",
+    targetGroup: "Alaleiri",
     subcamp: "",
-    timed: "Ei",
+    timed: false,
     time: "",
     date: "",
-    released: "Ei",
+    hidden: false,
     title: "",
     releaser: "",
     content: "",
     image: "/huhuymp.png",
     id: "",
-    importance: "",
   })
 
   useEffect(() => {
@@ -35,16 +33,15 @@ export default function Home() {
         setFormValues({
           targetGroup: releaseData.targetGroup || "",
           subcamp: releaseData.subcamp || "",
-          timed: releaseData.timed || "Ei",
+          timed: releaseData.timed,
           time: releaseData.time || "",
           date: releaseData.date || "",
-          released: releaseData.released || "Ei",
+          hidden: releaseData.hidden,
           title: releaseData.title || "",
           releaser: releaseData.releaser || "",
           content: releaseData.content || "",
           image: releaseData.image || "/huhuymp.png",
           id: releaseId,
-          importance: releaseData.importance || "",
         })
       }
     }
@@ -55,10 +52,8 @@ export default function Home() {
   }, [releaseId])
 
   useEffect(() => {
-    if (formValues) {
-      setFormValues((prevValues) => ({ ...prevValues, id: releaseId }))
-    }
-  }, [releaseId, formValues])
+    setFormValues((prevValues) => ({ ...prevValues, id: releaseId }))
+  }, [releaseId])
 
   const divRef = useRef(null)
   useEffect(() => {
@@ -76,7 +71,6 @@ export default function Home() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     const response = await fetch("/api/releases", {
       method: "PUT",
       headers: {
@@ -94,12 +88,24 @@ export default function Home() {
     }
   }
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0]
     if (file) {
       const reader = new FileReader()
-      reader.onloadend = () => {
-        setImageSrc(reader.result as string)
+      reader.onloadend = async () => {
+        try {
+          const imageUrl = await uploadImage(file)
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            ["image"]: imageUrl,
+          }))
+          console.log(formValues)
+          console.log("File uploaded successfully")
+        } catch (error) {
+          console.error("Error uploading file:", error)
+        }
       }
       reader.readAsDataURL(file)
     }
@@ -112,14 +118,29 @@ export default function Home() {
   }
 
   const handleOptionChange = (title: string, option: string) => {
-    if (title === "timeaAndDate") {
+    if (title === "timeAndDate") {
       if (option.length != 5)
-        setFormValues((prevValues) => ({ ...prevValues, ["Date"]: option }))
-      else setFormValues((prevValues) => ({ ...prevValues, ["Time"]: option }))
+        setFormValues((prevValues) => ({ ...prevValues, ["date"]: option }))
+      else setFormValues((prevValues) => ({ ...prevValues, ["time"]: option }))
+    } else if (title === "hidden" || title === "timed") {
+      option === "Kyllä"
+        ? setFormValues((prevValues) => ({ ...prevValues, [title]: true }))
+        : setFormValues((prevValues) => ({ ...prevValues, [title]: false }))
     } else {
       setFormValues((prevValues) => ({ ...prevValues, [title]: option }))
     }
     console.log(formValues)
+  }
+  const deleteRelease = async (id: string) => {
+    if (confirm("Haluatko varmasti poistaa tämän tiedotteen?")) {
+      await fetch(`/api/releases/`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(id),
+      })
+    }
   }
 
   return (
@@ -140,6 +161,7 @@ export default function Home() {
           >
             <MenuButton
               title="Kohderyhmä"
+              value={formValues.targetGroup}
               options={["Kaikki", "Alaleiri", "Tekijät"]}
               onOptionChange={(option) =>
                 handleOptionChange("targetGroup", option)
@@ -147,6 +169,7 @@ export default function Home() {
             ></MenuButton>
             <MenuButton
               title="Alaleiri"
+              value={formValues.subcamp}
               className={
                 formValues.targetGroup !== "Alaleiri"
                   ? "pointer-events-none opacity-25"
@@ -156,14 +179,7 @@ export default function Home() {
               onOptionChange={(option) => handleOptionChange("subcamp", option)}
             ></MenuButton>
             <MenuButton
-              title="Kriittisyys"
-              options={["Kriittinen", "Vähemmän kriittinen", "Ei kriittinen"]}
-              onOptionChange={(option) =>
-                handleOptionChange("importance", option)
-              }
-            ></MenuButton>
-
-            <MenuButton
+              value={formValues.timed ? "Kyllä" : "Ei"}
               title="Ajastus"
               options={["Ei", "Kyllä"]}
               onOptionChange={(option) => handleOptionChange("timed", option)}
@@ -171,10 +187,9 @@ export default function Home() {
             <MenuButton
               title="Aika"
               options={["a"]}
+              value={[formValues.date, formValues.time]}
               className={
-                formValues.timed === "Ei"
-                  ? "pointer-events-none opacity-25"
-                  : ""
+                formValues.timed ? "" : "pointer-events-none opacity-25"
               }
               isTimeInput={true}
               onOptionChange={(option) => {
@@ -182,11 +197,10 @@ export default function Home() {
               }}
             />
             <MenuButton
-              title="Julkaistu"
+              title="Piilotettu"
+              value={formValues.hidden ? "Kyllä" : "Ei"}
               options={["Ei", "Kyllä"]}
-              onOptionChange={(option) =>
-                handleOptionChange("released", option)
-              }
+              onOptionChange={(option) => handleOptionChange("hidden", option)}
             ></MenuButton>
             <div
               style={{
@@ -221,11 +235,16 @@ export default function Home() {
             alt=""
           />
 
-          <img src={imageSrc} className="" alt="" />
+          <img src={formValues.image} className="h-auto max-w-[100%]" alt="" />
         </div>
         <button onClick={() => router.back()} className="z-10">
           <div className="material-symbols-outlined fixed left-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
             arrow_left_alt
+          </div>
+        </button>
+        <button onClick={() => deleteRelease(releaseId)} className="z-10">
+          <div className="material-symbols-outlined fixed right-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
+            delete
           </div>
         </button>
         <div
