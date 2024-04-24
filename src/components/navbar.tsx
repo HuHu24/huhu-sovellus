@@ -1,10 +1,12 @@
 "use client"
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { auth } from "@/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import Link from "next/link"
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [infoIsOpen, setInfoIsOpen] = useState(false)
   const [allowOpen, setAllowOpen] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   useEffect(() => {
@@ -38,15 +40,38 @@ const Navbar = () => {
         >
           <p className="py-3 font-poppins text-3xl text-tokio">Turvachat</p>
         </Link>
-        <Link
-          href="/info/subcamp"
+        <button
           onClick={() => {
-            setIsOpen(false)
-            setAllowOpen(false)
+            setInfoIsOpen(!infoIsOpen)
           }}
+          className="py-3 font-poppins text-3xl text-tokio"
         >
-          <p className="py-3 font-poppins text-3xl text-tokio">Alaleirit</p>
-        </Link>
+          <div className="flex">
+            Tietoa
+            <span
+              className={`${
+                infoIsOpen ? "rotate-0" : "-rotate-90"
+              } material-symbols-outlined w-full text-4xl text-tokio transition`}
+            >
+              expand_more
+            </span>
+          </div>
+          {infoIsOpen ? (
+            <ol className="px-3 text-left text-2xl">
+              <li>
+                <Link href="/info">Kissa</Link>
+              </li>
+              <li>
+                <Link href="/info">Koira</Link>
+              </li>
+              <li>
+                <Link href="/info">Kameli</Link>
+              </li>
+            </ol>
+          ) : (
+            <></>
+          )}
+        </button>
         {isAuthenticated ? (
           <>
             <Link href="/admin" onClick={() => setIsOpen(false)}>
