@@ -47,17 +47,7 @@ export default function Home() {
 
   return (
     <div className="relative h-full w-full overflow-x-hidden overflow-y-scroll bg-helsinki">
-      <div className="absolute -right-40 -top-40 p-2.5">
-        <div className="inline-flex h-[369px] w-[360px] items-end justify-start gap-2.5">
-          <div className="shrink grow basis-0 self-stretch rounded-full bg-barcelona" />
-        </div>
-      </div>
-      <div className="fixed -bottom-40 -left-44 p-2.5 ">
-        <div className="inline-flex h-[341px] w-[341px] flex-col items-end justify-start gap-2.5">
-          <div className="shrink grow basis-0 self-stretch rounded-full bg-soul" />
-        </div>
-      </div>
-      <div className="flex w-full flex-col gap-4 p-3">
+      <div className="flex w-full flex-col gap-4 p-4">
         <Releases direction={"horizontal"} userSubcamp={subcamp} />
         <>
           {timetable ? (
@@ -69,6 +59,30 @@ export default function Home() {
             <DaysTimetable date="Ei aikataulua" events={[]} />
           )}
         </>
+      </div>
+      <div className="m-4 rounded-xl bg-oslo p-2">
+        <h1 className="text-2xl font-bold">Turvallisuuden pikaohje</h1>
+        <p>
+          Jos sinuun sattuu fyysisesti, soita EA-päivystyspuhelimeen (041 727
+          1075).
+        </p>
+        <br />
+        <p>
+          Jos sinuun sattuu henkisesti, soita, txt tai laita Whatsappia Henkisen
+          turvan päivystyspuhelimeen (041 727 1074).
+        </p>
+        <br />
+        <p>
+          Jos kumpikaan näistä ei vastaa tilannettasi, mutta tarvitset muuta
+          apua tai yhteyden Turvallisuuteen, soita Turvan päivystyspuhelimeen
+          (041 727 8125).
+        </p>
+        <br />
+        <p className="font-bold">
+          Akuuteissa hätätilanteissa, soita 112. Jonka jälkeen soita
+          välittömästi Turvan päivystyspuhelimeen (041 727 8125).
+        </p>
+        <br />
       </div>
     </div>
   )

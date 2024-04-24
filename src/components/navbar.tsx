@@ -29,25 +29,24 @@ const Navbar = () => {
       <div
         className={`${
           isOpen ? "right-0" : "right-[-250px]"
-        } fixed bottom-[70px] flex h-[calc(100%-70px)] w-full max-w-[240px] flex-col items-center divide-y bg-gray pt-5 transition-all`}
+        } fixed bottom-[70px] flex h-[calc(100%-70px)] w-full max-w-[250px] flex-col items-center divide-y bg-gray pt-5 transition-all`}
       >
         <Link
-          href="/chat"
+          href="/info/subcamp"
           onClick={() => {
             setIsOpen(false)
-            setAllowOpen(false)
           }}
         >
-          <p className="py-3 font-poppins text-3xl text-tokio">Turvachat</p>
+          <p className="py-3 font-poppins text-3xl text-tokio">Alaleirit</p>
         </Link>
         <button
           onClick={() => {
             setInfoIsOpen(!infoIsOpen)
           }}
-          className="py-3 font-poppins text-3xl text-tokio"
+          className="max-w-[90%] py-3 font-poppins text-3xl text-tokio"
         >
           <div className="flex">
-            Tietoa
+            Turvallisuus
             <span
               className={`${
                 infoIsOpen ? "rotate-0" : "-rotate-90"
@@ -57,17 +56,19 @@ const Navbar = () => {
             </span>
           </div>
           {infoIsOpen ? (
-            <ol className="px-3 text-left text-2xl">
-              <li>
-                <Link href="/info">Kissa</Link>
-              </li>
-              <li>
-                <Link href="/info">Koira</Link>
-              </li>
-              <li>
-                <Link href="/info">Kameli</Link>
-              </li>
-            </ol>
+            <div className="px-3 text-left text-2xl">
+              <ul>
+                <Link onClick={() => setIsOpen(false)} href="/chat">
+                  <li>Turvachat</li>
+                </Link>
+                <Link onClick={() => setIsOpen(false)} href="/info/safety">
+                  <li>Turvallisuuden tiedot</li>
+                </Link>
+                <Link onClick={() => setIsOpen(false)} href="/info/ttp">
+                  <li>Turvallisen tilan periaatteet</li>
+                </Link>
+              </ul>
+            </div>
           ) : (
             <></>
           )}
