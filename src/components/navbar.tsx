@@ -38,6 +38,15 @@ const Navbar = () => {
         >
           <p className="py-3 font-poppins text-3xl text-tokio">Turvachat</p>
         </Link>
+        <Link
+          href="/info/subcamp"
+          onClick={() => {
+            setIsOpen(false)
+            setAllowOpen(false)
+          }}
+        >
+          <p className="py-3 font-poppins text-3xl text-tokio">Alaleirit</p>
+        </Link>
         {isAuthenticated ? (
           <>
             <Link href="/admin" onClick={() => setIsOpen(false)}>
