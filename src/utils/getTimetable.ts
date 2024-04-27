@@ -19,6 +19,7 @@ const getTimetable = async (user: User | undefined) => {
     if (user?.email && user.email != "") {
       keyword += "Admin"
     } else {
+      keyword += "Subcamp"
       keyword += user?.claims.subcamp || ""
     }
 

@@ -30,9 +30,13 @@ const HorizontalRelease = (props: {
     <Link href={`/releases/${props.release.id}`} className="z-10">
       <div className="mr-4 flex flex-col">
         <div className="flex h-[150px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
-          <img className="h-full" src={props.release.image} alt="" />
+          <img
+            className="w-full object-cover"
+            src={props.release.image}
+            alt=""
+          />
         </div>
-        <div className="w-[180px] whitespace-normal font-poppins text-xl text-ateena shadow-helsinki text-shadow">
+        <div className="line-clamp-2 w-[180px] whitespace-normal font-poppins text-xl text-ateena shadow-helsinki text-shadow">
           {props.release.title}
         </div>
         <div className="line-clamp-2 w-[180px] overflow-hidden whitespace-normal break-all font-poppins font-normal text-ateena shadow-helsinki text-shadow">
@@ -70,11 +74,15 @@ const VerticalRelease = (props: { release: Release; userSubcamp: string }) => {
   return (
     <Link href={`/releases/${props.release.id}`} className="z-10">
       <div className="flex items-center bg-ateena bg-opacity-0">
-        <div className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena">
-          <img className="h-full" src={props.release.image} alt="" />
+        <div className="flex h-[140px] w-[180px] justify-center overflow-hidden rounded-[20px] border-2 border-helsinki bg-ateena ">
+          <img
+            className="w-full object-cover"
+            src={props.release.image}
+            alt=""
+          />
         </div>
-        <div className="ml-[20px] flex w-[150px] flex-col justify-center">
-          <div className="text-overflow-ellipsis overflow-hidden whitespace-nowrap font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
+        <div className="ml-[10px] flex w-[calc(100%-190px)] flex-col justify-center">
+          <div className="text-overflow-ellipsis line-clamp-2 overflow-hidden font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
             {props.release.title}
           </div>
           <div className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow">

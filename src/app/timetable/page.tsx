@@ -38,6 +38,10 @@ export default async function Home() {
         ) : (
           <DaysTimetable date="Ei aikataulua" events={[]} />
         )}
+        <p>
+          <br />
+          <br />
+        </p>
       </div>
     </div>
   )
