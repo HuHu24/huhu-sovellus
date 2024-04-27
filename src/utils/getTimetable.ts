@@ -1,32 +1,25 @@
 import { initFirebaseAdmin } from "@/firebaseAdmin"
-import { getRemoteConfig } from "firebase-admin/remote-config"
-import { env } from "@/env"
+import { getRemoteConfig, RemoteConfig } from "firebase-admin/remote-config"
 import { Timetable } from "@/types/timetable"
+import { User } from "@/types/user"
 
-const getTimetable = async (session: string) => {
+const getTimetable = async (user: User | null) => {
   let timetable: Timetable | null = null
-  let subcamp = ""
+
+  if (user === null) {
+    return timetable
+  }
 
   try {
     const app = await initFirebaseAdmin()
     const remoteConfig = getRemoteConfig(app)
     const template = await remoteConfig.getTemplate()
 
-    const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`, {
-      headers: {
-        Cookie: `session=${session}`,
-      },
-    })
-
-    const parsedData = await result.json()
-    console.log(parsedData)
-
     let keyword: String = "timetable"
-    if (parsedData.email && parsedData.email != "") {
+    if (user.email && user.email != "") {
       keyword += "Admin"
     } else {
-      keyword += parsedData.claims.subcamp
-      subcamp = parsedData.claims.subcamp
+      keyword += user.claims.subcamp
     }
 
     timetable = await JSON.parse(
@@ -37,7 +30,6 @@ const getTimetable = async (session: string) => {
   }
 
   return {
-    subcamp: subcamp,
     timetable: timetable,
   }
 }

@@ -1,4 +1,5 @@
-export interface releaseData {
+export interface Release {
+  id: string
   title: string
   releaser: string
   time: string

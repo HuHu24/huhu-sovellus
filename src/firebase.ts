@@ -126,6 +126,7 @@ export const getAllReleases = async () => {
     }
   })
 }
+
 const storage = getStorage(app)
 export const uploadImage = async (file: File) => {
   try {

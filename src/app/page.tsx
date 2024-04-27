@@ -2,11 +2,26 @@ import Releases from "@/components/releases"
 import DaysTimetable from "@/components/daysTimetable"
 import getTimetable from "@/utils/getTimetable"
 import { cookies } from "next/headers"
+import getReleases from "@/utils/getReleases"
+import { Timetable } from "@/types/timetable"
+import { Release } from "@/types/releases"
+import getUser from "@/utils/getUser"
 
 export default async function Home() {
-  const { subcamp, timetable } = await getTimetable(
-    cookies().get("session")?.value || ""
-  )
+  let timetable: Timetable | null = null
+  let releases: Release[] = []
+
+  const user = await getUser(cookies().get("session")?.value || "")
+  const subcamp = user.claims.subcamp || ""
+
+  await Promise.all([
+    getTimetable(user).then((value) => {
+      timetable = value.timetable
+    }),
+    getReleases().then((value) => {
+      releases = value
+    }),
+  ])
 
   return (
     <div className="relative h-full w-full overflow-x-hidden overflow-y-scroll bg-helsinki">
@@ -21,7 +36,11 @@ export default async function Home() {
         </div>
       </div>
       <div className="flex w-full flex-col gap-4 p-3">
-        <Releases direction={"horizontal"} userSubcamp={subcamp} />
+        <Releases
+          direction={"horizontal"}
+          userSubcamp={subcamp}
+          releases={releases}
+        />
         <>
           {timetable ? (
             <DaysTimetable

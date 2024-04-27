@@ -1,20 +1,11 @@
-"use client"
+import getReleases from "@/utils/getReleases"
 import Releases from "@/components/releases"
-import { useEffect, useState } from "react"
-import { env } from "@/env"
+import getUser from "@/utils/getUser"
+import { cookies } from "next/headers"
 
-export default function Home() {
-  const [subcamp, setSubcamp] = useState<string>("")
-  useEffect(() => {
-    fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
-      .then((res) => {
-        return res.text()
-      })
-      .then((data) => {
-        const parsedData = JSON.parse(data)
-        setSubcamp(parsedData.claims.subcamp)
-      })
-  }, [])
+export default async function Home() {
+  const user = await getUser(cookies().get("session")?.value || "")
+  const releases = await getReleases()
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-helsinki">
@@ -41,7 +32,11 @@ export default function Home() {
       </div>
       <div className="z-20 -mt-3 w-full gap-4 p-3">
         <div className="flex h-screen overflow-y-scroll">
-          <Releases direction={"vertical"} userSubcamp={subcamp} />
+          <Releases
+            direction={"vertical"}
+            releases={releases}
+            userSubcamp={user?.claims.subcamp || ""}
+          />
         </div>
       </div>
     </div>

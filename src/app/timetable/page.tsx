@@ -1,11 +1,11 @@
 import DaysTimetable from "@/components/daysTimetable"
 import { cookies } from "next/headers"
 import getTimetable from "@/utils/getTimetable"
+import getUser from "@/utils/getUser"
 
 export default async function Home() {
-  const timetableData = await getTimetable(
-    cookies().get("session")?.value || ""
-  )
+  const user = await getUser(cookies().get("session")?.value || "")
+  const timetableData = await getTimetable(user)
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-helsinki">
@@ -31,8 +31,8 @@ export default async function Home() {
         </div>
       </div>
       <div className=" z-20 -mt-3 flex h-full w-full flex-col gap-4 overflow-auto p-3">
-        {timetableData.timetable ? (
-          timetableData.timetable.days.map((day, key) => (
+        {timetableData?.timetable ? (
+          timetableData?.timetable.days.map((day, key) => (
             <DaysTimetable key={key} date={day.date} events={day.events} />
           ))
         ) : (
