@@ -1,10 +1,12 @@
 "use client"
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { auth } from "@/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import Link from "next/link"
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [infoIsOpen, setInfoIsOpen] = useState(false)
   const [allowOpen, setAllowOpen] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   useEffect(() => {
@@ -27,17 +29,50 @@ const Navbar = () => {
       <div
         className={`${
           isOpen ? "right-0" : "right-[-250px]"
-        } fixed bottom-[70px] flex h-[calc(100%-70px)] w-full max-w-[240px] flex-col items-center divide-y bg-gray pt-5 transition-all`}
+        } fixed bottom-[70px] flex h-[calc(100%-70px)] w-full max-w-[250px] flex-col items-center divide-y bg-gray pt-5 transition-all`}
       >
         <Link
-          href="/chat"
+          href="/info/subcamp"
           onClick={() => {
             setIsOpen(false)
-            setAllowOpen(false)
           }}
         >
-          <p className="py-3 font-poppins text-3xl text-tokio">Turvachat</p>
+          <p className="py-3 font-poppins text-3xl text-tokio">Alaleirit</p>
         </Link>
+        <button
+          onClick={() => {
+            setInfoIsOpen(!infoIsOpen)
+          }}
+          className="max-w-[90%] py-3 font-poppins text-3xl text-tokio"
+        >
+          <div className="flex">
+            Turvallisuus
+            <span
+              className={`${
+                infoIsOpen ? "rotate-0" : "-rotate-90"
+              } material-symbols-outlined w-full text-4xl text-tokio transition`}
+            >
+              expand_more
+            </span>
+          </div>
+          {infoIsOpen ? (
+            <div className="px-3 text-left text-2xl">
+              <ul>
+                <Link onClick={() => setIsOpen(false)} href="/chat">
+                  <li>Turvachat</li>
+                </Link>
+                <Link onClick={() => setIsOpen(false)} href="/info/safety">
+                  <li>Turvallisuuden tiedot</li>
+                </Link>
+                <Link onClick={() => setIsOpen(false)} href="/info/ttp">
+                  <li>Turvallisen tilan periaatteet</li>
+                </Link>
+              </ul>
+            </div>
+          ) : (
+            <></>
+          )}
+        </button>
         {isAuthenticated ? (
           <>
             <Link href="/admin" onClick={() => setIsOpen(false)}>
