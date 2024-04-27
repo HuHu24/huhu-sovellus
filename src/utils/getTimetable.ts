@@ -3,8 +3,8 @@ import { getRemoteConfig, RemoteConfig } from "firebase-admin/remote-config"
 import { Timetable } from "@/types/timetable"
 import { User } from "@/types/user"
 
-const getTimetable = async (user: User | null) => {
-  let timetable: Timetable | null = null
+const getTimetable = async (user: User | undefined) => {
+  let timetable: Timetable | undefined = undefined
 
   if (user === null) {
     return timetable
@@ -12,26 +12,24 @@ const getTimetable = async (user: User | null) => {
 
   try {
     const app = await initFirebaseAdmin()
-    const remoteConfig = getRemoteConfig(app)
+    const remoteConfig: any = getRemoteConfig(app)
     const template = await remoteConfig.getTemplate()
 
     let keyword: String = "timetable"
-    if (user.email && user.email != "") {
+    if (user?.email && user.email != "") {
       keyword += "Admin"
     } else {
-      keyword += user.claims.subcamp
+      keyword += user?.claims.subcamp || ""
     }
 
     timetable = await JSON.parse(
-      template.parameters[`${keyword}`].defaultValue.value
+      template.parameters[`${keyword}`]?.defaultValue.value || ""
     )
   } catch (e) {
     console.error(e)
   }
 
-  return {
-    timetable: timetable,
-  }
+  return timetable
 }
 
 export default getTimetable

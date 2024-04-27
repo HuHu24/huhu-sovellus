@@ -8,15 +8,15 @@ import { Release } from "@/types/releases"
 import getUser from "@/utils/getUser"
 
 export default async function Home() {
-  let timetable: Timetable | null = null
+  let timetable: Timetable | undefined
   let releases: Release[] = []
 
   const user = await getUser(cookies().get("session")?.value || "")
-  const subcamp = user.claims.subcamp || ""
+  const subcamp = user?.claims.subcamp || ""
 
   await Promise.all([
     getTimetable(user).then((value) => {
-      timetable = value.timetable
+      timetable = value || undefined
     }),
     getReleases().then((value) => {
       releases = value
@@ -42,7 +42,7 @@ export default async function Home() {
           releases={releases}
         />
         <>
-          {timetable ? (
+          {timetable && timetable.days[0] ? (
             <DaysTimetable
               date={timetable.days[0].date}
               events={timetable.days[0].events}

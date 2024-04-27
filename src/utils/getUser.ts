@@ -2,7 +2,7 @@ import { env } from "@/env"
 import { User } from "@/types/user"
 
 const getUser = async (session: string) => {
-  let data: User | null = null
+  let data: User | undefined = undefined
 
   try {
     const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`, {
