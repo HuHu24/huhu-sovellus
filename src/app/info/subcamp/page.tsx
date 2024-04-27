@@ -33,19 +33,6 @@ export default function Home() {
           </p>
           <br />
           <p>Nähään HuHulla!</p>
-          <br />
-          <div>
-            Ps. Virittäydy tunnelmaan meidän soittolistan kanssa{" "}
-            <Link
-              className="text-soul underline"
-              href={
-                "https://open.spotify.com/playlist/7xnjAXTKT3fHlkPfS29TgS?si=55713f8f0842485c"
-              }
-            >
-              https://open.spotify.com/playlist/7xnjAXTKT3fHlkPfS29TgS?si=55713f8f0842485c
-            </Link>
-          </div>
-          <br />
         </div>
       </div>
       <div className="w-full rounded-xl bg-oslo p-2">
@@ -60,18 +47,6 @@ export default function Home() {
         </p>
         <br />
         <p>Innolla leiriä odottaen, Siiri ja Veera</p>
-        <br />
-        <div>
-          Ps. SAMBAA{" "}
-          <Link
-            className="text-soul underline"
-            href={
-              "https://open.spotify.com/playlist/4kzhJl7AKzQq8TWJvQZpac?si=ECSo-jxVSaa-RHs7qTyyxw&pi=e-4cinYgvdTQaP "
-            }
-          >
-            https://open.spotify.com/playlist/4kzhJl7AKzQq8TWJvQZpac?si=ECSo-jxVSaa-RHs7qTyyxw&pi=e-4cinYgvdTQaP{" "}
-          </Link>
-        </div>
       </div>
       <div className="w-full rounded-xl bg-oslo p-2">
         <h1 className="text-2xl font-bold">Bondi Beach</h1>
@@ -89,18 +64,6 @@ export default function Home() {
         </p>
         <br />
         <p>Matkaoppaina toimivat Nelli ja Laura😎</p>
-        <br />
-        <div>
-          Tunnelmaan voi virittäytyä jo soittolistan saattelemana ;){" "}
-          <Link
-            className="text-soul underline"
-            href={
-              "https://open.spotify.com/playlist/3537BijtCuemZQIz2AZCpF?si=53c9a32661424faf"
-            }
-          >
-            https://open.spotify.com/playlist/3537BijtCuemZQIz2AZCpF?si=53c9a32661424faf
-          </Link>
-        </div>
       </div>
       <div className="w-full rounded-xl bg-oslo p-2">
         <h1 className="text-2xl font-bold">Matera</h1>
