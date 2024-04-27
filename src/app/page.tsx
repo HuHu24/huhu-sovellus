@@ -1,49 +1,12 @@
-"use client"
-
 import Releases from "@/components/releases"
 import DaysTimetable from "@/components/daysTimetable"
-import { useEffect, useState } from "react"
-import { getApp } from "firebase/app"
-import {
-  fetchAndActivate,
-  getRemoteConfig,
-  getString,
-} from "firebase/remote-config"
-import { env } from "@/env"
-import { TimetableProps } from "@/app/timetable/page"
+import getTimetable from "@/utils/getTimetable"
+import { cookies } from "next/headers"
 
-export default function Home() {
-  const [subcamp, setSubcamp] = useState<string>("")
-  const [timetable, setTimetable] = useState<TimetableProps>()
-
-  useEffect(() => {
-    const app = getApp()
-    const remoteConfig = getRemoteConfig(app)
-    remoteConfig.settings.minimumFetchIntervalMillis = 30000
-
-    let keyword: String = "Subcamp"
-    fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
-      .then((res) => {
-        res.text().then((data) => {
-          const parsedData = JSON.parse(data)
-          if (parsedData.email && parsedData.email != "") keyword = "Admin"
-          else keyword += parsedData.claims.subcamp
-          setSubcamp(parsedData.claims.subcamp)
-        })
-      })
-      .then(() => {
-        fetchAndActivate(remoteConfig)
-          .then(() => {
-            const timetableData = JSON.parse(
-              getString(remoteConfig, `timetable${keyword}`)
-            )
-            setTimetable(timetableData)
-          })
-          .catch((err) => {
-            setTimetable(undefined)
-          })
-      })
-  }, [])
+export default async function Home() {
+  const { subcamp, timetable } = await getTimetable(
+    cookies().get("session")?.value || ""
+  )
 
   return (
     <div className="relative h-full w-full overflow-x-hidden overflow-y-scroll bg-helsinki">

@@ -28,7 +28,6 @@ export async function getDecodedClaims(session: string) {
     return null
   }
 
-  //Use Firebase Admin to validate the session cookie
   const decodedClaims = await admin.auth().verifySessionCookie(session, true)
 
   if (!decodedClaims) {
