@@ -22,7 +22,7 @@ export default function Home() {
       </div>
       <div className="w-full rounded-xl bg-oslo p-2">
         <h1 className="text-2xl font-bold">Central Park</h1>
-        <p>
+        <div>
           <p>
             Tervetuloa unohtumattomalle seikkailulle Central Park -alaleiriin,
             missä meidät ympäröi Pohjois-Amerikan monipuolinen
@@ -46,7 +46,7 @@ export default function Home() {
             </Link>
           </div>
           <br />
-        </p>
+        </div>
       </div>
       <div className="w-full rounded-xl bg-oslo p-2">
         <h1 className="text-2xl font-bold">Rio</h1>
