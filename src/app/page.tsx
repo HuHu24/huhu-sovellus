@@ -1,56 +1,38 @@
-"use client"
-
 import Releases from "@/components/releases"
 import DaysTimetable from "@/components/daysTimetable"
-import { useEffect, useState } from "react"
-import { getApp } from "firebase/app"
-import {
-  fetchAndActivate,
-  getRemoteConfig,
-  getString,
-} from "firebase/remote-config"
-import { env } from "@/env"
-import { TimetableProps } from "@/app/timetable/page"
+import getTimetable from "@/utils/getTimetable"
+import { cookies } from "next/headers"
+import getReleases from "@/utils/getReleases"
+import { Timetable } from "@/types/timetable"
+import { Release } from "@/types/releases"
+import getUser from "@/utils/getUser"
 
-export default function Home() {
-  const [subcamp, setSubcamp] = useState<string>("")
-  const [timetable, setTimetable] = useState<TimetableProps>()
+export default async function Home() {
+  let timetable: Timetable | undefined
+  let releases: Release[] = []
 
-  useEffect(() => {
-    const app = getApp()
-    const remoteConfig = getRemoteConfig(app)
-    remoteConfig.settings.minimumFetchIntervalMillis = 30000
+  const user = await getUser(cookies().get("session")?.value || "")
+  const subcamp = user?.claims.subcamp || ""
 
-    let keyword: String = "Subcamp"
-    fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
-      .then((res) => {
-        res.text().then((data) => {
-          const parsedData = JSON.parse(data)
-          if (parsedData.email && parsedData.email != "") keyword = "Admin"
-          else keyword += parsedData.claims.subcamp
-          setSubcamp(parsedData.claims.subcamp)
-        })
-      })
-      .then(() => {
-        fetchAndActivate(remoteConfig)
-          .then(() => {
-            const timetableData = JSON.parse(
-              getString(remoteConfig, `timetable${keyword}`)
-            )
-            setTimetable(timetableData)
-          })
-          .catch((err) => {
-            setTimetable(undefined)
-          })
-      })
-  }, [])
+  await Promise.all([
+    getTimetable(user).then((value) => {
+      timetable = value || undefined
+    }),
+    getReleases().then((value) => {
+      releases = value
+    }),
+  ])
 
   return (
     <div className="relative h-full w-full overflow-x-hidden overflow-y-scroll bg-helsinki">
-      <div className="flex w-full flex-col gap-4 p-4">
-        <Releases direction={"horizontal"} userSubcamp={subcamp} />
+      <div className="flex w-full flex-col gap-4 p-3">
+        <Releases
+          direction={"horizontal"}
+          userSubcamp={subcamp}
+          releases={releases}
+        />
         <>
-          {timetable ? (
+          {timetable && timetable.days[0] ? (
             <DaysTimetable
               date={timetable.days[0].date}
               events={timetable.days[0].events}

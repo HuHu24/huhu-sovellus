@@ -1,56 +1,11 @@
-"use client"
 import DaysTimetable from "@/components/daysTimetable"
-import { env } from "@/env"
-import { getApp } from "firebase/app"
-import {
-  fetchAndActivate,
-  getRemoteConfig,
-  getString,
-} from "firebase/remote-config"
-import { useEffect, useState } from "react"
+import { cookies } from "next/headers"
+import getTimetable from "@/utils/getTimetable"
+import getUser from "@/utils/getUser"
 
-export interface TimetableProps {
-  days: {
-    date: string
-    events: {
-      time: string
-      title: string
-      description: string
-    }[]
-  }[]
-}
-
-export default function Home() {
-  const [timetable, setTimetable] = useState<TimetableProps>()
-
-  useEffect(() => {
-    const app = getApp()
-    const remoteConfig = getRemoteConfig(app)
-    remoteConfig.settings.minimumFetchIntervalMillis = 30000
-
-    let keyword: String = "Subcamp"
-    fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
-      .then((res) => {
-        res.text().then((data) => {
-          const parsedData = JSON.parse(data)
-
-          if (parsedData.email && parsedData.email != "") keyword = "Admin"
-          else keyword += parsedData.claims.subcamp
-        })
-      })
-      .then(() => {
-        fetchAndActivate(remoteConfig)
-          .then(() => {
-            const timetableData = JSON.parse(
-              getString(remoteConfig, `timetable${keyword}`)
-            )
-            setTimetable(timetableData)
-          })
-          .catch((err) => {
-            setTimetable(undefined)
-          })
-      })
-  }, [])
+export default async function Home() {
+  const user = await getUser(cookies().get("session")?.value || "")
+  const timetable = await getTimetable(user)
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-helsinki">
@@ -83,6 +38,10 @@ export default function Home() {
         ) : (
           <DaysTimetable date="Ei aikataulua" events={[]} />
         )}
+        <p>
+          <br />
+          <br />
+        </p>
       </div>
     </div>
   )

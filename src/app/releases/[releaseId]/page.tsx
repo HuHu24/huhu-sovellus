@@ -45,19 +45,25 @@ export default function Home() {
         lightMode ? "bg-ateena" : "bg-helsinki"
       } mb-4 overflow-y-auto overflow-x-hidden`}
     >
-      <div className={`flex items-center justify-center bg-ateena align-top`}>
+      <div
+        className={`relative flex items-center justify-center bg-ateena align-top`}
+      >
         <img
           src={data?.image}
-          className="rounded-m h-auto max-w-[100%] object-contain drop-shadow-md"
+          className="rounded-m h-[30vh] w-full object-cover"
           alt=""
         />
 
-        <button onClick={() => router.back()} className="z-10">
-          <div className="material-symbols-outlined fixed left-0 top-0 text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
+        <button
+          onClick={() => router.back()}
+          className="absolute left-0 top-0 z-10"
+        >
+          <div className="material-symbols-outlined text-[49px] text-buenos_aires shadow-buenos_aires text-shadow">
             arrow_left_alt
           </div>
         </button>
       </div>
+
       <div
         className={`relative ml-6 h-full w-full ${
           lightMode ? "text-helsinki" : "text-ateena"

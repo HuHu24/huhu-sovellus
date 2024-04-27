@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { getAllReleases, getRelease } from "@/firebase"
-import { releaseData } from "@/types/releases"
+import { Release as ReleaseType } from "@/types/releases"
 import Link from "next/link"
 import { format, parse } from "date-fns"
 
@@ -21,10 +21,11 @@ function formatDateTime(date: string, time: string): string {
 }
 
 export const Release = ({ id }: { id: string }) => {
-  const [data, setData] = useState<releaseData>()
+  const [data, setData] = useState<ReleaseType>()
   useEffect(() => {
     getRelease(id).then((data: any) => {
-      const castedData: releaseData = {
+      const castedData: ReleaseType = {
+        id: id,
         title: data.title,
         releaser: data.releaser,
         time: data.time,
