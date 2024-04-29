@@ -4,13 +4,34 @@ import React, { useState } from "react"
 import Image from "next/image"
 
 interface EventProps {
+  date: string
+  description: string
+  isActivity: boolean
   time: string
   title: string
-  description: string
 }
 
-const Event = ({ time, title, description }: EventProps) => {
+const Event = ({ date, time, title, description, isActivity }: EventProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const joinEvent = (date: string, time: string, title: string) => {
+    fetch("/api/joinEvent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        time: time,
+        title: title,
+        date: date,
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        alert("Liitytty ohjelmaan")
+      } else if (response.status === 400) {
+        alert("Ohjelma on täynnä")
+      }
+    })
+  }
 
   const arrowStyle = {
     transition: "transform 0.5s",
@@ -63,6 +84,14 @@ const Event = ({ time, title, description }: EventProps) => {
           </div>
         </div>
       </button>
+      {isActivity && isOpen ? (
+        <button
+          onClick={() => joinEvent(date, time, title)}
+          className="mt-1 h-12 w-full rounded-2xl bg-soul"
+        >
+          Liity ohjelmaan
+        </button>
+      ) : null}
     </div>
   )
 }
@@ -70,6 +99,7 @@ const Event = ({ time, title, description }: EventProps) => {
 interface DaysTimetableProperties {
   date: string
   events: {
+    isActivity: boolean
     time: string
     title: string
     description: string
@@ -86,7 +116,9 @@ const DaysTimetable = ({ date, events }: DaysTimetableProperties) => {
         {events.map((event, key) => (
           <Event
             key={key}
+            isActivity={event.isActivity}
             time={event.time}
+            date={date}
             title={event.title}
             description={event.description}
           />

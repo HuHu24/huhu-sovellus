@@ -11,7 +11,12 @@ export default async function AdminFrontpage() {
     },
   })
   const data = (await response.json()) as {
-    claims: { admin: boolean; subcampLeader: boolean; safety: boolean }
+    claims: {
+      admin: boolean
+      subcampLeader: boolean
+      safety: boolean
+      ohjelma: boolean
+    }
     email: string
   }
 
@@ -86,6 +91,18 @@ export default async function AdminFrontpage() {
                 <></>
               )}
             </>
+            {(data.claims && data.claims.ohjelma) || data.claims.admin ? (
+              <Link href={"/admin/activities"}>
+                <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-barcelona text-helsinki">
+                  <span className="material-symbols-outlined text-9xl">
+                    sports_soccer
+                  </span>
+                  <h3 className="text-2xl">Ohjelma</h3>
+                </div>
+              </Link>
+            ) : (
+              <></>
+            )}
             {data.claims && data.claims.admin ? (
               <Link href={"/admin/access"}>
                 <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-buenos_aires text-helsinki">
