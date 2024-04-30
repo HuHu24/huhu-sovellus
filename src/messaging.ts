@@ -23,7 +23,7 @@ export async function saveMessagingToken() {
   const fcmToken = await getToken(msg, { vapidKey: vapidKey })
   if (fcmToken) {
     console.log("FCM Token: ", fcmToken)
-    localStorage.setItem("fcmToken", fcmToken)
+    localStorage.setItem("messagingToken", fcmToken)
     onMessage(msg, (message) => {
       if (message.notification && message.notification.title) {
         console.log("Message received. ", message)

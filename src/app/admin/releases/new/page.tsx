@@ -124,7 +124,7 @@ export default function Home() {
           >
             <MenuButton
               title="Kohderyhmä"
-              options={["Kaikki", "Alaleiri", "Tekijät"]}
+              options={["Kaikki", "Alaleiri"]}
               onOptionChange={(option) =>
                 handleOptionChange("targetGroup", option)
               }
@@ -136,7 +136,14 @@ export default function Home() {
                   ? "pointer-events-none opacity-25"
                   : ""
               }
-              options={["1", "2", "3", "4"]}
+              options={[
+                "komodo",
+                "centralPark",
+                "Rio",
+                "bondiBeach",
+                "matera",
+                "aboa",
+              ]}
               onOptionChange={(option) => handleOptionChange("subcamp", option)}
             ></MenuButton>
             <MenuButton

@@ -2,24 +2,22 @@
 import { signInAnonymously } from "@/firebase"
 import { useRouter } from "next/navigation"
 import { env } from "@/env"
-import { saveMessagingToken } from "@/messaging"
 
 export default function Home() {
   const router = useRouter()
 
-  async function selectSubcamp(subcamp: number) {
+  async function selectSubcamp(subcamp: string) {
     try {
-      const [messagingToken] = await Promise.all([
-        saveMessagingToken(),
-        signInAnonymously(),
-      ])
-
+      if (typeof window !== "undefined") {
+        localStorage.setItem("subcamp", subcamp)
+      }
+      await signInAnonymously()
       await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ subcamp: subcamp, token: messagingToken }),
+        body: JSON.stringify({ subcamp: subcamp }),
       })
 
       router.push("/")
@@ -33,34 +31,34 @@ export default function Home() {
       <div className="mx-4 my-auto flex w-full max-w-[500px] flex-col items-center justify-between gap-[5px] rounded-[20px] bg-oslo py-2.5">
         <div className="flex h-full w-full flex-col gap-3 p-5">
           <h1 className="text-4xl">Valitse alaleiri:</h1>
-          <button onClick={() => selectSubcamp(2)}>
-            <div className="px-auto w-full rounded-lg bg-buenos_aires p-1 text-3xl text-helsinki">
-              Esimerkkileiri 2
-            </div>
-          </button>
-          <button onClick={() => selectSubcamp(3)}>
+          <button onClick={() => selectSubcamp("komodo")}>
             <div className="px-auto w-full rounded-lg bg-tokio p-1 text-3xl text-helsinki">
-              Esimerkkileiri 3
+              Komodo{" "}
             </div>
           </button>
-          <button onClick={() => selectSubcamp(4)}>
-            <div className="px-auto w-full rounded-lg bg-barcelona p-1 text-3xl text-helsinki">
-              Esimerkkileiri 4
+          <button onClick={() => selectSubcamp("centralPark")}>
+            <div className="px-auto w-full rounded-lg bg-soul p-1 text-3xl text-helsinki">
+              Central Park{" "}
             </div>
           </button>
-          <button onClick={() => selectSubcamp(5)}>
+          <button onClick={() => selectSubcamp("rio")}>
             <div className="px-auto w-full rounded-lg bg-green p-1 text-3xl text-helsinki">
-              Esimerkkileiri 5
+              Rio{" "}
             </div>
           </button>
-          <button onClick={() => selectSubcamp(1)}>
-            <div className="px-auto w-full rounded-lg bg-soul p-1 text-3xl text-ateena">
-              Esimerkkileiri 1
+          <button onClick={() => selectSubcamp("bondiBeach")}>
+            <div className="px-auto w-full rounded-lg bg-buenos_aires p-1 text-3xl text-helsinki">
+              Bondi Beach{" "}
             </div>
           </button>
-          <button onClick={() => selectSubcamp(6)}>
-            <div className="px-auto w-full rounded-lg bg-helsinki p-1 text-3xl text-ateena">
-              Esimerkkileiri 6
+          <button onClick={() => selectSubcamp("matera")}>
+            <div className="px-auto w-full rounded-lg bg-barcelona p-1 text-3xl text-helsinki">
+              Matera
+            </div>
+          </button>
+          <button onClick={() => selectSubcamp("aboa")}>
+            <div className="px-auto w-full rounded-lg bg-ateena p-1 text-3xl text-helsinki">
+              Tekijäleiri Aboa
             </div>
           </button>
         </div>

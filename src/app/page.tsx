@@ -8,6 +8,7 @@ import { Release } from "@/types/releases"
 import getUser from "@/utils/getUser"
 
 export default async function Home() {
+  "use server"
   let timetable: Timetable | undefined
   let releases: Release[] = []
 
