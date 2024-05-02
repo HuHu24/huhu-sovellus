@@ -101,7 +101,7 @@ const Navbar = () => {
             className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]"
             onClick={() => setIsOpen(false)}
           >
-            cottage
+            home
           </span>
         </Link>
         <Link href="/releases" className="flex">
@@ -109,7 +109,7 @@ const Navbar = () => {
             className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]"
             onClick={() => setIsOpen(false)}
           >
-            full_coverage
+            breaking_news
           </span>
         </Link>
         <Link href="/timetable" className="flex">
@@ -117,7 +117,7 @@ const Navbar = () => {
             className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]"
             onClick={() => setIsOpen(false)}
           >
-            event_note
+            calendar_month
           </span>
         </Link>
         <Link href="/map" className="flex">
@@ -125,7 +125,7 @@ const Navbar = () => {
             className="material-symbols-outlined h-[48px] w-full text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]"
             onClick={() => setIsOpen(false)}
           >
-            distance
+            map
           </span>
         </Link>
         <div
