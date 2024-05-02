@@ -35,7 +35,23 @@ export default function Home() {
   )
 }
 
+function Participants(users: string[]) {
+  if (!users) return <div></div>
+  return (
+    <div>
+      {users.map((participant: any, index: any) => {
+        return (
+          <p className="text-xl" key={index}>
+            {participant}
+          </p>
+        )
+      })}
+    </div>
+  )
+}
+
 function Activity({ data }: { data: any }) {
+  const [showParticipants, setShowParticipants] = useState(false)
   const editMaxParticipants = (id: string) => {
     //@ts-ignore
     const maxParticipants = parseInt(prompt("Anna uusi osallistujamäärä"))
@@ -44,24 +60,29 @@ function Activity({ data }: { data: any }) {
       location.reload()
     }
   }
+  let usersArray = Object.values(data.participants || {}) as string[]
   return (
-    <div className="mt-2.5 flex h-auto w-auto justify-between rounded-2xl bg-soul p-2">
+    <div className="mt-2.5 flex h-auto w-auto justify-between rounded-2xl bg-oslo p-2">
       <div>
         <div className="ml-1 mt-1 text-xl">{data?.id}</div>
         <div className="ml-1 mt-1 text-xl">
-          {"Osallistujia: " +
-            data?.participants?.length +
-            "/" +
-            data?.maxParticipants}
+          {"Osallistujia: " + usersArray.length + "/" + data?.maxParticipants}
         </div>
       </div>
       <div>
         <button
           onClick={() => editMaxParticipants(data.id)}
-          className="mr-1 mt-1 rounded-xl bg-oslo p-1 px-10 text-xl "
+          className="mr-1 mt-1 rounded-xl bg-soul p-1 px-10 text-xl "
         >
           Muokkaa osallistuja määrää
         </button>
+        <button
+          onClick={() => setShowParticipants(!showParticipants)}
+          className="mr-1 mt-1 rounded-xl bg-soul p-1 px-10 text-xl "
+        >
+          Näytä osallistujat{" "}
+        </button>
+        {showParticipants && Participants(usersArray)}
       </div>
     </div>
   )

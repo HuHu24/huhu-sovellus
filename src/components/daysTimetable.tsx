@@ -2,7 +2,6 @@
 
 import React, { useState } from "react"
 import Image from "next/image"
-
 interface EventProps {
   date: string
   description: string
@@ -13,9 +12,39 @@ interface EventProps {
 
 const Event = ({ date, time, title, description, isActivity }: EventProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  let events =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("events") || "[]")
+      : []
+  const joined = events ? events.includes(`${date} ${time} ${title}`) : false
   const joinEvent = (date: string, time: string, title: string) => {
+    const name = prompt("Oma nimi kiitos!")
     fetch("/api/joinEvent", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        time: time,
+        name: name,
+        title: title,
+        date: date,
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        events.push(`${date} ${time} ${title}`)
+        if (typeof window !== "undefined") {
+          localStorage.setItem("events", JSON.stringify(events))
+        }
+        location.reload()
+      } else if (response.status === 401) {
+        alert("Ohjelma on täynnä")
+      }
+    })
+  }
+  const leaveEvent = (date: string, time: string, title: string) => {
+    fetch("/api/joinEvent", {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
@@ -26,9 +55,11 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
       }),
     }).then((response) => {
       if (response.ok) {
-        alert("Liitytty ohjelmaan")
-      } else if (response.status === 400) {
-        alert("Ohjelma on täynnä")
+        events.splice(events.indexOf(`${date} ${time} ${title}`), 1)
+        if (typeof window !== "undefined") {
+          localStorage.setItem("events", JSON.stringify(events))
+        }
+        location.reload()
       }
     })
   }
@@ -44,11 +75,11 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
     transition: isOpen
       ? "opacity 0.5s, visibility 0.5s"
       : "opacity 0.2s, visibility 0.2s",
-    ransitionDelay: isOpen ? "0s" : "0.2s",
+    transitionDelay: isOpen ? "0s" : "0.2s",
     opacity: isOpen ? "1" : "0",
   }
   return (
-    <div className="relative">
+    <div className="relative ">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`${
@@ -85,12 +116,21 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
         </div>
       </button>
       {isActivity && isOpen ? (
-        <button
-          onClick={() => joinEvent(date, time, title)}
-          className="mt-1 h-12 w-full rounded-2xl bg-soul"
-        >
-          Liity ohjelmaan
-        </button>
+        joined ? (
+          <button
+            onClick={() => leaveEvent(date, time, title)}
+            className="mt-1 h-12 w-full rounded-2xl bg-soul font-poppins text-xl"
+          >
+            Poistu ohjelmasta{" "}
+          </button>
+        ) : (
+          <button
+            onClick={() => joinEvent(date, time, title)}
+            className="mt-1 h-12 w-full rounded-2xl bg-soul font-poppins text-xl"
+          >
+            Liity ohjelmaan
+          </button>
+        )
       ) : null}
     </div>
   )
@@ -109,7 +149,7 @@ interface DaysTimetableProperties {
 const DaysTimetable = ({ date, events }: DaysTimetableProperties) => {
   return (
     <div className="z-10 flex flex-col gap-2">
-      <div className=" flex h-12 items-center justify-center gap-2.5 rounded-[20px] bg-soul font-poppins text-2xl text-ateena">
+      <div className=" flex h-12 items-center justify-center gap-2.5 rounded-[20px] bg-soul font-poppins text-2xl text-ateena ">
         {date}
       </div>
       <div className="flex w-full flex-col gap-2">

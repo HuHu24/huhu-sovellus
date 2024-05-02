@@ -6,6 +6,7 @@ import getReleases from "@/utils/getReleases"
 import { Timetable } from "@/types/timetable"
 import { Release } from "@/types/releases"
 import getUser from "@/utils/getUser"
+import Events from "@/components/events"
 
 export default async function Home() {
   let timetable: Timetable | undefined
@@ -31,6 +32,7 @@ export default async function Home() {
           userSubcamp={subcamp}
           releases={releases}
         />
+        <Events></Events>
         <>
           {timetable && timetable.days[0] ? (
             <DaysTimetable
