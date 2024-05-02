@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { fbEditMaxParticipants, getActivities } from "@/firebase"
 
 export default function Home() {
@@ -28,9 +28,11 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {activities.map((data, index) => {
-        return <Activity key={index} data={data}></Activity>
-      })}
+      <div className="p-3">
+        {activities.map((data, index) => {
+          return <Activity key={index} data={data}></Activity>
+        })}
+      </div>
     </>
   )
 }
@@ -53,32 +55,39 @@ function Participants(users: string[]) {
 function Activity({ data }: { data: any }) {
   const [showParticipants, setShowParticipants] = useState(false)
   const editMaxParticipants = (id: string) => {
-    //@ts-ignore
-    const maxParticipants = parseInt(prompt("Anna uusi osallistujamäärä"))
+    const maxParticipantsRaw = prompt("Anna uusi osallistujamäärä") || ""
+    const maxParticipants = parseInt(maxParticipantsRaw)
+
+    if (isNaN(maxParticipants)) {
+      alert("Anna osallistujamääräksi numero")
+      return
+    }
+
     if (maxParticipants) {
       fbEditMaxParticipants(id, maxParticipants)
-      location.reload()
+        .then(() => location.reload())
+        .catch(() => alert("Osallistujamäärän muokkaaminen epäonnistui"))
     }
   }
   let usersArray = Object.values(data.participants || {}) as string[]
   return (
-    <div className="mt-2.5 flex h-auto w-auto justify-between rounded-2xl bg-oslo p-2">
-      <div>
-        <div className="ml-1 mt-1 text-xl">{data?.id}</div>
-        <div className="ml-1 mt-1 text-xl">
+    <div className="mt-2.5 flex h-auto w-auto flex-col justify-between rounded-2xl bg-oslo p-2">
+      <div className="p-2">
+        <div className="text-xl">{data?.id}</div>
+        <div className="mt-2 text-xl">
           {"Osallistujia: " + usersArray.length + "/" + data?.maxParticipants}
         </div>
       </div>
-      <div>
+      <div className="p-2">
         <button
           onClick={() => editMaxParticipants(data.id)}
-          className="mr-1 mt-1 rounded-xl bg-soul p-1 px-10 text-xl "
+          className="rounded-xl bg-soul p-1 px-10 text-xl "
         >
-          Muokkaa osallistuja määrää
+          Muokkaa osallistujamäärää
         </button>
         <button
           onClick={() => setShowParticipants(!showParticipants)}
-          className="mr-1 mt-1 rounded-xl bg-soul p-1 px-10 text-xl "
+          className="mt-2 rounded-xl bg-soul p-1 px-10 text-xl "
         >
           Näytä osallistujat{" "}
         </button>

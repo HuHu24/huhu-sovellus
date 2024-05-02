@@ -11,16 +11,22 @@ const Events = () => {
     }
   }, [])
   return (
-    <div>
-      <h1 className="font-poppins text-lg">
-        Olet ilmoittautunut seuraaviin ohjelmiin:
-      </h1>
-      {events.map((event, index) => (
-        <div className="font-opensauce text-lg" key={index}>
-          <p>{event}</p>
+    <>
+      {events.length !== 0 ? (
+        <div className="z-10 rounded-xl bg-oslo p-2">
+          <h1 className="font-poppins text-lg">
+            Olet ilmoittautunut seuraaviin ohjelmiin:
+          </h1>
+          {events.map((event, index) => (
+            <div className="font-opensauce text-lg" key={index}>
+              <p>{event}</p>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      ) : (
+        <></>
+      )}
+    </>
   )
 }
 

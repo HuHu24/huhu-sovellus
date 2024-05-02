@@ -168,6 +168,7 @@ export const fbEditMaxParticipants = async (
   maxParticipants: number
 ) => {
   const docRef = doc(db, "activities", id)
+  console.log("Kissa:" + docRef)
   await updateDoc(docRef, {
     maxParticipants: maxParticipants,
   })

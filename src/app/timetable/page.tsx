@@ -2,6 +2,7 @@ import DaysTimetable from "@/components/daysTimetable"
 import { cookies } from "next/headers"
 import getTimetable from "@/utils/getTimetable"
 import getUser from "@/utils/getUser"
+import Events from "@/components/events"
 
 export default async function Home() {
   const user = await getUser(cookies().get("session")?.value || "")
@@ -31,6 +32,7 @@ export default async function Home() {
         </div>
       </div>
       <div className=" z-20 -mt-3 flex h-full w-full flex-col gap-4 overflow-auto p-3">
+        <Events />
         {timetable ? (
           timetable.days.map((day, key) => (
             <DaysTimetable key={key} date={day.date} events={day.events} />
