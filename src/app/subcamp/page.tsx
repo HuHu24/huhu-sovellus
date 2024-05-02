@@ -3,6 +3,7 @@ import { signInAnonymously } from "@/firebase"
 import { useRouter } from "next/navigation"
 import { env } from "@/env"
 import { saveMessagingToken } from "@/messaging"
+import Link from "next/link"
 
 export default function Home() {
   const router = useRouter()
@@ -63,6 +64,20 @@ export default function Home() {
               Esimerkkileiri 6
             </div>
           </button>
+          <div className="break-normal text-center">
+            Käyttämällä sovellusta hyväksyt{" "}
+            <Link className="text-soul underline" href={"/privacy-policy"}>
+              tietosuojaselosteen
+            </Link>
+            ,{" "}
+            <Link className="text-soul underline" href={"/cookies"}>
+              evästeet
+            </Link>{" "}
+            ja{" "}
+            <Link className="text-soul underline" href={"/terms"}>
+              käyttöehdot
+            </Link>
+          </div>
         </div>
       </div>
       <div className="absolute -z-10 h-screen w-screen lg:invisible">

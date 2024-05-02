@@ -91,6 +91,19 @@ const Navbar = () => {
             <p className="py-3 font-poppins text-3xl text-tokio">Kirjaudu</p>
           </Link>
         )}
+        <Link href="/terms" onClick={() => setIsOpen(false)}>
+          <p className="py-3 font-poppins text-3xl text-tokio">Käyttöehdot</p>
+        </Link>
+        <Link href="/privacy-policy" onClick={() => setIsOpen(false)}>
+          <p className="break-words py-3 font-poppins text-2xl text-tokio">
+            Tietosuojaseloste
+          </p>
+        </Link>
+        <Link href="/cookies" onClick={() => setIsOpen(false)}>
+          <p className="break-words py-3 font-poppins text-3xl text-tokio">
+            Evästeet
+          </p>
+        </Link>
         <Link href="/settings" onClick={() => setIsOpen(false)}>
           <p className="py-3 font-poppins text-3xl text-tokio">Asetukset</p>
         </Link>
