@@ -9,10 +9,11 @@ import {
   signOut as fbSignOut,
 } from "@firebase/auth"
 import { env } from "@/env"
-import { getDoc } from "@firebase/firestore"
+import { getDoc, updateDoc } from "@firebase/firestore"
 import { getMessaging, isSupported } from "firebase/messaging"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "@firebase/storage"
 import { Chat } from "@/types/chat"
+import * as admin from "firebase-admin"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -150,4 +151,25 @@ export const getChats = async () => {
     data.push({ ...tempDoc.data(), id: tempDoc.id } as Chat)
   })
   return data
+}
+
+export const getActivities = async () => {
+  const snapshot = await getDocs(collection(db, "activities"))
+  const activities: any[] = []
+  snapshot.docs.forEach((doc) => {
+    let activity = doc.data()
+    activity.id = doc.id
+    activities.push(activity)
+  })
+  return activities
+}
+export const fbEditMaxParticipants = async (
+  id: string,
+  maxParticipants: number
+) => {
+  const docRef = doc(db, "activities", id)
+  console.log("Kissa:" + docRef)
+  await updateDoc(docRef, {
+    maxParticipants: maxParticipants,
+  })
 }
