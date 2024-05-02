@@ -8,7 +8,6 @@ import MenuButton from "@/components/admin/releases/menuButton"
 import { uploadImage } from "@/firebase"
 
 export default function Home() {
-  const [imageSrc, setImageSrc] = useState("/huhuymp.png")
   const router = useRouter()
   const [lightMode, setLightMode] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
