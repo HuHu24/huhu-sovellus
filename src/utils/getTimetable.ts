@@ -1,5 +1,5 @@
 import { initFirebaseAdmin } from "@/firebaseAdmin"
-import { getRemoteConfig, RemoteConfig } from "firebase-admin/remote-config"
+import { getRemoteConfig } from "firebase-admin/remote-config"
 import { Timetable } from "@/types/timetable"
 import { User } from "@/types/user"
 
@@ -16,7 +16,7 @@ const getTimetable = async (user: User | undefined) => {
     const template = await remoteConfig.getTemplate()
 
     let keyword: String = "timetable"
-    if (user?.email && user.email != "") {
+    if ((user?.email && user.email != "") || user?.claims.job) {
       keyword += "Admin"
     } else {
       keyword += user?.claims.subcamp || ""

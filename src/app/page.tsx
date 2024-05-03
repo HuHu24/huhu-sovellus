@@ -6,6 +6,7 @@ import getReleases from "@/utils/getReleases"
 import { Timetable } from "@/types/timetable"
 import { Release } from "@/types/releases"
 import getUser from "@/utils/getUser"
+import Events from "@/components/events"
 
 export default async function Home() {
   "use server"
@@ -34,16 +35,19 @@ export default async function Home() {
         />
         <>
           {timetable && timetable.days[0] ? (
-            <DaysTimetable
-              date={timetable.days[0].date}
-              events={timetable.days[0].events}
-            />
+            <>
+              <DaysTimetable
+                date={timetable.days[0].date}
+                events={timetable.days[0].events}
+              />
+              <Events />
+            </>
           ) : (
             <DaysTimetable date="Ei aikataulua" events={[]} />
           )}
         </>
       </div>
-      <div className="m-4 rounded-xl bg-oslo p-2">
+      <div className="m-3 rounded-xl bg-oslo p-2">
         <h1 className="text-2xl font-bold">Turvallisuuden pikaohje</h1>
         <p>
           Jos sinuun sattuu fyysisesti, soita EA-päivystyspuhelimeen (041 727

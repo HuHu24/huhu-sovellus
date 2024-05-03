@@ -6,7 +6,7 @@ const getReleases = async () => {
 
   const releasesSnapshot = await firestore().collection("releases").get()
   releasesSnapshot.docs.map((doc) => {
-    releases.push(doc.data() as Release)
+    releases.push({ ...doc.data(), id: doc.id } as Release)
   })
 
   return releases
