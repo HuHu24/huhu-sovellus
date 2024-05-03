@@ -9,6 +9,7 @@ import getUser from "@/utils/getUser"
 import Events from "@/components/events"
 
 export default async function Home() {
+  "use server"
   let timetable: Timetable | undefined
   let releases: Release[] = []
 

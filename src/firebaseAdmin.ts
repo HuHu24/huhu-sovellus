@@ -75,7 +75,15 @@ export const subscribeToTopic = async (token: string, topic: string) => {
   }
   return topic
 }
-
+export const unsubscribeFromTopic = async (token: string, topic: string) => {
+  try {
+    await admin.messaging().unsubscribeFromTopic(token, topic)
+    console.log("Unsubscribed from topic: ", topic)
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+  return topic
+}
 export const sendMessages = async (
   message: string,
   title: string,

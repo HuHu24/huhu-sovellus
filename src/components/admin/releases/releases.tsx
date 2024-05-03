@@ -66,6 +66,8 @@ export const Release = ({ id }: { id: string }) => {
             {"Piilotettu: " + data?.hidden}
             <br />
             {"Ajastettu: " + data?.timed}
+            <br />
+            {"Kohde alaleiri: " + data?.subcamp}
           </div>
         </div>
       </div>

@@ -86,9 +86,12 @@ export default function Home() {
           >
             <option>Kohderyhmä</option>
             <option>Kaikki</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+            <option>komodo</option>
+            <option>centralPark</option>
+            <option>rio</option>
+            <option>bondiBeach</option>
+            <option>matera</option>
+            <option>aboa</option>
           </select>
           <select
             onChange={(event) => handleOptionChange("page", event.target.value)}

@@ -19,7 +19,7 @@ export default function Home() {
     fetchUserSettings().then((data) => {
       setUserSettings(data)
     })
-  }, []) // Empty dependency array means this effect runs once on mount
+  }, [])
   const userSubcamp = userSettings?.claims.subcamp
 
   const enableOverlay = () => {
@@ -55,16 +55,37 @@ export default function Home() {
       console.error("Changing job failed:", e)
     }
   }
-  async function selectSubcamp(subcamp: number) {
+  async function selectSubcamp(subcamp: string) {
     try {
-      await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ subcamp: subcamp }),
-      })
-      alert("Alaleiri valittu")
+      const messagingToken = await saveMessagingToken()
+      if (messagingToken) {
+        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subcamp: subcamp,
+            messagingToken: messagingToken,
+          }),
+        })
+      } else {
+        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subcamp: subcamp,
+            messagingToken: messagingToken,
+          }),
+        })
+        if (typeof window !== "undefined") {
+          localStorage.setItem("subcamp", subcamp)
+        }
+        alert("Alaleiri valittu")
+        location.reload()
+      }
     } catch (e) {
       console.error("Selecting subcamp failed:", e)
     }
@@ -79,40 +100,40 @@ export default function Home() {
             <div className="mx-4 my-auto flex w-full max-w-[500px] flex-col place-items-center gap-3 rounded-[20px] bg-oslo p-4">
               <h1 className="text-2xl font-bold">Alaleirin valinta</h1>
               <button
-                onClick={() => selectSubcamp(1)}
-                className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+                onClick={() => selectSubcamp("komodo")}
+                className="h-10 w-full rounded-lg bg-tokio p-1 text-xl text-helsinki"
               >
-                Alaleiri 1
+                Komodo
               </button>
               <button
-                onClick={() => selectSubcamp(2)}
-                className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+                onClick={() => selectSubcamp("centralPark")}
+                className="h-10 w-full rounded-lg bg-soul p-1 text-xl text-helsinki"
               >
-                Alaleiri 2
+                Central Park{" "}
               </button>
               <button
-                onClick={() => selectSubcamp(3)}
-                className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+                onClick={() => selectSubcamp("rio")}
+                className="h-10 w-full rounded-lg bg-green p-1 text-xl text-helsinki"
               >
-                Alaleiri 3
+                Rio{" "}
               </button>
               <button
-                onClick={() => selectSubcamp(4)}
-                className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+                onClick={() => selectSubcamp("bondiBeach")}
+                className="h-10 w-full rounded-lg bg-buenos_aires p-1 text-xl text-helsinki"
               >
-                Alaleiri 4
+                Bondi Beach{" "}
               </button>
               <button
-                onClick={() => selectSubcamp(5)}
+                onClick={() => selectSubcamp("matera")}
                 className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
               >
-                Alaleiri 5
+                Matera{" "}
               </button>
               <button
-                onClick={() => selectSubcamp(6)}
-                className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+                onClick={() => selectSubcamp("aboa")}
+                className="h-10 w-full rounded-lg bg-ateena p-1 text-xl text-helsinki"
               >
-                Alaleiri 6
+                Tekijäleiri Aboa{" "}
               </button>
             </div>
           </div>
@@ -136,9 +157,21 @@ export default function Home() {
           </button>
           <button
             onClick={() => toggleJob(!userSettings?.claims.job)}
-            className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+            className="h-auto w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
           >
-            {userSettings?.claims.job ? "Olen Samoaja" : "Olen Tekijä/Vaeltaja"}
+            {userSettings?.claims.job ? (
+              <>
+                Vaihda Samoajaksi/Osallistujaksi
+                <br />
+                (Vaikuttaa vain kalenteriin)
+              </>
+            ) : (
+              <>
+                Vaihda Tekijäksi/Vaeltajaksi
+                <br />
+                (Vaikuttaa vain kalenteriin)
+              </>
+            )}{" "}
           </button>
         </div>
       </div>

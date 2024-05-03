@@ -1,31 +1,49 @@
 import { auth } from "firebase-admin"
 import { NextRequest, NextResponse } from "next/server"
-import { getDecodedClaims, subscribeToTopic } from "@/firebaseAdmin"
+import {
+  getDecodedClaims,
+  subscribeToTopic,
+  unsubscribeFromTopic,
+} from "@/firebaseAdmin"
 import { cookies } from "next/headers"
 
 export async function POST(request: NextRequest) {
   try {
-    const result = (await request.json()) as { subcamp: number; token: string }
+    const result = (await request.json()) as {
+      subcamp: string
+      messagingToken: string
+    }
     const decodedClaims = await getDecodedClaims(
       cookies().get("session")?.value || ""
     )
 
     if (!isValidSubcamp(result.subcamp) || !decodedClaims?.uid) {
-      throw new Error("Invalid subcamp or missing uid in decoded claims")
+      return NextResponse.json(
+        {
+          message: "Invalid subcamp or missing uid in decoded claims",
+        },
+        { status: 400 }
+      )
     }
-    if (result.token) {
+    const user = await auth().getUser(decodedClaims?.uid)
+    const userSubcamp = user.customClaims?.subcamp
+    if (result.messagingToken) {
       await Promise.all([
-        subscribeToTopic(result.token, result.subcamp.toString()),
-        subscribeToTopic(result.token, "Kaikki"),
+        unsubscribeFromTopic(result.messagingToken, userSubcamp),
+        subscribeToTopic(result.messagingToken, result.subcamp),
       ])
     }
-    const user = await auth().getUser(decodedClaims.uid)
-    console.log(user)
-
-    await auth().setCustomUserClaims(decodedClaims.uid, {
-      ...user.customClaims,
-      subcamp: result.subcamp,
-    })
+    if (result.subcamp === "aboa") {
+      await auth().setCustomUserClaims(decodedClaims.uid, {
+        ...user.customClaims,
+        subcamp: result.subcamp,
+      })
+    } else {
+      await auth().setCustomUserClaims(decodedClaims.uid, {
+        ...user.customClaims,
+        subcamp: result.subcamp,
+      })
+    }
 
     return successResponse(result.subcamp)
   } catch (error) {
@@ -34,8 +52,15 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function isValidSubcamp(subcamp: number) {
-  return subcamp && subcamp >= 1 && subcamp <= 6
+function isValidSubcamp(subcamp: string) {
+  return [
+    "komodo",
+    "centralPark",
+    "rio",
+    "bondiBeach",
+    "matera",
+    "aboa",
+  ].includes(subcamp)
 }
 
 function errorResponse() {
@@ -48,7 +73,7 @@ function errorResponse() {
   )
 }
 
-function successResponse(subcamp: number) {
+function successResponse(subcamp: string) {
   return NextResponse.json(
     {
       message: "Subcamp selected",
