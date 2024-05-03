@@ -18,7 +18,12 @@ export async function POST(request: NextRequest) {
     )
 
     if (!isValidSubcamp(result.subcamp) || !decodedClaims?.uid) {
-      return "Invalid subcamp or missing uid in decoded claims"
+      return NextResponse.json(
+        {
+          message: "Invalid subcamp or missing uid in decoded claims",
+        },
+        { status: 400 }
+      )
     }
     const user = await auth().getUser(decodedClaims?.uid)
     const userSubcamp = user.customClaims?.subcamp
