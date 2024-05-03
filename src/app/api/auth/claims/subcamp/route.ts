@@ -1,25 +1,37 @@
 import { auth } from "firebase-admin"
 import { NextRequest, NextResponse } from "next/server"
-import { getDecodedClaims, subscribeToTopic } from "@/firebaseAdmin"
+import {
+  getDecodedClaims,
+  subscribeToTopic,
+  unsubscribeFromTopic,
+} from "@/firebaseAdmin"
 import { cookies } from "next/headers"
 
 export async function POST(request: NextRequest) {
   try {
-    const result = (await request.json()) as { subcamp: string }
+    const result = (await request.json()) as {
+      subcamp: string
+      messagingToken: string
+    }
     const decodedClaims = await getDecodedClaims(
       cookies().get("session")?.value || ""
     )
 
     if (!isValidSubcamp(result.subcamp) || !decodedClaims?.uid) {
-      throw new Error("Invalid subcamp or missing uid in decoded claims")
+      return "Invalid subcamp or missing uid in decoded claims"
     }
-    const user = await auth().getUser(decodedClaims.uid)
-    console.log(user)
+    const user = await auth().getUser(decodedClaims?.uid)
+    const userSubcamp = user.customClaims?.subcamp
+    if (result.messagingToken) {
+      await Promise.all([
+        unsubscribeFromTopic(result.messagingToken, userSubcamp),
+        subscribeToTopic(result.messagingToken, result.subcamp),
+      ])
+    }
     if (result.subcamp === "aboa") {
       await auth().setCustomUserClaims(decodedClaims.uid, {
         ...user.customClaims,
         subcamp: result.subcamp,
-        job: true,
       })
     } else {
       await auth().setCustomUserClaims(decodedClaims.uid, {

@@ -19,7 +19,7 @@ export default function Home() {
     fetchUserSettings().then((data) => {
       setUserSettings(data)
     })
-  }, []) // Empty dependency array means this effect runs once on mount
+  }, [])
   const userSubcamp = userSettings?.claims.subcamp
 
   const enableOverlay = () => {
@@ -57,17 +57,35 @@ export default function Home() {
   }
   async function selectSubcamp(subcamp: string) {
     try {
-      await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ subcamp: subcamp }),
-      })
-      if (typeof window !== "undefined") {
-        localStorage.setItem("subcamp", subcamp)
+      const messagingToken = await saveMessagingToken()
+      if (messagingToken) {
+        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subcamp: subcamp,
+            messagingToken: messagingToken,
+          }),
+        })
+      } else {
+        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subcamp: subcamp,
+            messagingToken: messagingToken,
+          }),
+        })
+        if (typeof window !== "undefined") {
+          localStorage.setItem("subcamp", subcamp)
+        }
+        alert("Alaleiri valittu")
+        location.reload()
       }
-      alert("Alaleiri valittu")
     } catch (e) {
       console.error("Selecting subcamp failed:", e)
     }
@@ -139,9 +157,21 @@ export default function Home() {
           </button>
           <button
             onClick={() => toggleJob(!userSettings?.claims.job)}
-            className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+            className="h-auto w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
           >
-            {userSettings?.claims.job ? "Olen Samoaja" : "Olen Tekijä/Vaeltaja"}
+            {userSettings?.claims.job ? (
+              <>
+                Vaihda Samoajaksi/Osallistujaksi
+                <br />
+                (Vaikuttaa vain kalenteriin)
+              </>
+            ) : (
+              <>
+                Vaihda Tekijäksi/Vaeltajaksi
+                <br />
+                (Vaikuttaa vain kalenteriin)
+              </>
+            )}{" "}
           </button>
         </div>
       </div>

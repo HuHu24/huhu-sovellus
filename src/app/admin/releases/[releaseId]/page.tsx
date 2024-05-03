@@ -178,7 +178,7 @@ export default function Home() {
               options={[
                 "komodo",
                 "centralPark",
-                "Rio",
+                "rio",
                 "bondiBeach",
                 "matera",
                 "aboa",
