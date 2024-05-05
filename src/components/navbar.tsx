@@ -7,10 +7,11 @@ import Link from "next/link"
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [safetyIsOpen, setSafetyIsOpen] = useState(false)
-  const [activitiesIsOpen, setActiviesIsOpen] = useState(false)
+  const [activitiesIsOpen, setActivitiesIsOpen] = useState(false)
   const [infoIsOpen, setInfoIsOpen] = useState(false)
   const [allowOpen, setAllowOpen] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user && user.email) {
@@ -20,6 +21,7 @@ const Navbar = () => {
       }
     })
   }, [])
+
   return (
     <div className="fixed bottom-0 left-0 z-20 flex w-full flex-row items-start justify-start">
       <div
@@ -77,7 +79,7 @@ const Navbar = () => {
         </button>
         <button
           onClick={() => {
-            setActiviesIsOpen(!activitiesIsOpen)
+            setActivitiesIsOpen(!activitiesIsOpen)
           }}
           className="max-w-[90%] py-3 font-poppins text-3xl text-tokio"
         >
