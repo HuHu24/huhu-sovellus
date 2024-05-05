@@ -19,10 +19,10 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     )
   }
-  // @ts-ignore
-  const participants = doc.data().participants
-  // @ts-ignore
-  const maxParticipants = doc.data().maxParticipants || 0
+
+  const participants = doc.data()?.participants || {}
+  const maxParticipants = doc.data()?.maxParticipants || 0
+
   console.log(participants, maxParticipants)
   if (Object.keys(participants).length >= maxParticipants) {
     return NextResponse.json(

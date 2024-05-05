@@ -6,9 +6,12 @@ import Link from "next/link"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [safetyIsOpen, setSafetyIsOpen] = useState(false)
+  const [activitiesIsOpen, setActivitiesIsOpen] = useState(false)
   const [infoIsOpen, setInfoIsOpen] = useState(false)
   const [allowOpen, setAllowOpen] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user && user.email) {
@@ -18,6 +21,7 @@ const Navbar = () => {
       }
     })
   }, [])
+
   return (
     <div className="fixed bottom-0 left-0 z-20 flex w-full flex-row items-start justify-start">
       <div
@@ -41,7 +45,7 @@ const Navbar = () => {
         </Link>
         <button
           onClick={() => {
-            setInfoIsOpen(!infoIsOpen)
+            setSafetyIsOpen(!safetyIsOpen)
           }}
           className="max-w-[90%] py-3 font-poppins text-3xl text-tokio"
         >
@@ -49,13 +53,13 @@ const Navbar = () => {
             Turvallisuus
             <span
               className={`${
-                infoIsOpen ? "rotate-0" : "-rotate-90"
+                safetyIsOpen ? "rotate-0" : "-rotate-90"
               } material-symbols-outlined w-full text-4xl text-tokio transition`}
             >
               expand_more
             </span>
           </div>
-          {infoIsOpen ? (
+          {safetyIsOpen ? (
             <div className="px-3 text-left text-2xl">
               <ul>
                 <Link onClick={() => setIsOpen(false)} href="/chat">
@@ -66,6 +70,37 @@ const Navbar = () => {
                 </Link>
                 <Link onClick={() => setIsOpen(false)} href="/info/ttp">
                   <li>Turvallisen tilan periaatteet</li>
+                </Link>
+              </ul>
+            </div>
+          ) : (
+            <></>
+          )}
+        </button>
+        <button
+          onClick={() => {
+            setActivitiesIsOpen(!activitiesIsOpen)
+          }}
+          className="max-w-[90%] py-3 font-poppins text-3xl text-tokio"
+        >
+          <div className="flex">
+            Ohjelma
+            <span
+              className={`${
+                activitiesIsOpen ? "rotate-0" : "-rotate-90"
+              } material-symbols-outlined w-full text-4xl text-tokio transition`}
+            >
+              expand_more
+            </span>
+          </div>
+          {activitiesIsOpen ? (
+            <div className="px-3 text-left text-2xl">
+              <ul>
+                <Link onClick={() => setIsOpen(false)} href="/activities/cafe">
+                  <li>Kahvilaohjelma</li>
+                </Link>
+                <Link onClick={() => setIsOpen(false)} href="/">
+                  <li>Tietovisan voittajat</li>
                 </Link>
               </ul>
             </div>
@@ -91,19 +126,40 @@ const Navbar = () => {
             <p className="py-3 font-poppins text-3xl text-tokio">Kirjaudu</p>
           </Link>
         )}
-        <Link href="/terms" onClick={() => setIsOpen(false)}>
-          <p className="py-3 font-poppins text-3xl text-tokio">Käyttöehdot</p>
-        </Link>
-        <Link href="/privacy-policy" onClick={() => setIsOpen(false)}>
-          <p className="break-words py-3 font-poppins text-2xl text-tokio">
-            Tietosuojaseloste
-          </p>
-        </Link>
-        <Link href="/cookies" onClick={() => setIsOpen(false)}>
-          <p className="break-words py-3 font-poppins text-3xl text-tokio">
-            Evästeet
-          </p>
-        </Link>
+        <button
+          onClick={() => {
+            setInfoIsOpen(!infoIsOpen)
+          }}
+          className="max-w-[90%] py-3 font-poppins text-3xl text-tokio"
+        >
+          <div className="flex text-left text-3xl">
+            Tietoa
+            <span
+              className={`${
+                infoIsOpen ? "rotate-0" : "-rotate-90"
+              } material-symbols-outlined w-full text-center text-4xl text-tokio transition`}
+            >
+              expand_more
+            </span>
+          </div>
+          {infoIsOpen ? (
+            <div className="px-3 text-left text-2xl">
+              <ul>
+                <Link href="/terms" onClick={() => setIsOpen(false)}>
+                  <li>Käyttöehdot</li>
+                </Link>
+                <Link href="/privacy-policy" onClick={() => setIsOpen(false)}>
+                  <li>Tietosuojaseloste</li>
+                </Link>
+                <Link href="/cookies" onClick={() => setIsOpen(false)}>
+                  <li>Evästeet</li>
+                </Link>
+              </ul>
+            </div>
+          ) : (
+            <></>
+          )}
+        </button>
         <Link href="/settings" onClick={() => setIsOpen(false)}>
           <p className="py-3 font-poppins text-3xl text-tokio">Asetukset</p>
         </Link>
