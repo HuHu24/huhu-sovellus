@@ -91,6 +91,19 @@ mkcert localhost
 npm run dev:https
 ```
 
+### Api routes
+Api routes, anyone can reach /auth and /admin is for privleged users
+
+| Route | Description |
+|-------|-------------|
+| `/auth/joinEvent` | Used to join and leave events |
+| `/auth/Subcamp` | Selecting user subcamp |
+| `/auth/job` | Toggling the custom claim "job" |
+| `/auth/Notifications` | Subscribing the user to x topics |
+| `/admin/claims` | Used to set claim to an user, expects the user's email |
+| `/admin/Messaging` | Send messages to topics |
+| `/admin/Releases` | Add, update and delete releases |
+
 ### Figma
 
 Figma is used to design interfaces of the app and for other diagrams to help develop the app

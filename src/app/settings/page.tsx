@@ -57,7 +57,7 @@ export default function Home() {
     try {
       const messagingToken = await saveMessagingToken()
       if (messagingToken) {
-        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/subcamp`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export default function Home() {
           }),
         })
       } else {
-        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/subcamp`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

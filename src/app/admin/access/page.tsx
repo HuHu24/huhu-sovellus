@@ -42,7 +42,7 @@ export default function Access() {
     }
 
     try {
-      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims`, {
+      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/admin/claims`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function Access() {
     }
 
     try {
-      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims`, {
+      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/admin/claims`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

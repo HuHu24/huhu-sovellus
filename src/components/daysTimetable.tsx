@@ -21,7 +21,7 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
   )
   const joinEvent = (date: string, time: string, title: string) => {
     const name = prompt("Oma nimi kiitos!")
-    fetch("/api/joinEvent", {
+    fetch("/api/auth/joinEvent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
     })
   }
   const leaveEvent = (date: string, time: string, title: string) => {
-    fetch("/api/joinEvent", {
+    fetch("/api/auth/joinEvent", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
