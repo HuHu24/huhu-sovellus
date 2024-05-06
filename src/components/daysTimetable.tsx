@@ -16,7 +16,9 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("events") || "[]")
       : []
-  const joined = events ? events.includes(`${date} ${time} ${title}`) : false
+  const [joined, setJoined] = useState(
+    events ? events.includes(`${date} ${time} ${title}`) : false
+  )
   const joinEvent = (date: string, time: string, title: string) => {
     const name = prompt("Oma nimi kiitos!")
     fetch("/api/joinEvent", {
@@ -36,7 +38,7 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
         if (typeof window !== "undefined") {
           localStorage.setItem("events", JSON.stringify(events))
         }
-        location.reload()
+        setJoined(true)
       } else if (response.status === 401) {
         alert("Ohjelma on täynnä")
       }
@@ -59,7 +61,7 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
         if (typeof window !== "undefined") {
           localStorage.setItem("events", JSON.stringify(events))
         }
-        location.reload()
+        setJoined(false)
       }
     })
   }
@@ -121,7 +123,7 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
             onClick={() => leaveEvent(date, time, title)}
             className="mt-1 h-12 w-full rounded-2xl bg-soul font-poppins text-xl"
           >
-            Poistu ohjelmasta{" "}
+            Poistu ohjelmasta
           </button>
         ) : (
           <button
