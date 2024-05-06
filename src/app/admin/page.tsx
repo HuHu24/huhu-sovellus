@@ -15,7 +15,7 @@ export default async function AdminFrontpage() {
       admin: boolean
       subcampLeader: boolean
       safety: boolean
-      ohjelma: boolean
+      activity: boolean
     }
     email: string
   }
@@ -43,17 +43,18 @@ export default async function AdminFrontpage() {
             <p className="text-2xl">Uusia yhteydenottoja: 0</p>
             <div></div>
           </div>
-          {!data.claims.admin &&
-            !data.claims.safety &&
-            !data.claims.subcampLeader && (
-              <h1 className="absolute top-1/2 ml-4 align-middle  font-poppins text-2xl">
-                Pyydä oikeuksia sovelluskehittäjiltä
-              </h1>
-            )}
+          {data.claims?.admin ||
+          data.claims?.safety ||
+          data.claims?.subcampLeader ||
+          data.claims?.activity ? null : (
+            <h1 className="absolute top-1/2 ml-4 align-middle  font-poppins text-2xl">
+              Pyydä oikeuksia sovelluskehittäjiltä
+            </h1>
+          )}
           <div className="z-20 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             <>
-              {(data.claims && data.claims.safety) ||
-              (data.claims && data.claims.admin) ? (
+              {(data.claims && data.claims?.safety) ||
+              (data.claims && data.claims?.admin) ? (
                 <Link href={"/admin/chat"}>
                   <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-soul">
                     <span className="material-symbols-outlined text-9xl">
@@ -67,8 +68,8 @@ export default async function AdminFrontpage() {
               )}
             </>
             <>
-              {(data.claims && data.claims.subcampLeader) ||
-              (data.claims && data.claims.admin) ? (
+              {(data.claims && data.claims?.subcampLeader) ||
+              (data.claims && data.claims?.admin) ? (
                 <>
                   <Link href={"/admin/releases"}>
                     <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-tokio text-helsinki">
@@ -91,7 +92,7 @@ export default async function AdminFrontpage() {
                 <></>
               )}
             </>
-            {(data.claims && data.claims.ohjelma) || data.claims.admin ? (
+            {(data.claims && data.claims?.activity) || data.claims?.admin ? (
               <Link href={"/admin/activities"}>
                 <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-barcelona text-helsinki">
                   <span className="material-symbols-outlined text-9xl">
@@ -103,7 +104,7 @@ export default async function AdminFrontpage() {
             ) : (
               <></>
             )}
-            {data.claims && data.claims.admin ? (
+            {data.claims && data.claims?.admin ? (
               <Link href={"/admin/access"}>
                 <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-buenos_aires text-helsinki">
                   <span className="material-symbols-outlined text-9xl">
