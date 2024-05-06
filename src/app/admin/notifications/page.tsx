@@ -28,7 +28,7 @@ export default function Home() {
       alert("Missing or insufficient data")
       return null
     }
-    const response = await fetch("/api/messaging", {
+    const response = await fetch("/api/admin/messaging", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

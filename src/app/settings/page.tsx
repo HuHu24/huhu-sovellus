@@ -6,14 +6,12 @@ import { saveMessagingToken } from "@/messaging"
 
 const fetchUserSettings = async () => {
   const response = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
-  const data = await response.text()
-  const parsedData = JSON.parse(data)
-  return parsedData
+  return await response.json()
 }
-
 export default function Home() {
   const [userSettings, setUserSettings] = useState<any>()
   const [overlay, toggleOverlay] = useState<any>()
+  const [jobStatus, setJobStatus] = useState(userSettings?.claims.job)
 
   useEffect(() => {
     fetchUserSettings().then((data) => {
@@ -50,7 +48,7 @@ export default function Home() {
         },
         body: JSON.stringify({ job: job }),
       })
-      location.reload()
+      setJobStatus(job)
     } catch (e) {
       console.error("Changing job failed:", e)
     }
@@ -59,7 +57,7 @@ export default function Home() {
     try {
       const messagingToken = await saveMessagingToken()
       if (messagingToken) {
-        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/subcamp`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -70,7 +68,7 @@ export default function Home() {
           }),
         })
       } else {
-        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+        await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/subcamp`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -84,7 +82,6 @@ export default function Home() {
           localStorage.setItem("subcamp", subcamp)
         }
         alert("Alaleiri valittu")
-        location.reload()
       }
     } catch (e) {
       console.error("Selecting subcamp failed:", e)
@@ -156,10 +153,10 @@ export default function Home() {
             Valitse alaleiri
           </button>
           <button
-            onClick={() => toggleJob(!userSettings?.claims.job)}
+            onClick={() => toggleJob(!jobStatus)}
             className="h-auto w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
           >
-            {userSettings?.claims.job ? (
+            {jobStatus ? (
               <>
                 Vaihda Samoajaksi/Osallistujaksi
                 <br />
@@ -171,7 +168,7 @@ export default function Home() {
                 <br />
                 (Vaikuttaa vain kalenteriin)
               </>
-            )}{" "}
+            )}
           </button>
         </div>
       </div>

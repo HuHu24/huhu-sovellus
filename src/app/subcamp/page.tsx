@@ -14,7 +14,7 @@ export default function Subcamp() {
         localStorage.setItem("subcamp", subcamp)
       }
       await signInAnonymously()
-      await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims/subcamp`, {
+      await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/subcamp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

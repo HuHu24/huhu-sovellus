@@ -4,11 +4,7 @@ import { env } from "@/env"
 
 export async function middleware(request: NextRequest, response: NextResponse) {
   const session = request.cookies.get("session")
-  if (
-    request.nextUrl.pathname.endsWith("/api/auth/claims") ||
-    request.nextUrl.pathname.includes("/admin/") ||
-    request.nextUrl.pathname.includes("/api/messages")
-  ) {
+  if (request.nextUrl.pathname.includes("/admin")) {
     if (!session) {
       return NextResponse.redirect(
         new URL(`${env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
@@ -30,15 +26,15 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
     const data = await responseAPI.json()
     const body = data as {
-      claims: { admin?: boolean; subcampLeader?: boolean; safety?: boolean }
+      claims: {
+        admin?: boolean
+        subcampLeader?: boolean
+        safety?: boolean
+        activity?: boolean
+      }
       email?: string
     }
 
-    if (!body.email && request.url.includes("/admin")) {
-      return NextResponse.redirect(
-        new URL(`${env.NEXT_PUBLIC_URL}/`, request.url)
-      )
-    }
     if (
       (!body.claims || body.claims.admin !== true) &&
       (request.url.endsWith("claims") || request.url.endsWith("access"))
@@ -51,6 +47,20 @@ export async function middleware(request: NextRequest, response: NextResponse) {
       return NextResponse.json(
         { message: "Admin permissions required" },
         { status: 403 }
+      )
+    }
+    if (
+      (!body.claims ||
+        body.claims.subcampLeader === true ||
+        body.claims.activity === true ||
+        body.claims.admin === true ||
+        body.claims.safety === true) &&
+      request.url.includes("/admin")
+    ) {
+      // the user has at least one of the required permissions
+    } else {
+      return NextResponse.redirect(
+        new URL(`${env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
       )
     }
 
@@ -85,12 +95,6 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     return NextResponse.redirect(
       new URL(`${env.NEXT_PUBLIC_URL}/subcamp`, request.url)
     )
-  }
-
-  const data = await responseAPI.json()
-  const body = data as {
-    claims: { admin?: boolean; subcampLeader?: boolean; safety?: boolean }
-    email?: string
   }
 
   return NextResponse.next()

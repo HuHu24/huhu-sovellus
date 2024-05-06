@@ -71,7 +71,7 @@ export default function Home() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const response = await fetch("/api/releases", {
+    const response = await fetch("/api/admin/releases", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export default function Home() {
   }
   const deleteRelease = async (id: string) => {
     if (confirm("Haluatko varmasti poistaa tämän tiedotteen?")) {
-      await fetch(`/api/releases/`, {
+      await fetch(`/api/admin/releases/`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

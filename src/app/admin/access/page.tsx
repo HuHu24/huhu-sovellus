@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { onAuthStateChanged } from "@firebase/auth"
-import { auth, db, signInAnonymously } from "@/firebase"
+import { auth, db } from "@/firebase"
 import { doc, getDoc } from "@firebase/firestore"
 import AccessList from "@/components/admin/access/accessList"
 import { env } from "@/env"
@@ -11,7 +11,7 @@ export default function Access() {
   const [admin, setAdmin] = useState<string[]>([])
   const [subcampLeader, setSubcampLeader] = useState<string[]>([])
   const [safety, setSafety] = useState<string[]>([])
-
+  const [activity, setActivity] = useState<string[]>([])
   const [email, setEmail] = useState("")
   const [accessType, setAccessType] = useState("")
 
@@ -24,17 +24,19 @@ export default function Access() {
           admin: string[]
           safety: string[]
           subcampLeader: string[]
+          activity: string[]
         }
         setAdmin(data.admin)
         setSubcampLeader(data.subcampLeader)
         setSafety(data.safety)
+        setActivity(data.activity)
       }
     })
   }, [])
 
   async function addAccess() {
     if (
-      !["admin", "subcampLeader", "safety"].includes(accessType) ||
+      !["admin", "subcampLeader", "safety", "activity"].includes(accessType) ||
       email == ""
     ) {
       alert("Tarkista sähköposti ja oikeustyyppi")
@@ -42,7 +44,7 @@ export default function Access() {
     }
 
     try {
-      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims`, {
+      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/admin/claims`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,6 +69,9 @@ export default function Access() {
       if (accessType == "subcampLeader") {
         setSubcampLeader((subcamp) => [...subcamp, email])
       }
+      if (accessType == "activity") {
+        setActivity((activity) => [...activity, email])
+      }
     } catch (e) {
       console.error("Selecting subcamp failed: ", e)
     }
@@ -74,7 +79,7 @@ export default function Access() {
 
   async function removeAccess(accessType: string, email: string) {
     if (
-      !["admin", "subcampLeader", "safety"].includes(accessType) ||
+      !["admin", "subcampLeader", "safety", "activity"].includes(accessType) ||
       email == ""
     ) {
       alert("Tarkista sähköposti ja oikeustyyppi")
@@ -82,7 +87,7 @@ export default function Access() {
     }
 
     try {
-      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/claims`, {
+      const result = await fetch(`${env.NEXT_PUBLIC_URL}/api/admin/claims`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -100,6 +105,9 @@ export default function Access() {
 
       if (accessType == "subcampLeader") {
         setSubcampLeader(subcampLeader.filter((item) => item != email))
+      }
+      if (accessType == "activity") {
+        setActivity(activity.filter((item) => item != email))
       }
     } catch (e) {
       console.error(e)
@@ -146,6 +154,7 @@ export default function Access() {
               <option value="admin">Ylläpitäjä</option>
               <option value="safety">Turva</option>
               <option value="subcampLeader">Alaleirin johtaja</option>
+              <option value="activity">Ohjelma</option>
             </select>
             <button
               onClick={addAccess}
@@ -172,6 +181,12 @@ export default function Access() {
             accessListHeading="Alaleirin johtaja"
             removeAccess={removeAccess}
           />
+          <AccessList
+            accessList={activity}
+            accessListHeading="Ohjelma"
+            accessListType="activity"
+            removeAccess={removeAccess}
+          ></AccessList>
         </div>
       </div>
     </>
