@@ -4,11 +4,7 @@ import { env } from "@/env"
 
 export async function middleware(request: NextRequest, response: NextResponse) {
   const session = request.cookies.get("session")
-  if (
-    request.nextUrl.pathname.includes("/api/admin/") ||
-    request.nextUrl.pathname.includes("/admin/") ||
-    request.nextUrl.pathname.includes("/api/messages")
-  ) {
+  if (request.nextUrl.pathname.includes("/admin")) {
     if (!session) {
       return NextResponse.redirect(
         new URL(`${env.NEXT_PUBLIC_URL}/auth/signin`, request.url)
@@ -85,12 +81,6 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     return NextResponse.redirect(
       new URL(`${env.NEXT_PUBLIC_URL}/subcamp`, request.url)
     )
-  }
-
-  const data = await responseAPI.json()
-  const body = data as {
-    claims: { admin?: boolean; subcampLeader?: boolean; safety?: boolean }
-    email?: string
   }
 
   return NextResponse.next()
