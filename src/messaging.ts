@@ -20,6 +20,10 @@ export async function saveMessagingToken() {
     await requestMessagingPermission()
     return
   }
+  if (!msg) {
+    console.log("Messaging not supported")
+    return
+  }
   const fcmToken = await getToken(msg, { vapidKey: vapidKey })
   if (fcmToken) {
     console.log("FCM Token: ", fcmToken)
