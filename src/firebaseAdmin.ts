@@ -135,3 +135,33 @@ export const saveMessage = async (
   }
   return data
 }
+
+export const anonAuth = async (subcamp: string) => {
+  await initFirebaseAdmin()
+  try {
+    let customToken = ""
+    await admin
+      .auth()
+      .createUser({
+        disabled: false,
+      })
+      .then(async (userRecord) => {
+        console.log("Successfully created new user:", userRecord)
+        await admin
+          .auth()
+          .setCustomUserClaims(userRecord.uid, { subcamp: subcamp })
+        customToken = await admin.auth().createCustomToken(userRecord.uid)
+        if (customToken) {
+          console.log("Successfully created new custom token:", customToken)
+          return customToken
+        }
+      })
+      .catch((error) => {
+        console.log("Error creating new user:", error)
+      })
+
+    return customToken
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+}

@@ -37,6 +37,7 @@ const RequestPermissions = () => {
     enableMessaging()
     console.log(token)
   }
+  const inurl = typeof window !== "undefined" ? window.location.pathname : ""
 
   const handleAction = async (action: string): Promise<void> => {
     if (typeof window !== "undefined") {
@@ -58,8 +59,13 @@ const RequestPermissions = () => {
       }
     }
   }
-
-  if (!hasMessaging) {
+  console.log(inurl)
+  if (
+    !hasMessaging &&
+    !inurl.includes("/privacy-policy") &&
+    !inurl.includes("/cookies") &&
+    !inurl.includes("/terms")
+  ) {
     return (
       <div>
         <div
