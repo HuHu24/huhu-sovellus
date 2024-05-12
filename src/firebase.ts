@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInAnonymously as fbSignInAnonymously,
+  signInWithCustomToken as fbsignInWithCustomToken,
   signInWithEmailAndPassword,
   signOut as fbSignOut,
 } from "@firebase/auth"
@@ -13,7 +14,6 @@ import { getDoc, updateDoc } from "@firebase/firestore"
 import { getMessaging, isSupported } from "firebase/messaging"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "@firebase/storage"
 import { Chat } from "@/types/chat"
-import * as admin from "firebase-admin"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -83,15 +83,17 @@ export const signUpWithEmailAndPassword = async (
   }
 }
 
-export const signInAnonymously = async () => {
+export const signInWithCustomToken = async (customToken: string) => {
   try {
-    const user = await fbSignInAnonymously(auth)
+    const user = await fbsignInWithCustomToken(auth, customToken)
     await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${await user.user.getIdToken()}`,
       },
     })
+    console.log("Logged in as " + user.user.uid)
+    location.replace("/")
   } catch (e) {
     console.error("Error: " + e)
   }

@@ -1,33 +1,30 @@
 "use client"
 
-import { signInAnonymously } from "@/firebase"
-import { useRouter } from "next/navigation"
+import { signInWithCustomToken } from "@/firebase"
 import { env } from "@/env"
 import Link from "next/link"
 
 export default function Subcamp() {
-  const router = useRouter()
-
   async function selectSubcamp(subcamp: string) {
     try {
       if (typeof window !== "undefined") {
         localStorage.setItem("subcamp", subcamp)
       }
-      await signInAnonymously()
-      await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/subcamp`, {
+      await fetch(`${env.NEXT_PUBLIC_URL}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ subcamp: subcamp }),
+        body: JSON.stringify({ subcamp }),
+      }).then((response) => {
+        response
+          .json()
+          .then(async (data) => await signInWithCustomToken(data.customToken))
       })
-
-      router.push("/")
     } catch (e) {
       console.error("Selecting subcamp failed:", e)
     }
   }
-
   return (
     <>
       <div className="absolute z-30 flex h-screen w-full place-content-center place-items-center overflow-hidden break-all bg-helsinki text-center font-poppins text-ateena">
