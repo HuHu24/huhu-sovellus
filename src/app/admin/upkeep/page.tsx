@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react";
 import Flaw from "@/types/flaw";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, deleteDoc, doc, getDocs} from "firebase/firestore";
 import {db} from "@/firebase";
 
 const Upkeep = () => {
@@ -14,6 +14,7 @@ const Upkeep = () => {
       data.forEach((doc) => {
         const docData = doc.data()
         formattedData.push({
+          id: doc.id,
           createdAt: docData.createdAt.toDate(),
           text: docData.text
         })
@@ -27,6 +28,16 @@ const Upkeep = () => {
     })
   }, []);
 
+  const markFlawCompleted = async (id: string) => {
+    try {
+      await deleteDoc(doc(collection(db, "flaws"), id));
+      setFlaws(flaws.filter(flaw => flaw.id !== id))
+    } catch (error) {
+      console.error('Error removing document: ', error);
+      alert("Ongelmia puutteen merkkaamisessa korjatuksi. Yritä uudelleen.")
+    }
+  }
+
   return (
     <>
       <div className="inline-flex h-[68px] w-full flex-col items-start justify-start gap-2.5 bg-oslo p-2.5">
@@ -36,7 +47,7 @@ const Upkeep = () => {
             <a href="./">arrow_left_alt</a>
           </div>
           <div className="z-10 font-opensauce text-4xl font-normal text-ateena">
-            Ohjelma
+            Puutteet
           </div>
         </div>
       </div>
@@ -45,11 +56,20 @@ const Upkeep = () => {
           flaws.map((flaw) => {
             // eslint-disable-next-line react/jsx-key
             return <div className="m-3 rounded-xl bg-oslo p-2">
-              {Intl.DateTimeFormat('fi-FI', {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric',}).format(flaw.createdAt) + " - " + flaw.text}
+              <h1 className="text-2xl font-bold">{Intl.DateTimeFormat('fi-FI', {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric',}).format(flaw.createdAt)}</h1>
+              <p className="text-lg">{flaw.text}</p>
+              <button onClick={() => markFlawCompleted(flaw.id)} className="rounded-lg bg-soul p-1 px-5 text-xl mt-2">
+                Merkkaa puute suoritetuksi
+              </button>
             </div>
           })
         }
       </div>
+      <p>
+        <br/>
+        <br/>
+        <br/>
+      </p>
     </>
   )
 }

@@ -31,6 +31,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
         subcampLeader?: boolean
         safety?: boolean
         activity?: boolean
+        upkeep?: boolean
       }
       email?: string
     }
@@ -54,7 +55,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
         body.claims.subcampLeader === true ||
         body.claims.activity === true ||
         body.claims.admin === true ||
-        body.claims.safety === true) &&
+        body.claims.safety === true || body.claims.upkeep) &&
       request.url.includes("/admin")
     ) {
       // the user has at least one of the required permissions

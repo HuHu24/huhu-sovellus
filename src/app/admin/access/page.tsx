@@ -12,6 +12,7 @@ export default function Access() {
   const [subcampLeader, setSubcampLeader] = useState<string[]>([])
   const [safety, setSafety] = useState<string[]>([])
   const [activity, setActivity] = useState<string[]>([])
+  const [upkeep, setUpkeep] = useState<string[]>([])
   const [email, setEmail] = useState("")
   const [accessType, setAccessType] = useState("")
 
@@ -25,18 +26,20 @@ export default function Access() {
           safety: string[]
           subcampLeader: string[]
           activity: string[]
+          upkeep: string[]
         }
         setAdmin(data.admin)
         setSubcampLeader(data.subcampLeader)
         setSafety(data.safety)
         setActivity(data.activity)
+        setUpkeep(data.upkeep)
       }
     })
   }, [])
 
   async function addAccess() {
     if (
-      !["admin", "subcampLeader", "safety", "activity"].includes(accessType) ||
+      !["admin", "subcampLeader", "safety", "activity", "upkeep"].includes(accessType) ||
       email == ""
     ) {
       alert("Tarkista sähköposti ja oikeustyyppi")
@@ -72,6 +75,9 @@ export default function Access() {
       if (accessType == "activity") {
         setActivity((activity) => [...activity, email])
       }
+      if (accessType == "upkeep") {
+        setUpkeep((upkeep) => [...upkeep, email])
+      }
     } catch (e) {
       console.error("Selecting subcamp failed: ", e)
     }
@@ -79,7 +85,7 @@ export default function Access() {
 
   async function removeAccess(accessType: string, email: string) {
     if (
-      !["admin", "subcampLeader", "safety", "activity"].includes(accessType) ||
+      !["admin", "subcampLeader", "safety", "activity", "upkeep"].includes(accessType) ||
       email == ""
     ) {
       alert("Tarkista sähköposti ja oikeustyyppi")
@@ -108,6 +114,9 @@ export default function Access() {
       }
       if (accessType == "activity") {
         setActivity(activity.filter((item) => item != email))
+      }
+      if (accessType == "upkeep") {
+        setUpkeep(upkeep.filter((item) => item != email))
       }
     } catch (e) {
       console.error(e)
@@ -155,6 +164,7 @@ export default function Access() {
               <option value="safety">Turva</option>
               <option value="subcampLeader">Alaleirin johtaja</option>
               <option value="activity">Ohjelma</option>
+              <option value="upkeep">Huolto</option>
             </select>
             <button
               onClick={addAccess}
@@ -185,6 +195,12 @@ export default function Access() {
             accessList={activity}
             accessListHeading="Ohjelma"
             accessListType="activity"
+            removeAccess={removeAccess}
+          ></AccessList>
+          <AccessList
+            accessList={upkeep}
+            accessListHeading="Huolto"
+            accessListType="upkeep"
             removeAccess={removeAccess}
           ></AccessList>
         </div>
