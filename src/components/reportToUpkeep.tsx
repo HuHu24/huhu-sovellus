@@ -1,7 +1,7 @@
 "use client"
 
 import {useState} from "react";
-import {addDoc} from "@firebase/firestore";
+import {addDoc, Timestamp} from "@firebase/firestore";
 import {collection} from "firebase/firestore";
 import {db} from "@/firebase";
 
@@ -16,7 +16,7 @@ const ReportToUpkeep = () => {
       }
 
       await addDoc(collection(db, "flaws"), {
-        createdAt: Date(),
+        createdAt: new Date(),
         text: text
       })
 
