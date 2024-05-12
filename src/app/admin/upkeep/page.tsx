@@ -1,39 +1,43 @@
 "use client"
 
-import {useEffect, useState} from "react";
-import Flaw from "@/types/flaw";
-import {collection, deleteDoc, doc, getDocs} from "firebase/firestore";
-import {db} from "@/firebase";
+import { useEffect, useState } from "react"
+import Flaw from "@/types/flaw"
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore"
+import { db } from "@/firebase"
 
 const Upkeep = () => {
   const [flaws, setFlaws] = useState<Flaw[]>([])
 
   useEffect(() => {
-    getDocs(collection(db, "flaws")).then((data) => {
-      let formattedData: Flaw[] = []
-      data.forEach((doc) => {
-        const docData = doc.data()
-        formattedData.push({
-          id: doc.id,
-          createdAt: docData.createdAt.toDate(),
-          text: docData.text
+    getDocs(collection(db, "flaws"))
+      .then((data) => {
+        let formattedData: Flaw[] = []
+        data.forEach((doc) => {
+          const docData = doc.data()
+          formattedData.push({
+            id: doc.id,
+            createdAt: docData.createdAt.toDate(),
+            text: docData.text,
+          })
         })
+
+        formattedData.sort(
+          (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+        )
+
+        setFlaws(formattedData)
       })
-
-      formattedData.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
-
-      setFlaws(formattedData)
-    }).catch((error) => {
-      console.error('Error getting documents: ', error);
-    })
-  }, []);
+      .catch((error) => {
+        console.error("Error getting documents: ", error)
+      })
+  }, [])
 
   const markFlawCompleted = async (id: string) => {
     try {
-      await deleteDoc(doc(collection(db, "flaws"), id));
-      setFlaws(flaws.filter(flaw => flaw.id !== id))
+      await deleteDoc(doc(collection(db, "flaws"), id))
+      setFlaws(flaws.filter((flaw) => flaw.id !== id))
     } catch (error) {
-      console.error('Error removing document: ', error);
+      console.error("Error removing document: ", error)
       alert("Ongelmia puutteen merkkaamisessa korjatuksi. Yritä uudelleen.")
     }
   }
@@ -52,23 +56,33 @@ const Upkeep = () => {
         </div>
       </div>
       <div className="p-3">
-        {
-          flaws.map((flaw) => {
-            // eslint-disable-next-line react/jsx-key
-            return <div className="m-3 rounded-xl bg-oslo p-2">
-              <h1 className="text-2xl font-bold">{Intl.DateTimeFormat('fi-FI', {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric',}).format(flaw.createdAt)}</h1>
+        {flaws.map((flaw) => {
+          // eslint-disable-next-line react/jsx-key
+          return (
+            <div className="m-3 rounded-xl bg-oslo p-2">
+              <h1 className="text-2xl font-bold">
+                {Intl.DateTimeFormat("fi-FI", {
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                }).format(flaw.createdAt)}
+              </h1>
               <p className="text-lg">{flaw.text}</p>
-              <button onClick={() => markFlawCompleted(flaw.id)} className="rounded-lg bg-soul p-1 px-5 text-xl mt-2">
+              <button
+                onClick={() => markFlawCompleted(flaw.id)}
+                className="mt-2 rounded-lg bg-soul p-1 px-5 text-xl"
+              >
                 Merkkaa puute suoritetuksi
               </button>
             </div>
-          })
-        }
+          )
+        })}
       </div>
       <p>
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
       </p>
     </>
   )

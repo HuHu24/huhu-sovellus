@@ -1,5 +1,5 @@
 export default interface Flaw {
   id: string
-  createdAt: Date,
+  createdAt: Date
   text: string
 }

@@ -39,7 +39,9 @@ export default function Access() {
 
   async function addAccess() {
     if (
-      !["admin", "subcampLeader", "safety", "activity", "upkeep"].includes(accessType) ||
+      !["admin", "subcampLeader", "safety", "activity", "upkeep"].includes(
+        accessType
+      ) ||
       email == ""
     ) {
       alert("Tarkista sähköposti ja oikeustyyppi")
@@ -85,7 +87,9 @@ export default function Access() {
 
   async function removeAccess(accessType: string, email: string) {
     if (
-      !["admin", "subcampLeader", "safety", "activity", "upkeep"].includes(accessType) ||
+      !["admin", "subcampLeader", "safety", "activity", "upkeep"].includes(
+        accessType
+      ) ||
       email == ""
     ) {
       alert("Tarkista sähköposti ja oikeustyyppi")

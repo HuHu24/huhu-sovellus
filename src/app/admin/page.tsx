@@ -43,7 +43,8 @@ export default async function AdminFrontpage() {
           {data.claims?.admin ||
           data.claims?.safety ||
           data.claims?.subcampLeader ||
-          data.claims?.activity || data.claims?.upkeep ? null : (
+          data.claims?.activity ||
+          data.claims?.upkeep ? null : (
             <h1 className="absolute top-1/2 ml-4 align-middle  font-poppins text-2xl">
               Pyydä oikeuksia sovelluskehittäjiltä
             </h1>
