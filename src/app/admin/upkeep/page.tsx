@@ -56,10 +56,9 @@ const Upkeep = () => {
         </div>
       </div>
       <div className="p-3">
-        {flaws.map((flaw) => {
-          // eslint-disable-next-line react/jsx-key
+        {flaws.map((flaw, key) => {
           return (
-            <div className="m-3 rounded-xl bg-oslo p-2">
+            <div key={key} className="m-3 rounded-xl bg-oslo p-2">
               <h1 className="text-2xl font-bold">
                 {Intl.DateTimeFormat("fi-FI", {
                   month: "short",
