@@ -7,9 +7,9 @@ import { Timetable } from "@/types/timetable"
 import { Release } from "@/types/releases"
 import getUser from "@/utils/getUser"
 import Events from "@/components/events"
+import ReportToUpkeep from "@/components/reportToUpkeep"
 
 export default async function Home() {
-  "use server"
   let timetable: Timetable | undefined
   let releases: Release[] = []
 
@@ -69,8 +69,8 @@ export default async function Home() {
           Akuuteissa hätätilanteissa, soita 112. Jonka jälkeen soita
           välittömästi Turvan päivystyspuhelimeen (041 727 8125).
         </p>
-        <br />
       </div>
+      <ReportToUpkeep />
     </div>
   )
 }

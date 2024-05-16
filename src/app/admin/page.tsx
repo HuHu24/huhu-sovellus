@@ -16,6 +16,7 @@ export default async function AdminFrontpage() {
       subcampLeader: boolean
       safety: boolean
       activity: boolean
+      upkeep: boolean
     }
     email: string
   }
@@ -39,14 +40,11 @@ export default async function AdminFrontpage() {
           </div>
         </div>
         <div className="-20 mt-1 flex h-full w-full flex-col gap-4 overflow-auto p-3">
-          <div className="z-20 w-full rounded-[20px] bg-oslo p-2">
-            <p className="text-2xl">Uusia yhteydenottoja: 0</p>
-            <div></div>
-          </div>
           {data.claims?.admin ||
           data.claims?.safety ||
           data.claims?.subcampLeader ||
-          data.claims?.activity ? null : (
+          data.claims?.activity ||
+          data.claims?.upkeep ? null : (
             <h1 className="absolute top-1/2 ml-4 align-middle  font-poppins text-2xl">
               Pyydä oikeuksia sovelluskehittäjiltä
             </h1>
@@ -99,6 +97,18 @@ export default async function AdminFrontpage() {
                     sports_soccer
                   </span>
                   <h3 className="text-2xl">Ohjelma</h3>
+                </div>
+              </Link>
+            ) : (
+              <></>
+            )}
+            {(data.claims && data.claims?.upkeep) || data.claims?.admin ? (
+              <Link href={"/admin/upkeep"}>
+                <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-ateena text-helsinki">
+                  <span className="material-symbols-outlined text-9xl">
+                    build
+                  </span>
+                  <h3 className="text-2xl">Puutteet</h3>
                 </div>
               </Link>
             ) : (
