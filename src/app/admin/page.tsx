@@ -103,7 +103,7 @@ export default async function AdminFrontpage() {
               <></>
             )}
             {(data.claims && data.claims?.upkeep) || data.claims?.admin ? (
-              <Link href={"/admin/activities"}>
+              <Link href={"/admin/upkeep"}>
                 <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-ateena text-helsinki">
                   <span className="material-symbols-outlined text-9xl">
                     build
