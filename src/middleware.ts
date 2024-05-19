@@ -3,6 +3,14 @@ import { NextResponse } from "next/server"
 import { env } from "@/env"
 
 export async function middleware(request: NextRequest, response: NextResponse) {
+  // TODO remove this when app is ready to open
+  if (!request.nextUrl.pathname.includes("/closed") && !request.nextUrl.pathname.includes("/huhuymp.png")) {
+    return NextResponse.redirect(
+      new URL(`${env.NEXT_PUBLIC_URL}/closed`, request.url)
+    )
+  }
+
+  /*
   const session = request.cookies.get("session")
   if (request.nextUrl.pathname.includes("/admin")) {
     if (!session) {
@@ -97,7 +105,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     return NextResponse.redirect(
       new URL(`${env.NEXT_PUBLIC_URL}/subcamp`, request.url)
     )
-  }
+  }*/
 
   return NextResponse.next()
 }
