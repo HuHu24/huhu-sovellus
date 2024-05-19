@@ -8,6 +8,7 @@ export default function ChatMenu() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getChats()
+      if (!result) return <div>No chats were returned</div>
       setData(result)
     }
 

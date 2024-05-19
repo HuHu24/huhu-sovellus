@@ -36,7 +36,13 @@ const app = initializeApp(firebaseConfig)
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app)
-export const messaging = async () => (await isSupported()) && getMessaging(app)
+export const messaging = async () => {
+  try {
+    return (await isSupported()) && getMessaging(app)
+  } catch (e) {
+    console.error("Error: " + e)
+  }
+}
 export const auth = getAuth(app)
 
 export const loginWithEmailAndPassword = async (
@@ -107,27 +113,35 @@ export const signOut = async () => {
   }
 }
 export const getRelease = async (id: string) => {
-  const docRef = doc(db, "releases", id)
-  const docSnap = await getDoc(docRef)
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data())
-    return docSnap.data()
-  } else {
-    console.log("No such document!")
+  try {
+    const docRef = doc(db, "releases", id)
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data())
+      return docSnap.data()
+    } else {
+      console.log("No such document!")
+    }
+  } catch (e) {
+    console.error("Error: " + e)
   }
 }
 
 export const getAllReleases = async () => {
-  const releasesRef = collection(db, "releases")
-  const snapshot = await getDocs(releasesRef)
-  return snapshot.docs.map((doc) => {
-    const data = doc.data()
-    return {
-      id: doc.id,
-      ...data,
-      timestamp: new Date(`${data.date}T${data.time}`),
-    }
-  })
+  try {
+    const releasesRef = collection(db, "releases")
+    const snapshot = await getDocs(releasesRef)
+    return snapshot.docs.map((doc) => {
+      const data = doc.data()
+      return {
+        id: doc.id,
+        ...data,
+        timestamp: new Date(`${data.date}T${data.time}`),
+      }
+    })
+  } catch (error) {
+    console.error("Error getting documents: ", error)
+  }
 }
 
 const storage = getStorage(app)
@@ -142,36 +156,62 @@ export const uploadImage = async (file: File) => {
     return getDownloadURL(storageRef)
   } catch (error) {
     console.error("Error uploading image: ", error)
+    alert("Virhe kuvan lataamisessa yritä uudelleen")
     throw error
   }
 }
 
 export const getChats = async () => {
-  let data: Chat[] = []
-  const docs = await getDocs(collection(db, "/chats"))
-  docs.forEach((tempDoc) => {
-    data.push({ ...tempDoc.data(), id: tempDoc.id } as Chat)
-  })
-  return data
+  try {
+    let data: Chat[] = []
+    const docs = await getDocs(collection(db, "/chats"))
+    docs.forEach((tempDoc) => {
+      data.push({ ...tempDoc.data(), id: tempDoc.id } as Chat)
+    })
+    return data
+  } catch (error) {
+    if (error) {
+      alert(
+        "Käyttöoikeudet ovat virheelliset. Kirjaudu sovellukseen uudelleen, jos asiat eivät korjaudu laita viestiä sovelluskehittäjille"
+      )
+      window.location.href = "/auth/signin"
+    }
+  }
 }
 
 export const getActivities = async () => {
-  const snapshot = await getDocs(collection(db, "activities"))
-  const activities: any[] = []
-  snapshot.docs.forEach((doc) => {
-    let activity = doc.data()
-    activity.id = doc.id
-    activities.push(activity)
-  })
-  return activities
+  try {
+    const snapshot = await getDocs(collection(db, "activities"))
+    const activities: any[] = []
+    snapshot.docs.forEach((doc) => {
+      let activity = doc.data()
+      activity.id = doc.id
+      activities.push(activity)
+    })
+    return activities
+  } catch (error) {
+    if (error) {
+      alert(
+        "Käyttöoikeudet ovat virheelliset. Kirjaudu sovellukseen uudelleen, jos asiat eivät korjaudu laita viestiä sovelluskehittäjille"
+      )
+      window.location.href = "/auth/signin"
+    }
+  }
 }
 export const fbEditMaxParticipants = async (
   id: string,
   maxParticipants: number
 ) => {
-  const docRef = doc(db, "activities", id)
-  console.log("Kissa:" + docRef)
-  await updateDoc(docRef, {
-    maxParticipants: maxParticipants,
-  })
+  try {
+    const docRef = doc(db, "activities", id)
+    console.log("Kissa:" + docRef)
+    await updateDoc(docRef, {
+      maxParticipants: maxParticipants,
+    })
+  } catch (error) {
+    if (error) {
+      alert("jokin meni vikaan")
+      console.error("Error updating document: ", error)
+    }
+  }
 }

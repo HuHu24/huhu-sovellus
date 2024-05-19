@@ -82,6 +82,7 @@ const Releases = () => {
       .then((releases) => {
         // @ts-ignore
         releases.sort((a, b) => b.timestamp - a.timestamp)
+        if (!releases) return []
         setReleases(releases)
       })
       .catch(console.error)
