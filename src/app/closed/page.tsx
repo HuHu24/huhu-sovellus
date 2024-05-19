@@ -1,10 +1,15 @@
 const Closed = () => {
   return (
-    <div className="absolute w-screen h-screen z-50 bg-helsinki">
-      <div className="p-5 flex-col h-full flex place-content-center">
-        <img src={"/huhuymp.png"} alt={"HuHu logo"}/>
-        <h1 className="text-center text-5xl font-bold mb-2">Sovellus ei ole vielä käytössä</h1>
-        <p className="text-lg text-center">Voit silti ladata sovelluksen aloitusnäytölle kolmesta pisteestä ylänurkassa</p>
+    <div className="absolute z-50 h-screen w-screen bg-helsinki">
+      <div className="flex h-full flex-col place-content-center p-5">
+        <img src={"/huhuymp.png"} alt={"HuHu logo"} />
+        <h1 className="mb-2 text-center text-5xl font-bold">
+          Sovellus ei ole vielä käytössä
+        </h1>
+        <p className="text-center text-lg">
+          Voit silti ladata sovelluksen aloitusnäytölle kolmesta pisteestä
+          ylänurkassa
+        </p>
       </div>
     </div>
   )
