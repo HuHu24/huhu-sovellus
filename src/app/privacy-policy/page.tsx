@@ -16,11 +16,12 @@ export default function Map() {
       </div>
       <div className="p-3">
         Tässä tietosuojaselosteessa kerromme, miten Lounais-Suomen Partiopiiri
-        ry ("Rekisterinpitäjä") yhteistyössä Google LLC:n ("Tietojen
-        käsittelijä") kanssa käsittelevät HuHu-sovelluksen käyttäjien
-        ("Rekisteröity") henkilötietoja ja miten henkilötietojen käsittelyyn voi
-        vaikuttaa. Rekisterinpitäjä ja Tietojen käsittelijä noudattavat
-        toiminnassaan soveltuvaa tietosuojalainsäädäntöä.
+        ry (&quot;&quot;Rekisterinpitäjä&quot;) yhteistyössä Google LLC:n
+        (&quot;Tietojen käsittelijä&quot;) kanssa käsittelevät HuHu-sovelluksen
+        käyttäjien (&quot;Rekisteröity&quot;) henkilötietoja ja miten
+        henkilötietojen käsittelyyn voi vaikuttaa. Rekisterinpitäjä ja Tietojen
+        käsittelijä noudattavat toiminnassaan soveltuvaa
+        tietosuojalainsäädäntöä.
         <br />
         <br />
         <strong>Rekisterinpitäjä</strong>
@@ -95,9 +96,7 @@ export default function Map() {
         käsittelijän tai Rekisteröidyn oikeuksien tai turvallisuuden
         toteuttamiseksi. <br />
         <br />
-        <strong>
-          Henkilötietojen siirtäminen EU/ETA-alueen ulkopuolelle
-        </strong>{" "}
+        <strong>Henkilötietojen siirtäminen EU/ETA-alueen ulkopuolelle</strong>
         <br />
         Rekisterinpitäjä tai Tietojen käsittelijä eivät pääsääntöisesti siirrä
         henkilötietoja EU/ETA-alueen ulkopuolelle, eikä henkilötietoja

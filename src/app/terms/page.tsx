@@ -16,9 +16,9 @@ export default function Map() {
       </div>
       <div className="p-3">
         <p>
-          Nämä käyttöehdot tehdään käyttäjän ("Käyttäjä") ja HuHu-sovellus
-          ("Sovellus") välillä. Tämä Sopimus ohjaa HuHu-sovelluksen ja siihen
-          liittyvien palveluiden käyttöä.{" "}
+          Nämä käyttöehdot tehdään käyttäjän (&quot;Käyttäjä&quot;) ja
+          HuHu-sovellus (&quot;Sovellus&quot;) välillä. Tämä Sopimus ohjaa
+          HuHu-sovelluksen ja siihen liittyvien palveluiden käyttöä.{" "}
         </p>
         <br />
         <ol className="ml-5 list-decimal">
@@ -27,10 +27,10 @@ export default function Map() {
             <br />
             <br />
             1.1 Lisenssin myöntäminen: Lounais-Suomen Partiopiiri ry
-            ("Rekisterin pitäjä") (2197948-1) myöntää käyttäjälle rajoitetun,
-            ei-yksinomaisen, siirrettävissä olemattoman, peruutettavissa olevan
-            lisenssin käyttää HuHu-sovellusta ainoastaan henkilökohtaisiin,
-            ei-kaupallisiin tarkoituksiin.
+            (&quot;Rekisterin pitäjä&quot;) (2197948-1) myöntää käyttäjälle
+            rajoitetun, ei-yksinomaisen, siirrettävissä olemattoman,
+            peruutettavissa olevan lisenssin käyttää HuHu-sovellusta ainoastaan
+            henkilökohtaisiin, ei-kaupallisiin tarkoituksiin.
             <br />
             <br />
             1.2 Rajoitukset: Käyttäjä ei saa:
@@ -56,7 +56,8 @@ export default function Map() {
             <br />
             <br />
             2.1 Omistusoikeus: Käyttäjä säilyttää omistusoikeuden kaikkeen
-            siihen lataamaansa tai syöttämäänsä sisältöön ("Käyttäjän Sisältö").
+            siihen lataamaansa tai syöttämäänsä sisältöön (&quot;Käyttäjän
+            Sisältö&quot;).
             <br />
             <br />
             2.2 Lisenssi Rekisterin pitäjälle: Lataamalla ja käyttämällä
@@ -103,9 +104,9 @@ export default function Map() {
             <strong>Vastuuvapauslauseke</strong>
             <br />
             <br />
-            6.1 Ei Takuuta: Palvelu tarjotaan "sellaisenaan" ilman mitään
-            takuuta, suoraa tai epäsuoraa. Rekisterin pitäjä ei takaa, että
-            HuHu-sovellus on virheetön, keskeytymätön tai haittaohjelmista
+            6.1 Ei Takuuta: Palvelu tarjotaan &quot;sellaisenaan&quot; ilman
+            mitään takuuta, suoraa tai epäsuoraa. Rekisterin pitäjä ei takaa,
+            että HuHu-sovellus on virheetön, keskeytymätön tai haittaohjelmista
             vapaa.
           </li>
           <br />
