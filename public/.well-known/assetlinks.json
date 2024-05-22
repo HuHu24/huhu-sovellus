@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.huhu_sovellus.twa",
+        "sha256_cert_fingerprints": ["72:B6:B3:85:BD:04:EB:2A:4A:40:D1:04:C2:AE:9F:65:E0:97:A4:24:1D:A4:DF:E8:46:20:D7:7B:FB:8E:11:0D"]
+      }
+    }]
