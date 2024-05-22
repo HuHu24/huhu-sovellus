@@ -161,10 +161,12 @@ export const uploadImage = async (file: File) => {
   }
 }
 
-export const getChats = async () => {
+export const getChats = async (type: "safety" | "subcamp") => {
   try {
     let data: Chat[] = []
-    const docs = await getDocs(collection(db, "/chats"))
+    const docs = await getDocs(
+      collection(db, `/${type === "subcamp" ? "subcamp-" : ""}chats`)
+    )
     docs.forEach((tempDoc) => {
       data.push({ ...tempDoc.data(), id: tempDoc.id } as Chat)
     })

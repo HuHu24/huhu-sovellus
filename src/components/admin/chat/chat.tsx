@@ -1,9 +1,13 @@
 import Link from "next/link"
 import { Chat as ChatType } from "@/types/chat"
 
-function Chat(props: { chat: ChatType }) {
+function Chat(props: { chat: ChatType; type: "safety" | "subcamp" }) {
   return (
-    <Link href={`/admin/chat/${props.chat.id}`}>
+    <Link
+      href={`/admin/${props.type === "subcamp" ? "subcamp-" : ""}chat/${
+        props.chat.id
+      }`}
+    >
       <div className="flex place-items-center">
         <h2 className="mr-auto truncate text-3xl">{props.chat.title}</h2>
         {!props.chat.hasBeenRead?.admin ? (
@@ -19,7 +23,7 @@ function Chat(props: { chat: ChatType }) {
           {props.chat.latestMessage?.sender === "user" ? (
             <>Leiriläinen:</>
           ) : (
-            <>Turva:</>
+            <>{props.type === "safety" ? <>Turva:</> : <>Alaleirimestari:</>}</>
           )}
         </p>
         <p className="mr-auto w-[85%] truncate">{`${props.chat.latestMessage.body}`}</p>

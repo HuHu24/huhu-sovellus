@@ -36,11 +36,11 @@ export default function Home() {
     }
 
     if (localChatId === "") {
-      router.replace("/admin/chat")
+      router.replace("/admin/subcamp-chat")
     }
 
     const q = query(
-      collection(db, "chats", localChatId, "messages"),
+      collection(db, "subcamp-chats", localChatId, "messages"),
       orderBy("createdAt", "desc"),
       limit(20)
     )
@@ -73,7 +73,7 @@ export default function Home() {
     }
 
     try {
-      updateDoc(doc(db, "chats", chatId), {
+      updateDoc(doc(db, "subcamp-chats", chatId), {
         hasBeenRead: {
           admin: true,
           user: false,
@@ -84,7 +84,7 @@ export default function Home() {
         },
       })
 
-      await addDoc(collection(db, "chats", chatId, "messages"), {
+      await addDoc(collection(db, "subcamp-chats", chatId, "messages"), {
         createdAt: new Date(),
         body: message,
         sender: "admin",
@@ -145,7 +145,6 @@ export default function Home() {
                 handleSendMessage(e)
               }
             }}
-            ö
           />
           <button>
             <span className="material-symbols-outlined h-[48px] w-full cursor-pointer text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">

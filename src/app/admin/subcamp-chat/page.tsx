@@ -7,7 +7,7 @@ export default function ChatMenu() {
   const [data, setData] = useState<chatType[]>([])
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getChats("safety")
+      const result = await getChats("subcamp")
       if (!result) return <div>No chats were returned</div>
       setData(result)
     }
@@ -25,14 +25,14 @@ export default function ChatMenu() {
               <a href="./">arrow_left_alt</a>
             </div>
             <div className="z-10 font-opensauce text-4xl font-normal text-ateena">
-              Turvachat
+              Alaleirichat
             </div>
           </div>
         </div>
         <div className="flex h-full w-full flex-col gap-1 overflow-auto p-3">
           {data.map((chat) => {
             // eslint-disable-next-line react/jsx-key
-            return <Chat type={"safety"} chat={chat} />
+            return <Chat type={"subcamp"} chat={chat} />
           })}
         </div>
       </div>

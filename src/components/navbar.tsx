@@ -42,6 +42,14 @@ const Navbar = () => {
         >
           <p className="py-3 font-poppins text-3xl text-tokio">Alaleirit</p>
         </Link>
+        <Link
+          href="/subcamp-chat"
+          onClick={() => {
+            setIsOpen(false)
+          }}
+        >
+          <p className="py-3 font-poppins text-3xl text-tokio">Alaleirichat</p>
+        </Link>
         <button
           onClick={() => {
             setSafetyIsOpen(!safetyIsOpen)
@@ -61,7 +69,7 @@ const Navbar = () => {
           {safetyIsOpen ? (
             <div className="px-3 text-left text-2xl">
               <ul>
-                <Link onClick={() => setIsOpen(false)} href="/chat">
+                <Link onClick={() => setIsOpen(false)} href="/safety-chat">
                   <li>Turvachat</li>
                 </Link>
                 <Link onClick={() => setIsOpen(false)} href="/info/safety">
@@ -76,10 +84,13 @@ const Navbar = () => {
             <></>
           )}
         </button>
-        <Link onClick={() => setIsOpen(false)} href="/activities/cafe">
-          <p className="py-3 font-poppins text-3xl text-tokio">
-            Kahvilaohjelma
-          </p>
+        <Link
+          href="/cafe"
+          onClick={() => {
+            setIsOpen(false)
+          }}
+        >
+          <p className="py-3 font-poppins text-3xl text-tokio">Kahvila</p>
         </Link>
         {isAuthenticated ? (
           <>
