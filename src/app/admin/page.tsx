@@ -68,7 +68,7 @@ export default async function AdminFrontpage() {
             <>
               {(data.claims && data.claims?.subcampLeader) ||
               (data.claims && data.claims?.admin) ? (
-                <Link href={"/admin/chat"}>
+                <Link href={"/admin/subcamp-chat"}>
                   <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-buenos_aires text-helsinki">
                     <span className="material-symbols-outlined text-9xl">
                       forum
