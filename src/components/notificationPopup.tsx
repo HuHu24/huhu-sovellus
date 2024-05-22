@@ -2,9 +2,11 @@
 import { saveMessagingToken } from "@/messaging"
 import { env } from "@/env"
 import { useEffect, useState } from "react"
+import Loading from "@/components/loading"
 
 const RequestPermissions = () => {
   const [hasMessaging, setHasMessaging] = useState(true)
+  const [startedEnabling, setStartedEnabling] = useState(false)
 
   useEffect(() => {
     if (typeof window == "undefined") {
@@ -40,6 +42,7 @@ const RequestPermissions = () => {
   const inurl = typeof window !== "undefined" ? window.location.pathname : ""
 
   const handleAction = async (action: string): Promise<void> => {
+    setStartedEnabling(true)
     if (typeof window !== "undefined") {
       switch (action) {
         case "accept":
@@ -100,6 +103,7 @@ const RequestPermissions = () => {
               Kyllä
             </button>
           </div>
+          <Loading text={"Käsitellään"} load={startedEnabling} />
         </div>
       </div>
     )

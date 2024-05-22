@@ -3,9 +3,13 @@
 import { signInWithCustomToken } from "@/firebase"
 import { env } from "@/env"
 import Link from "next/link"
+import Loading from "@/components/loading"
+import { useState } from "react"
 
 export default function Subcamp() {
+  const [subcampSelected, setSubcampSelected] = useState(false)
   async function selectSubcamp(subcamp: string) {
+    setSubcampSelected(true)
     try {
       if (typeof window !== "undefined") {
         localStorage.setItem("subcamp", subcamp)
@@ -80,6 +84,7 @@ export default function Subcamp() {
               käyttöehdot
             </Link>
           </div>
+          <Loading text={"Alaleiria valitaan"} load={subcampSelected} />
         </div>
       </div>
     </>
