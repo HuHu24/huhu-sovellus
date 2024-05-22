@@ -1,13 +1,13 @@
 "use client"
 import React, { useEffect, useState } from "react"
 import Chat from "@/components/admin/chat/chat"
-import { getChats } from "@/firebase"
-import { Chat as chatType } from "@/types/chat"
+import { getSafetyChats } from "@/firebase"
+import { SafetyChat as chatType } from "@/types/safetyChat"
 export default function ChatMenu() {
   const [data, setData] = useState<chatType[]>([])
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getChats("safety")
+      const result = await getSafetyChats()
       if (!result) return <div>No chats were returned</div>
       setData(result)
     }

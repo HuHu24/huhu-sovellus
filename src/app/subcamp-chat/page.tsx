@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, FormEventHandler, useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { onAuthStateChanged } from "@firebase/auth"
 import { auth, db } from "@/firebase"
 import {
@@ -72,6 +72,11 @@ export default function SubcampChat() {
       if (!data.exists()) {
         title = prompt("Lisää keskustelun aihe") || ""
 
+        let subcamp = ""
+        if (typeof window !== "undefined") {
+          subcamp = localStorage.getItem("subcamp") || ""
+        }
+
         await setDoc(doc(db, "subcamp-chats", userUid), {
           hasBeenRead: {
             admin: false,
@@ -82,6 +87,7 @@ export default function SubcampChat() {
             sender: "user",
           },
           title: title,
+          subcamp: subcamp,
         })
       } else {
         updateDoc(doc(db, "subcamp-chats", userUid), {
@@ -104,7 +110,6 @@ export default function SubcampChat() {
 
       setMessageBody("")
     } catch (e) {
-      console.error(e.message)
       console.error(e)
       alert("Error")
     }

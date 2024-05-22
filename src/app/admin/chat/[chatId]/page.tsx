@@ -145,7 +145,6 @@ export default function Home() {
                 handleSendMessage(e)
               }
             }}
-            ö
           />
           <button>
             <span className="material-symbols-outlined h-[48px] w-full cursor-pointer text-[48px] text-tokio smallPhone:h-[64px] smallPhone:text-[64px]">
