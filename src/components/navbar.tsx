@@ -7,7 +7,6 @@ import Link from "next/link"
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [safetyIsOpen, setSafetyIsOpen] = useState(false)
-  const [activitiesIsOpen, setActivitiesIsOpen] = useState(false)
   const [infoIsOpen, setInfoIsOpen] = useState(false)
   const [allowOpen, setAllowOpen] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -77,37 +76,11 @@ const Navbar = () => {
             <></>
           )}
         </button>
-        <button
-          onClick={() => {
-            setActivitiesIsOpen(!activitiesIsOpen)
-          }}
-          className="max-w-[90%] py-3 font-poppins text-3xl text-tokio"
-        >
-          <div className="flex">
-            Ohjelma
-            <span
-              className={`${
-                activitiesIsOpen ? "rotate-0" : "-rotate-90"
-              } material-symbols-outlined w-full text-4xl text-tokio transition`}
-            >
-              expand_more
-            </span>
-          </div>
-          {activitiesIsOpen ? (
-            <div className="px-3 text-left text-2xl">
-              <ul>
-                <Link onClick={() => setIsOpen(false)} href="/activities/cafe">
-                  <li>Kahvilaohjelma</li>
-                </Link>
-                <Link onClick={() => setIsOpen(false)} href="/">
-                  <li>Tietovisan voittajat</li>
-                </Link>
-              </ul>
-            </div>
-          ) : (
-            <></>
-          )}
-        </button>
+        <Link onClick={() => setIsOpen(false)} href="/activities/cafe">
+          <p className="py-3 font-poppins text-3xl text-tokio">
+            Kahvilaohjelma
+          </p>
+        </Link>
         {isAuthenticated ? (
           <>
             <Link href="/admin" onClick={() => setIsOpen(false)}>
