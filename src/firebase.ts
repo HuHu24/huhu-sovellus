@@ -13,7 +13,8 @@ import { env } from "@/env"
 import { getDoc, updateDoc } from "@firebase/firestore"
 import { getMessaging, isSupported } from "firebase/messaging"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "@firebase/storage"
-import { Chat } from "@/types/chat"
+import { SafetyChat } from "@/types/safetyChat"
+import { SubcampChat } from "@/types/subcampChat"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -161,12 +162,30 @@ export const uploadImage = async (file: File) => {
   }
 }
 
-export const getChats = async () => {
+export const getSafetyChats = async () => {
   try {
-    let data: Chat[] = []
-    const docs = await getDocs(collection(db, "/chats"))
+    let data: SafetyChat[] = []
+    const docs = await getDocs(collection(db, `/chats`))
     docs.forEach((tempDoc) => {
-      data.push({ ...tempDoc.data(), id: tempDoc.id } as Chat)
+      data.push({ ...tempDoc.data(), id: tempDoc.id } as SafetyChat)
+    })
+    return data
+  } catch (error) {
+    if (error) {
+      alert(
+        "Käyttöoikeudet ovat virheelliset. Kirjaudu sovellukseen uudelleen, jos asiat eivät korjaudu laita viestiä sovelluskehittäjille"
+      )
+      window.location.href = "/auth/signin"
+    }
+  }
+}
+
+export const getSubcampChats = async () => {
+  try {
+    let data: SubcampChat[] = []
+    const docs = await getDocs(collection(db, `/subcamp-chats`))
+    docs.forEach((tempDoc) => {
+      data.push({ ...tempDoc.data(), id: tempDoc.id } as SubcampChat)
     })
     return data
   } catch (error) {

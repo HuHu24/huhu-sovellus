@@ -7,7 +7,6 @@ import Link from "next/link"
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [safetyIsOpen, setSafetyIsOpen] = useState(false)
-  const [activitiesIsOpen, setActivitiesIsOpen] = useState(false)
   const [infoIsOpen, setInfoIsOpen] = useState(false)
   const [allowOpen, setAllowOpen] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -43,6 +42,14 @@ const Navbar = () => {
         >
           <p className="py-3 font-poppins text-3xl text-tokio">Alaleirit</p>
         </Link>
+        <Link
+          href="/subcamp-chat"
+          onClick={() => {
+            setIsOpen(false)
+          }}
+        >
+          <p className="py-3 font-poppins text-3xl text-tokio">Alaleirichat</p>
+        </Link>
         <button
           onClick={() => {
             setSafetyIsOpen(!safetyIsOpen)
@@ -62,7 +69,7 @@ const Navbar = () => {
           {safetyIsOpen ? (
             <div className="px-3 text-left text-2xl">
               <ul>
-                <Link onClick={() => setIsOpen(false)} href="/chat">
+                <Link onClick={() => setIsOpen(false)} href="/safety-chat">
                   <li>Turvachat</li>
                 </Link>
                 <Link onClick={() => setIsOpen(false)} href="/info/safety">
@@ -77,37 +84,14 @@ const Navbar = () => {
             <></>
           )}
         </button>
-        <button
+        <Link
+          href="/cafe"
           onClick={() => {
-            setActivitiesIsOpen(!activitiesIsOpen)
+            setIsOpen(false)
           }}
-          className="max-w-[90%] py-3 font-poppins text-3xl text-tokio"
         >
-          <div className="flex">
-            Ohjelma
-            <span
-              className={`${
-                activitiesIsOpen ? "rotate-0" : "-rotate-90"
-              } material-symbols-outlined w-full text-4xl text-tokio transition`}
-            >
-              expand_more
-            </span>
-          </div>
-          {activitiesIsOpen ? (
-            <div className="px-3 text-left text-2xl">
-              <ul>
-                <Link onClick={() => setIsOpen(false)} href="/activities/cafe">
-                  <li>Kahvilaohjelma</li>
-                </Link>
-                <Link onClick={() => setIsOpen(false)} href="/">
-                  <li>Tietovisan voittajat</li>
-                </Link>
-              </ul>
-            </div>
-          ) : (
-            <></>
-          )}
-        </button>
+          <p className="py-3 font-poppins text-3xl text-tokio">Kahvila</p>
+        </Link>
         {isAuthenticated ? (
           <>
             <Link href="/admin" onClick={() => setIsOpen(false)}>

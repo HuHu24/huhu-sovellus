@@ -68,6 +68,21 @@ export default async function AdminFrontpage() {
             <>
               {(data.claims && data.claims?.subcampLeader) ||
               (data.claims && data.claims?.admin) ? (
+                <Link href={"/admin/subcamp-chat"}>
+                  <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-buenos_aires text-helsinki">
+                    <span className="material-symbols-outlined text-9xl">
+                      forum
+                    </span>
+                    <h3 className="text-2xl">Alaleirichat</h3>
+                  </div>
+                </Link>
+              ) : (
+                <></>
+              )}
+            </>
+            <>
+              {(data.claims && data.claims?.subcampLeader) ||
+              (data.claims && data.claims?.admin) ? (
                 <>
                   <Link href={"/admin/releases"}>
                     <div className="flex aspect-square flex-col place-content-center place-items-center rounded-[20px] bg-tokio text-helsinki">
@@ -127,6 +142,11 @@ export default async function AdminFrontpage() {
               <></>
             )}
           </div>
+          <p>
+            <br />
+            <br />
+            <br />
+          </p>
         </div>
       </div>
     </>

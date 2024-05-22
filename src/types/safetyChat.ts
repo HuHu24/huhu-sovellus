@@ -1,4 +1,4 @@
-export interface Chat {
+export interface SafetyChat {
   id: string
   title: string
   hasBeenRead: {

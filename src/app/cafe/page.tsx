@@ -12,7 +12,7 @@ export default async function Cafe() {
         <div className="bg-white inline-flex items-center justify-between self-stretch bg-opacity-0">
           <div className="absolute h-12 w-12"></div>
           <div className="material-symbols-outlined z-10 text-[49px] text-helsinki">
-            <a href="./">arrow_left_alt</a>
+            <a href="">arrow_left_alt</a>
           </div>
           <div className="z-10 font-opensauce text-4xl font-normal text-tokio ">
             Kahvila
