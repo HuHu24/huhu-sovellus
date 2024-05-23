@@ -19,39 +19,18 @@ export default async function Cafe() {
           </div>
         </div>
       </div>
-      <div className="absolute -left-44 -top-44 z-0 p-2.5">
-        <div className="z-0 inline-flex h-[369px] w-[360px] items-end justify-start gap-2.5">
-          <div className="z-0 shrink grow basis-0 self-stretch rounded-full bg-buenos_aires" />
-        </div>
-      </div>
       <div className="absolute -bottom-48 -right-48 p-2.5 ">
         <div className="inline-flex h-[341px] w-[341px] flex-col items-end justify-start gap-2.5">
           <div className="shrink grow basis-0 self-stretch rounded-full bg-barcelona" />
         </div>
       </div>
       <div className=" z-20 -mt-3 flex h-full w-full flex-col gap-4 overflow-auto p-3">
-        <div className="z-10 rounded-xl bg-oslo p-2">
-          <h1 className="font-poppins text-xl">Kahvilan hinnasto:</h1>
-          <table className="w-full text-left font-opensauce text-lg">
-            <tbody>
-              <tr>
-                <th>Tuote</th>
-                <th>Hinta</th>
-              </tr>
-              <tr>
-                <td>Kroisantti</td>
-                <td>1kpl/2€ 3kpl/5€</td>
-              </tr>
-              <tr>
-                <td>Coca Cola</td>
-                <td>2,5€</td>
-              </tr>
-              <tr>
-                <td>Matador Mix karkkipussi</td>
-                <td>4€</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="max-w-full md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
+          <img
+            src="/kahvilaHinnat.png"
+            alt="Kahvilan hinnasto"
+            className="h-auto w-full"
+          />
         </div>
         <Events />
         {timetable ? (
