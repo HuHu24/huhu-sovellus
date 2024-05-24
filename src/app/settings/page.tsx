@@ -1,8 +1,17 @@
 "use client"
 
-import { env } from "@/env"
-import { useEffect, useState } from "react"
-import { saveMessagingToken } from "@/messaging"
+import {env} from "@/env"
+import {useEffect, useState} from "react"
+import {saveMessagingToken} from "@/messaging"
+import {
+  AuthCredential,
+  deleteUser as fbDeleteUser,
+  EmailAuthProvider,
+  reauthenticateWithCredential
+} from "firebase/auth";
+import {getAuth} from "@firebase/auth";
+import {loginWithEmailAndPassword, signOut} from "@/firebase";
+
 
 const fetchUserSettings = async () => {
   const response = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
@@ -24,6 +33,41 @@ export default function Home() {
     toggleOverlay(!overlay)
     console.log("User settings", userSettings)
     console.log("subcamp", userSubcamp)
+  }
+  const deleteUser = async () => {
+    try {
+      const user = getAuth()
+
+      if (!user.currentUser) {
+        alert("Ongelma poistaessa käyttäjää. Sinun pitää olla kirjautunut sisään, että voit poistaa käyttäjäsi.")
+        return
+      }
+
+      let credential: AuthCredential | null = null
+
+      if (user.currentUser.email !== null) {
+        let password = null
+        do {
+          password = prompt("Lisää salasanasi kirjautuakseen uudelleen operaatiota varten")
+        } while (password == null)
+
+        credential = EmailAuthProvider.credential(user.currentUser.email, password)
+      } else {
+        await signOut()
+      }
+
+      if (credential === null) {
+        alert("Ongelmia kirjautuessa sisään uudestaan")
+        return
+      }
+
+      await reauthenticateWithCredential(user.currentUser, credential)
+
+      await fbDeleteUser(user.currentUser)
+    } catch (e: any) {
+      console.error(e)
+      alert("Ongelma poistaessa käyttäjää: " + e.message)
+    }
   }
   const enableMessaging = async () => {
     const messagingToken = await saveMessagingToken()
@@ -140,6 +184,12 @@ export default function Home() {
       <div className="flex h-screen w-full place-content-center place-items-center text-center font-poppins">
         <div className="mx-4 my-auto flex w-full max-w-[500px] flex-col place-items-center gap-3 rounded-[20px] bg-oslo p-4">
           <h1 className="text-2xl font-bold">Asetukset</h1>
+          <button
+            onClick={() => deleteUser()}
+            className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+          >
+            Poista käyttäjä
+          </button>
           <button
             onClick={() => enableMessaging()}
             className="h-10 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
