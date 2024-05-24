@@ -39,16 +39,8 @@ export default async function Cafe() {
                 <th>Hinta</th>
               </tr>
               <tr>
-                <td>Kroisantti</td>
-                <td>1kpl/2€ 3kpl/5€</td>
-              </tr>
-              <tr>
-                <td>Coca Cola</td>
-                <td>2,5€</td>
-              </tr>
-              <tr>
-                <td>Matador Mix karkkipussi</td>
-                <td>4€</td>
+                <td>------</td>
+                <td>------</td>
               </tr>
             </tbody>
           </table>
