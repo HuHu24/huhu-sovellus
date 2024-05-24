@@ -1,18 +1,17 @@
 "use client"
 
-import {env} from "@/env"
-import {useEffect, useState} from "react"
-import {saveMessagingToken} from "@/messaging"
+import { env } from "@/env"
+import { useEffect, useState } from "react"
+import { saveMessagingToken } from "@/messaging"
 import {
   AuthCredential,
   deleteUser as fbDeleteUser,
   EmailAuthProvider,
-  reauthenticateWithCredential
-} from "firebase/auth";
-import {getAuth} from "@firebase/auth";
-import {signOut} from "@/firebase";
-import {deleteCookie, getCookie} from "cookies-next";
-
+  reauthenticateWithCredential,
+} from "firebase/auth"
+import { getAuth } from "@firebase/auth"
+import { signOut } from "@/firebase"
+import { deleteCookie, getCookie } from "cookies-next"
 
 const fetchUserSettings = async () => {
   const response = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
@@ -40,18 +39,24 @@ export default function Home() {
       const user = getAuth()
 
       if (!user.currentUser) {
-        alert("Ongelma poistaessa käyttäjää. Sinun pitää olla kirjautunut sisään, että voit poistaa käyttäjäsi.")
+        alert(
+          "Ongelma poistaessa käyttäjää. Sinun pitää olla kirjautunut sisään, että voit poistaa käyttäjäsi."
+        )
         return
       }
 
       if (user.currentUser.email !== null) {
         let password = null
         do {
-          password = prompt("Lisää salasanasi kirjautuakseen uudelleen operaatiota varten")
+          password = prompt(
+            "Lisää salasanasi kirjautuakseen uudelleen operaatiota varten"
+          )
         } while (password == null)
 
-        let credential: AuthCredential = EmailAuthProvider.credential(user.currentUser.email, password)
-
+        let credential: AuthCredential = EmailAuthProvider.credential(
+          user.currentUser.email,
+          password
+        )
 
         if (credential === null) {
           alert("Ongelmia kirjautuessa sisään uudestaan")
