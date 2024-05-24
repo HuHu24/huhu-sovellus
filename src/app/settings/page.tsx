@@ -10,7 +10,8 @@ import {
   reauthenticateWithCredential
 } from "firebase/auth";
 import {getAuth} from "@firebase/auth";
-import {loginWithEmailAndPassword, signOut} from "@/firebase";
+import {signOut} from "@/firebase";
+import {deleteCookie, getCookie} from "cookies-next";
 
 
 const fetchUserSettings = async () => {
@@ -43,27 +44,34 @@ export default function Home() {
         return
       }
 
-      let credential: AuthCredential | null = null
-
       if (user.currentUser.email !== null) {
         let password = null
         do {
           password = prompt("Lisää salasanasi kirjautuakseen uudelleen operaatiota varten")
         } while (password == null)
 
-        credential = EmailAuthProvider.credential(user.currentUser.email, password)
+        let credential: AuthCredential = EmailAuthProvider.credential(user.currentUser.email, password)
+
+
+        if (credential === null) {
+          alert("Ongelmia kirjautuessa sisään uudestaan")
+          return
+        }
+
+        await reauthenticateWithCredential(user.currentUser, credential)
+
+        await fbDeleteUser(user.currentUser)
+        deleteCookie("session")
+
+        alert("Käyttäjä poistettu")
+        location.replace("/auth/signout")
       } else {
         await signOut()
+        deleteCookie("session")
+
+        alert("Käyttäjä poistettu")
+        location.replace("/auth/signout")
       }
-
-      if (credential === null) {
-        alert("Ongelmia kirjautuessa sisään uudestaan")
-        return
-      }
-
-      await reauthenticateWithCredential(user.currentUser, credential)
-
-      await fbDeleteUser(user.currentUser)
     } catch (e: any) {
       console.error(e)
       alert("Ongelma poistaessa käyttäjää: " + e.message)
