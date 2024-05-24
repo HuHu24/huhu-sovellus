@@ -1,10 +1,14 @@
 import DaysTimetable from "@/components/daysTimetable"
-import getCafeTimetable from "@/utils/getCafeTimetable"
+import getCafeProducts from "@/utils/getCafeProducts"
 import Events from "@/components/events"
 import React from "react"
+import getCafeTimetable from "@/utils/getCafeTimetable"
+import { CafeProduct } from "@/types/cafeProduct"
 
 export default async function Cafe() {
   const timetable = await getCafeTimetable()
+  const [cafeProducts, cafeTitles] = await getCafeProducts()
+  const productValues = Object.values(cafeProducts || {})
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-helsinki">
@@ -30,21 +34,6 @@ export default async function Cafe() {
         </div>
       </div>
       <div className=" z-20 -mt-3 flex h-full w-full flex-col gap-4 overflow-auto p-3">
-        <div className="z-10 rounded-xl bg-oslo p-2">
-          <h1 className="font-poppins text-xl">Kahvilan hinnasto:</h1>
-          <table className="w-full text-left font-opensauce text-lg">
-            <tbody>
-              <tr>
-                <th>Tuote</th>
-                <th>Hinta</th>
-              </tr>
-              <tr>
-                <td>------</td>
-                <td>------</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
         <Events />
         {timetable ? (
           timetable.days.map((day, key) => (
@@ -53,6 +42,31 @@ export default async function Cafe() {
         ) : (
           <DaysTimetable date="Ei aikataulua" events={[]} />
         )}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {productValues.map((value, index) => (
+            // eslint-disable-next-line react/jsx-key
+            <div className="z-10 rounded-xl bg-oslo p-2">
+              <h1 className="font-poppins text-xl">
+                {cafeTitles[index] || ""}
+              </h1>
+              <table className="w-full text-left font-opensauce text-lg">
+                <tbody>
+                  <tr>
+                    <th>Tuote</th>
+                    <th className="text-right">Hinta</th>
+                  </tr>
+                  {value.map((product: CafeProduct) => (
+                    // eslint-disable-next-line react/jsx-key
+                    <tr>
+                      <td>{product.product}</td>
+                      <td className="text-right">{product.price}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
+        </div>
         <p>
           <br />
           <br />

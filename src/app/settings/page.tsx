@@ -11,16 +11,15 @@ import {
 } from "firebase/auth"
 import { getAuth } from "@firebase/auth"
 import { signOut } from "@/firebase"
-import { deleteCookie, getCookie } from "cookies-next"
-
-const fetchUserSettings = async () => {
-  const response = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
-  return await response.json()
-}
 export default function Home() {
   const [userSettings, setUserSettings] = useState<any>()
   const [overlay, toggleOverlay] = useState<any>()
   const [jobStatus, setJobStatus] = useState(userSettings?.claims.job)
+
+  const fetchUserSettings = async () => {
+    const response = await fetch(`${env.NEXT_PUBLIC_URL}/api/auth`)
+    return await response.json()
+  }
 
   useEffect(() => {
     fetchUserSettings().then((data) => {
@@ -66,13 +65,11 @@ export default function Home() {
         await reauthenticateWithCredential(user.currentUser, credential)
 
         await fbDeleteUser(user.currentUser)
-        deleteCookie("session")
 
         alert("Käyttäjä poistettu")
         location.replace("/auth/signout")
       } else {
         await signOut()
-        deleteCookie("session")
 
         alert("Käyttäjä poistettu")
         location.replace("/auth/signout")
