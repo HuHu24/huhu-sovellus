@@ -1,11 +1,14 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "app.vercel.huhu_sovellus.twa",
       "sha256_cert_fingerprints": [
-        "72:B6:B3:85:BD:04:EB:2A:4A:40:D1:04:C2:AE:9F:65:E0:97:A4:24:1D:A4:DF:E8:46:20:D7:7B:FB:8E:11:0D"
+        "72:B6:B3:85:BD:04:EB:2A:4A:40:D1:04:C2:AE:9F:65:E0:97:A4:24:1D:A4:DF:E8:46:20:D7:7B:FB:8E:11:0D",
+        "AE:A1:28:FA:3D:91:BE:5E:BE:8A:73:86:82:7B:2A:89:82:CA:6E:31:47:5B:B2:C2:5F:5D:6F:65:E0:81:DD:C0"
       ]
     }
   }
