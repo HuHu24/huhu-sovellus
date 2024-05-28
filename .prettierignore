@@ -37,3 +37,25 @@ next-env.d.ts
 # ci
 .github
 
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+.yarn/install-state.gz
+# Env variables
+.env.local
+.env.production
+.env
+
+# Https certificates
+localhost-key.pem
+localhost.pem
+
+#Automatically generated serviceworker stuff
+
+/public/sw.js
+/public/sw.js.map
+/public/workbox-*.js
+/public/workbox-*.js.map
+/public/swe-worker-development.js
+
+#
+/public/.well-known

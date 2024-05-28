@@ -50,6 +50,16 @@ const Navbar = () => {
         >
           <p className="py-3 font-poppins text-3xl text-tokio">Alaleirichat</p>
         </Link>
+        <Link
+          href="/info/song-lyrics"
+          onClick={() => {
+            setIsOpen(false)
+          }}
+        >
+          <p className="py-3 font-poppins text-3xl text-tokio">
+            Leiribiisin sanat
+          </p>
+        </Link>
         <button
           onClick={() => {
             setSafetyIsOpen(!safetyIsOpen)
