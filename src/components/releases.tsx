@@ -102,12 +102,20 @@ const Releases = (props: {
   releases: Release[]
   userSubcamp: string
 }) => {
+  // Sort releases by date and time in descending order
+  const sortedReleases = [...props.releases].sort((a, b) => {
+    const dateA = new Date(a.date + "T" + a.time)
+    const dateB = new Date(b.date + "T" + b.time)
+    console.log(dateA, dateB)
+    return dateB.getTime() - dateA.getTime()
+  })
+
   return (
     <>
       {props.direction === "vertical" ? (
         <div className="w-full overflow-y-auto">
           <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {props.releases.map((release: Release) => (
+            {sortedReleases.map((release: Release) => (
               <VerticalRelease
                 key={release.id}
                 release={release}
@@ -118,7 +126,7 @@ const Releases = (props: {
         </div>
       ) : (
         <div className="flex overflow-x-auto">
-          {props.releases.map((release: Release) => (
+          {sortedReleases.map((release: Release) => (
             <HorizontalRelease
               key={release.id}
               release={release}
