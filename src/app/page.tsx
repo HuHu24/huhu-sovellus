@@ -14,7 +14,17 @@ export default async function Home() {
   let releases: Release[] = []
 
   const user = await getUser(cookies().get("session")?.value || "")
-  const subcamp = user?.claims.subcamp || ""
+  const subcamp = user?.claims?.subcamp || ""
+  if (!user || user.claims === undefined) {
+    return (
+      <>
+        <h1>
+          Käyttäjälläsi ei ole oikeuksia, tekijä pyydä ne sovelluskehittäjiltä.
+        </h1>
+        <h1>Osallistuja kirjaudu ulos asetuksista</h1>
+      </>
+    )
+  }
 
   await Promise.all([
     getTimetable(user).then((value) => {
