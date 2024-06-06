@@ -58,7 +58,7 @@ export default async function Home() {
         </>
       </div>
       <div className="m-3 rounded-xl bg-oslo p-2">
-        <h1 className="text-2xl font-bold">Turvallisuuden pikaohje</h1>
+        <h1 className="text-2xl font-bold text-ateena">Turvallisuuden pikaohje</h1>
         <p>
           Jos sinuun sattuu fyysisesti, soita EA-päivystyspuhelimeen (041 727
           1075).

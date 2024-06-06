@@ -85,7 +85,7 @@ const VerticalRelease = (props: { release: Release; userSubcamp: string }) => {
           <div className="text-overflow-ellipsis line-clamp-2 overflow-hidden font-poppins text-[18px] text-ateena shadow-helsinki text-shadow">
             {props.release.title}
           </div>
-          <div className="break-all font-opensauce text-[15px] shadow-helsinki text-shadow">
+          <div className="break-all font-opensauce text-[15px] shadow-helsinki text-ateena text-shadow">
             {displayTime}
             <br />
             {props.release.content}
@@ -106,7 +106,6 @@ const Releases = (props: {
   const sortedReleases = [...props.releases].sort((a, b) => {
     const dateA = new Date(a.date + "T" + a.time)
     const dateB = new Date(b.date + "T" + b.time)
-    console.log(dateA, dateB)
     return dateB.getTime() - dateA.getTime()
   })
 
