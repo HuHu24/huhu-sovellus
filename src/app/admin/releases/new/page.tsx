@@ -14,7 +14,7 @@ export default function Home() {
   const [formValues, setFormValues] = useState({
     targetGroup: "Kaikki",
     subcamp: "1",
-    timed: "Ei",
+    timed: false,
     time: format(new Date(), "HH:mm"),
     date: format(new Date(), "yyyy-MM-dd"),
     hidden: false,
@@ -99,7 +99,8 @@ export default function Home() {
       option === "Kyllä"
         ? setFormValues((prevValues) => ({ ...prevValues, [title]: true }))
         : setFormValues((prevValues) => ({ ...prevValues, [title]: false }))
-    } else {
+    }
+    {
       setFormValues((prevValues) => ({ ...prevValues, [title]: option }))
     }
     console.log(formValues)
