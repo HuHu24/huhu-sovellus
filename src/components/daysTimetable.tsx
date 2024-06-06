@@ -111,7 +111,7 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
             style={extraInfoStyle}
             className="pointer-events-none  text-left"
           >
-            <p className="pointer-events-none break-all text-ateena p-2 text-left">
+            <p className="pointer-events-none break-all p-2 text-left text-ateena">
               {description}
             </p>
           </div>
