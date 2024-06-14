@@ -90,7 +90,7 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
       >
         <div className="place-items-top flex w-full p-2">
           <div className="w-12">
-            <div className="font-poppins text-lg">{time}</div>
+            <div className="font-poppins text-lg text-ateena">{time}</div>
           </div>
           <div className="pointer-events-none mx-auto font-poppins text-lg font-normal text-ateena">
             {title}
@@ -111,7 +111,7 @@ const Event = ({ date, time, title, description, isActivity }: EventProps) => {
             style={extraInfoStyle}
             className="pointer-events-none  text-left"
           >
-            <p className="pointer-events-none break-all p-2 text-left">
+            <p className="pointer-events-none break-all p-2 text-left text-ateena">
               {description}
             </p>
           </div>

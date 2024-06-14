@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { addDoc, Timestamp } from "@firebase/firestore"
+import { addDoc } from "@firebase/firestore"
 import { collection } from "firebase/firestore"
 import { db } from "@/firebase"
 
@@ -37,7 +37,7 @@ const ReportToUpkeep = () => {
       <textarea
         value={text}
         onChange={(event) => setText(event.target.value)}
-        className="my-3 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki"
+        className="my-3 w-full rounded-lg bg-barcelona p-1 text-xl text-helsinki placeholder:text-helsinki"
         placeholder="Kerro minkälainen puute on kyseessä ja missä puute sijaitsee..."
       />
       <div className="flex w-full place-content-center">
