@@ -1,8 +1,6 @@
 import { Metadata } from "next"
 import "./globals.css"
 import localFont from "next/font/local"
-import Navbar from "../components/navbar"
-import RequestPermissions from "@/components/notificationPopup"
 
 const poppins = localFont({
   src: "../../public/fonts/Poppins-Regular.ttf",
@@ -30,11 +28,9 @@ export default function RootLayout({
   return (
     <html lang="fi">
       <body
-        className={`${opensauce.variable} ${poppins.variable} h-[calc(100vh-70px)] bg-helsinki`}
+        className={`${opensauce.variable} ${poppins.variable} h-screen bg-helsinki`}
       >
-        <RequestPermissions />
         {children}
-        <Navbar />
       </body>
     </html>
   )
